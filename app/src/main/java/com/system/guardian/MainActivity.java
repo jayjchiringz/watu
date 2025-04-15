@@ -19,12 +19,18 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends Activity {
 
     private TextView logTextView;
     private boolean overlayActive = false;
+    private static final int MAX_LOG_LINES = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +43,8 @@ public class MainActivity extends Activity {
         Button refreshButton = findViewById(R.id.refreshButton);
         Button toggleOverlay = findViewById(R.id.toggleOverlay);
 
-        CrashLogger.log(this, "MainActivity", "TEST LOG: MainActivity started successfully");
+        CrashLogger.log(this, "MainActivity", timestamp() + " TEST LOG: MainActivity started successfully");
 
-        // Prompt overlay permission if needed
         if (!Settings.canDrawOverlays(this)) {
             Intent overlayIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                     Uri.parse("package:" + getPackageName()));
@@ -47,7 +52,6 @@ public class MainActivity extends Activity {
             startActivity(overlayIntent);
         }
 
-        // Trigger Device Admin prompt if not active
         ComponentName compName = new ComponentName(this, AdminReceiver.class);
         DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(DEVICE_POLICY_SERVICE);
         if (!dpm.isAdminActive(compName)) {
@@ -57,27 +61,24 @@ public class MainActivity extends Activity {
             startActivityForResult(intent, 1);
         }
 
-        // Load logs on start
         loadLogs();
 
-        // Refresh logs and process check
         refreshButton.setOnClickListener(v -> {
             Toast.makeText(this, "Refreshing logs...", Toast.LENGTH_SHORT).show();
             loadLogs();
             isWatuRunning();
         });
 
-        // Manual overlay toggle button
         toggleOverlay.setOnClickListener(v -> {
             if (Settings.canDrawOverlays(this)) {
                 overlayActive = !overlayActive;
                 if (overlayActive) {
                     OverlayBlocker.show(this);
-                    CrashLogger.log(this, "Overlay", "Overlay manually activated from UI");
+                    CrashLogger.log(this, "Overlay", timestamp() + " Overlay manually activated from UI");
                     Toast.makeText(this, "Overlay Activated", Toast.LENGTH_SHORT).show();
                 } else {
                     OverlayBlocker.hide(this);
-                    CrashLogger.log(this, "Overlay", "Overlay manually deactivated from UI");
+                    CrashLogger.log(this, "Overlay", timestamp() + " Overlay manually deactivated from UI");
                     Toast.makeText(this, "Overlay Deactivated", Toast.LENGTH_SHORT).show();
                 }
             } else {
@@ -96,13 +97,18 @@ public class MainActivity extends Activity {
     private void loadLogs() {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(openFileInput("crashlog.txt")));
-            StringBuilder builder = new StringBuilder();
+            LinkedList<String> lines = new LinkedList<>();
             String line;
-
             while ((line = reader.readLine()) != null) {
-                builder.append(line).append("\n");
+                lines.addFirst(line); // Reverse order: newest first
+                if (lines.size() > MAX_LOG_LINES) {
+                    lines.removeLast(); // Limit log size
+                }
             }
-
+            StringBuilder builder = new StringBuilder();
+            for (String s : lines) {
+                builder.append(s).append("\n");
+            }
             logTextView.setText(builder.toString());
             reader.close();
         } catch (Exception e) {
@@ -112,19 +118,20 @@ public class MainActivity extends Activity {
 
     private boolean isWatuRunning() {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-
         if (am != null) {
             List<ActivityManager.RunningAppProcessInfo> processes = am.getRunningAppProcesses();
-
             for (ActivityManager.RunningAppProcessInfo process : processes) {
                 if (process.processName.equals("com.watuke.app")) {
-                    CrashLogger.log(this, "ProcessCheck", "✅ Watu app process is RUNNING");
+                    CrashLogger.log(this, "ProcessCheck", timestamp() + " ✅ Watu app process is RUNNING");
                     return true;
                 }
             }
         }
-
-        CrashLogger.log(this, "ProcessCheck", "❌ Watu app process is NOT running");
+        CrashLogger.log(this, "ProcessCheck", timestamp() + " ❌ Watu app process is NOT running");
         return false;
+    }
+
+    private String timestamp() {
+        return new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
     }
 }
