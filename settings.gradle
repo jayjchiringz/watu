@@ -1,0 +1,2 @@
+rootProject.name = 'interceptor_fixed_with_main'
+include ':app'

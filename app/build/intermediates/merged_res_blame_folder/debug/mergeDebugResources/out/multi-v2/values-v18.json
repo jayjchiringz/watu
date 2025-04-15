@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.system.guardian.app-mergeDebugResources-19:/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\dell\\.gradle\\caches\\8.11.1\\transforms\\f57fccfb55a4f33ab7dd2d5f34e7e850\\transformed\\appcompat-1.6.1\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}
