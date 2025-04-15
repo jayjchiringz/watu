@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
+    <Button
+        android:id="@+id/refreshButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:text="Refresh Logs"
+        android:background="#333333"
+        android:textColor="#00FF00"
+        tools:ignore="HardcodedText" />
 
-        <Button
-            android:id="@+id/refreshButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Refresh Logs"
-            tools:ignore="HardcodedText" />
+    <Button
+        android:id="@+id/toggleOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Toggle Overlay"
+        android:layout_marginTop="16dp"
+        android:background="#333333"
+        android:textColor="#00FF00"
+        tools:ignore="HardcodedText" />
 
-        <Button
-            android:id="@+id/toggleOverlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Toggle Overlay"
-            android:layout_marginTop="16dp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/logTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textIsSelectable="true"
-            android:textSize="14sp"
-            android:paddingTop="8dp" />
-    </LinearLayout>
-</ScrollView>
+    <TextView
+        android:id="@+id/logTextView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textIsSelectable="true"
+        android:textSize="14sp"
+        android:paddingTop="8dp"
+        android:padding="16dp"
+        android:background="#121212"
+        android:textColor="#00FF00"
+        android:typeface="monospace"
+        android:scrollbars="vertical"
+        android:gravity="start|top" />
+</LinearLayout>

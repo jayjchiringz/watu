@@ -23,121 +23,139 @@
 15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 15-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:10:5-76
 15-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:10:22-74
-16
-17    <permission
-17-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
-18        android:name="com.system.guardian.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-18-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
-19        android:protectionLevel="signature" />
-19-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
-20
-21    <uses-permission android:name="com.system.guardian.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-21-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
-21-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
-22
-23    <application
-23-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:12:5-54:19
-24        android:allowBackup="true"
-24-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:13:9-35
-25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-25-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
-26        android:debuggable="true"
-27        android:extractNativeLibs="false"
-28        android:icon="@mipmap/ic_launcher"
-28-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:14:9-43
-29        android:label="System Guardian"
-29-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:15:9-40
-30        android:supportsRtl="true"
-30-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:16:9-35
-31        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
-31-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:17:9-67
-32        <service
-32-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:19:9-31:19
-33            android:name="com.system.guardian.InterceptorService"
-33-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:20:13-47
-34            android:enabled="true"
-34-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:22:13-35
-35            android:exported="true"
-35-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:23:13-36
-36            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
-36-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:21:13-79
-37            <intent-filter>
-37-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:24:13-26:29
-38                <action android:name="android.accessibilityservice.AccessibilityService" />
-38-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:25:17-92
-38-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:25:25-89
-39            </intent-filter>
-40
-41            <meta-data
-41-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:28:13-30:72
-42                android:name="android.accessibilityservice"
-42-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:29:17-60
-43                android:resource="@xml/accessibility_service_config" />
-43-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:30:17-69
-44        </service>
-45
-46        <activity
-46-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:33:9-40:20
-47            android:name="com.system.guardian.MainActivity"
-47-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:34:13-41
-48            android:exported="true" >
-48-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:35:13-36
-49            <intent-filter>
-49-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:36:13-39:29
-50                <action android:name="android.intent.action.MAIN" />
-50-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:37:17-69
-50-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:37:25-66
-51
-52                <category android:name="android.intent.category.LAUNCHER" />
-52-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:38:17-77
-52-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:38:27-74
-53            </intent-filter>
-54        </activity>
-55
-56        <receiver
-56-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:42:9-52:20
-57            android:name="com.system.guardian.AdminReceiver"
-57-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:43:13-42
-58            android:exported="true"
-58-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:45:13-36
-59            android:permission="android.permission.BIND_DEVICE_ADMIN" >
-59-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:44:13-70
-60            <meta-data
-60-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:46:13-48:65
-61                android:name="android.app.device_admin"
-61-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:47:17-56
-62                android:resource="@xml/device_admin_receiver" />
-62-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:48:17-62
-63
-64            <intent-filter>
-64-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:49:13-51:29
-65                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-65-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:50:17-82
-65-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:50:25-79
-66            </intent-filter>
-67        </receiver>
-68
-69        <provider
-69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-70            android:name="androidx.startup.InitializationProvider"
-70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
-71            android:authorities="com.system.guardian.androidx-startup"
-71-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
-72            android:exported="false" >
-72-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
-73            <meta-data
-73-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-74                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-74-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
-75                android:value="androidx.startup" />
-75-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
-76            <meta-data
-76-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\6bb5e4f4c6aa049b1832baa86ef86f9a\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
-77                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-77-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\6bb5e4f4c6aa049b1832baa86ef86f9a\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
-78                android:value="androidx.startup" />
-78-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\6bb5e4f4c6aa049b1832baa86ef86f9a\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
-79        </provider>
-80    </application>
-81
-82</manifest>
+16    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+16-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:11:5-81
+16-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:11:22-78
+17
+18    <permission
+18-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+19        android:name="com.system.guardian.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+19-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+20        android:protectionLevel="signature" />
+20-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+21
+22    <uses-permission android:name="com.system.guardian.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+22-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+22-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+23
+24    <application
+24-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:13:5-63:19
+25        android:allowBackup="true"
+25-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:14:9-35
+26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+26-->[androidx.core:core:1.12.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\9ca03a9ef391644dd1dff87f12925ac8\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+27        android:debuggable="true"
+28        android:extractNativeLibs="false"
+29        android:icon="@mipmap/ic_launcher"
+29-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:15:9-43
+30        android:label="System Guardian"
+30-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:16:9-40
+31        android:supportsRtl="true"
+31-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:17:9-35
+32        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+32-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:18:9-67
+33        <service
+33-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:20:9-32:19
+34            android:name="com.system.guardian.InterceptorService"
+34-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:21:13-47
+35            android:enabled="true"
+35-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:23:13-35
+36            android:exported="true"
+36-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:24:13-36
+37            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+37-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:22:13-79
+38            <intent-filter>
+38-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:25:13-27:29
+39                <action android:name="android.accessibilityservice.AccessibilityService" />
+39-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:26:17-92
+39-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:26:25-89
+40            </intent-filter>
+41
+42            <meta-data
+42-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:29:13-31:72
+43                android:name="android.accessibilityservice"
+43-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:30:17-60
+44                android:resource="@xml/accessibility_service_config" />
+44-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:31:17-69
+45        </service>
+46
+47        <activity
+47-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:34:9-41:20
+48            android:name="com.system.guardian.MainActivity"
+48-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:35:13-41
+49            android:exported="true" >
+49-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:36:13-36
+50            <intent-filter>
+50-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:37:13-40:29
+51                <action android:name="android.intent.action.MAIN" />
+51-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:38:17-69
+51-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:38:25-66
+52
+53                <category android:name="android.intent.category.LAUNCHER" />
+53-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:39:17-77
+53-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:39:27-74
+54            </intent-filter>
+55        </activity>
+56
+57        <receiver
+57-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:43:9-53:20
+58            android:name="com.system.guardian.AdminReceiver"
+58-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:44:13-42
+59            android:exported="true"
+59-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:46:13-36
+60            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+60-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:45:13-70
+61            <meta-data
+61-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:47:13-49:65
+62                android:name="android.app.device_admin"
+62-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:48:17-56
+63                android:resource="@xml/device_admin_receiver" />
+63-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:49:17-62
+64
+65            <intent-filter>
+65-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:50:13-52:29
+66                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+66-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:51:17-82
+66-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:51:25-79
+67            </intent-filter>
+68        </receiver>
+69        <receiver
+69-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:55:9-61:20
+70            android:name="com.system.guardian.BootReceiver"
+70-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:55:19-47
+71            android:enabled="true"
+71-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:56:13-35
+72            android:exported="true" >
+72-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:57:13-36
+73            <intent-filter>
+73-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:58:13-60:29
+74                <action android:name="android.intent.action.BOOT_COMPLETED" />
+74-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:59:17-79
+74-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:59:25-76
+75            </intent-filter>
+76        </receiver>
+77
+78        <provider
+78-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+79            android:name="androidx.startup.InitializationProvider"
+79-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+80            android:authorities="com.system.guardian.androidx-startup"
+80-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+81            android:exported="false" >
+81-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+82            <meta-data
+82-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+83                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+83-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+84                android:value="androidx.startup" />
+84-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e1179467583d51e3d0300d03f282eb7e\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+85            <meta-data
+85-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\6bb5e4f4c6aa049b1832baa86ef86f9a\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+86                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+86-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\6bb5e4f4c6aa049b1832baa86ef86f9a\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+87                android:value="androidx.startup" />
+87-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\6bb5e4f4c6aa049b1832baa86ef86f9a\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+88        </provider>
+89    </application>
+90
+91</manifest>

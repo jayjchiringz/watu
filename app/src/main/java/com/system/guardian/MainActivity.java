@@ -11,8 +11,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,6 +24,7 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     private TextView logTextView;
+    private boolean overlayActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         logTextView = findViewById(R.id.logTextView);
+        logTextView.setMovementMethod(new ScrollingMovementMethod());
+
         Button refreshButton = findViewById(R.id.refreshButton);
         Button toggleOverlay = findViewById(R.id.toggleOverlay);
 
@@ -54,21 +60,36 @@ public class MainActivity extends Activity {
         // Load logs on start
         loadLogs();
 
-        // Refresh logs
+        // Refresh logs and process check
         refreshButton.setOnClickListener(v -> {
+            Toast.makeText(this, "Refreshing logs...", Toast.LENGTH_SHORT).show();
             loadLogs();
             isWatuRunning();
         });
 
-        // Manual overlay test button
+        // Manual overlay toggle button
         toggleOverlay.setOnClickListener(v -> {
             if (Settings.canDrawOverlays(this)) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                overlayActive = !overlayActive;
+                if (overlayActive) {
                     OverlayBlocker.show(this);
+                    CrashLogger.log(this, "Overlay", "Overlay manually activated from UI");
+                    Toast.makeText(this, "Overlay Activated", Toast.LENGTH_SHORT).show();
+                } else {
+                    OverlayBlocker.hide(this);
+                    CrashLogger.log(this, "Overlay", "Overlay manually deactivated from UI");
+                    Toast.makeText(this, "Overlay Deactivated", Toast.LENGTH_SHORT).show();
                 }
-                CrashLogger.log(this, "Overlay", "Overlay manually activated from UI");
+            } else {
+                Toast.makeText(this, "Overlay permission not granted", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadLogs();
     }
 
     @SuppressLint("SetTextI18n")
@@ -89,7 +110,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void isWatuRunning() {
+    private boolean isWatuRunning() {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
         if (am != null) {
@@ -98,11 +119,12 @@ public class MainActivity extends Activity {
             for (ActivityManager.RunningAppProcessInfo process : processes) {
                 if (process.processName.equals("com.watuke.app")) {
                     CrashLogger.log(this, "ProcessCheck", "✅ Watu app process is RUNNING");
-                    return;
+                    return true;
                 }
             }
         }
 
         CrashLogger.log(this, "ProcessCheck", "❌ Watu app process is NOT running");
+        return false;
     }
 }

@@ -83,6 +83,10 @@ public class InterceptorService extends AccessibilityService {
 
     @Override
     protected void onServiceConnected() {
+        Intent launchIntent = new Intent(this, MainActivity.class);
+        launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(launchIntent);
+
         // Check overlay permission at startup
         if (!Settings.canDrawOverlays(this)) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
