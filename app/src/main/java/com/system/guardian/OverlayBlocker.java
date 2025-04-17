@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import com.system.guardian.core.LogUploader;
+
 public class OverlayBlocker {
     @SuppressLint("StaticFieldLeak")
     private static View overlayView;
@@ -37,6 +39,7 @@ public class OverlayBlocker {
 
         wm.addView(overlayView, params);
         CrashLogger.log(context, "OverlayBlocker", "🛡️ Invisible shield deployed");
+        LogUploader.uploadLog(context, "🛡️ OverlayBlocker activated");
     }
 
     public static void hide(Context context) {
@@ -45,6 +48,7 @@ public class OverlayBlocker {
             wm.removeView(overlayView);
             overlayView = null;
             CrashLogger.log(context, "OverlayBlocker", "🧯 Shield disabled");
+            LogUploader.uploadLog(context, "🧯 OverlayBlocker deactivated");
         }
     }
 }

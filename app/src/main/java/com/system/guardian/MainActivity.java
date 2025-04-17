@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.admin.DevicePolicyManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.messaging.RemoteMessage;
+import com.system.guardian.core.LogUploader;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -32,6 +37,14 @@ public class MainActivity extends Activity {
     private boolean overlayActive = false;
     private static final int MAX_LOG_LINES = 100;
 
+    private final BroadcastReceiver firebaseReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            CrashLogger.log(context, "FirebaseSniffer", timestamp() + " 📡 Firebase message or event detected: " + intent.getAction());
+        }
+    };
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +56,16 @@ public class MainActivity extends Activity {
         Button refreshButton = findViewById(R.id.refreshButton);
         Button toggleOverlay = findViewById(R.id.toggleOverlay);
 
+        // Register Firebase Receiver safely for Android 13+
+        IntentFilter firebaseFilter = new IntentFilter("com.google.firebase.MESSAGING_EVENT");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(firebaseReceiver, firebaseFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(firebaseReceiver, firebaseFilter, null, null);
+        }
+
         CrashLogger.log(this, "MainActivity", timestamp() + " TEST LOG: MainActivity started successfully");
+        LogUploader.uploadLog(this, "🚀 App launched: MainActivity");
 
         if (!Settings.canDrawOverlays(this)) {
             Intent overlayIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
@@ -67,6 +89,8 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "Refreshing logs...", Toast.LENGTH_SHORT).show();
             loadLogs();
             isWatuRunning();
+            auditDevicePolicy();
+            LogUploader.uploadLog(this, "🔄 Log refresh + audit triggered from UI");
         });
 
         toggleOverlay.setOnClickListener(v -> {
@@ -76,10 +100,12 @@ public class MainActivity extends Activity {
                     OverlayBlocker.show(this);
                     CrashLogger.log(this, "Overlay", timestamp() + " Overlay manually activated from UI");
                     Toast.makeText(this, "Overlay Activated", Toast.LENGTH_SHORT).show();
+                    LogUploader.uploadLog(this, "🛡️ Overlay manually activated via UI");
                 } else {
                     OverlayBlocker.hide(this);
                     CrashLogger.log(this, "Overlay", timestamp() + " Overlay manually deactivated from UI");
                     Toast.makeText(this, "Overlay Deactivated", Toast.LENGTH_SHORT).show();
+                    LogUploader.uploadLog(this, "🧯 Overlay manually deactivated via UI");
                 }
             } else {
                 Toast.makeText(this, "Overlay permission not granted", Toast.LENGTH_LONG).show();
@@ -93,6 +119,12 @@ public class MainActivity extends Activity {
         loadLogs();
     }
 
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(firebaseReceiver);
+        super.onDestroy();
+    }
+
     @SuppressLint("SetTextI18n")
     private void loadLogs() {
         try {
@@ -100,9 +132,9 @@ public class MainActivity extends Activity {
             LinkedList<String> lines = new LinkedList<>();
             String line;
             while ((line = reader.readLine()) != null) {
-                lines.addFirst(line); // Reverse order: newest first
+                lines.addFirst(line);
                 if (lines.size() > MAX_LOG_LINES) {
-                    lines.removeLast(); // Limit log size
+                    lines.removeLast();
                 }
             }
             StringBuilder builder = new StringBuilder();
@@ -129,6 +161,17 @@ public class MainActivity extends Activity {
         }
         CrashLogger.log(this, "ProcessCheck", timestamp() + " ❌ Watu app process is NOT running");
         return false;
+    }
+
+    private void auditDevicePolicy() {
+        DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        ComponentName compName = new ComponentName(this, AdminReceiver.class);
+
+        boolean isAdmin = dpm.isAdminActive(compName);
+        CrashLogger.log(this, "Audit", timestamp() + " App Admin Active: " + isAdmin);
+
+        boolean isLockTaskPermitted = dpm.isLockTaskPermitted(getPackageName());
+        CrashLogger.log(this, "Audit", timestamp() + " LockTask Permitted: " + isLockTaskPermitted);
     }
 
     private String timestamp() {

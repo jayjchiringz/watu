@@ -3,77 +3,80 @@ package com.system.guardian;
 import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import android.content.Intent;
 import android.net.Uri;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.system.guardian.core.LogUploader;
+import com.system.guardian.core.RemoteControlService;
+
+import java.io.IOException;
 import java.util.List;
 
 public class InterceptorService extends AccessibilityService {
 
+    private static final String TARGET_PKG = "com.watuke.app";
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        // ✅ Moved this check INSIDE the method
+        if (!RemoteControlService.isGuardianEnabled(this)) {
+            CrashLogger.log(this, "RemoteControl", "🛑 Guardian remotely disabled. Exiting.");
+            LogUploader.uploadLog(this, "🛑 Guardian remotely disabled. Interceptor exiting.");
+            return;
+        }
+
         if (event == null || event.getPackageName() == null) return;
 
         String packageName = event.getPackageName().toString();
 
-        // Log all event types
-        CrashLogger.log(this, "EventType", "Event Type: " + event.getEventType());
-
-        // Log background events
-        if (event.getEventType() == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED ||
-                event.getEventType() == AccessibilityEvent.TYPE_WINDOWS_CHANGED) {
-            CrashLogger.log(this, "BackgroundEvent", "Package: " + packageName + ", Event: " + event.toString());
-        }
-
-        // Detect Watu UI via window class
-        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            String className = event.getClassName() != null ? event.getClassName().toString() : "(unknown)";
-            if (packageName.equals("com.watuke.app")) {
-                CrashLogger.log(this, "WindowCheck", "Watu visible: " + className);
-                performGlobalAction(GLOBAL_ACTION_BACK);
-                OverlayBlocker.show(this);
-            }
-        }
-
-        // Detect Watu package activity (any event)
-        if (packageName.equals("com.watuke.app")) {
-            CrashLogger.log(this, "InterceptorService", "🚩 Watu detected - attempting suppression");
+        if (packageName.equals(TARGET_PKG)) {
+            CrashLogger.log(this, "InterceptorService", "🚩 Watu detected - initiating suppression");
 
             OverlayBlocker.show(this);
-
-            ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            am.killBackgroundProcesses("com.watuke.app");
-
+            killWatu();
             performGlobalAction(GLOBAL_ACTION_BACK);
 
+            String logMessage = "Watu suppression triggered at " + System.currentTimeMillis();
+            LogUploader.uploadLog(this, "🚨 Watu detected, suppression triggered.");
+            CrashLogger.log(this, "RemoteLog", "📡 Log uploaded remotely");
+            LogUploader.uploadLog(this, "📡 Log uploaded remotely");
+
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                ActivityManager am2 = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                List<ActivityManager.RunningAppProcessInfo> procs = am2.getRunningAppProcesses();
-                boolean stillRunning = false;
-
-                for (ActivityManager.RunningAppProcessInfo p : procs) {
-                    if (p.processName.equals("com.watuke.app")) {
-                        stillRunning = true;
-                        break;
-                    }
-                }
-
-                if (stillRunning) {
-                    CrashLogger.log(this, "ProcessCheck", "⚠️ Watu still alive after kill attempt");
-                } else {
-                    CrashLogger.log(this, "ProcessCheck", "✅ Watu process no longer found");
-                }
+                boolean stillRunning = isWatuAlive();
+                CrashLogger.log(this, "ProcessCheck",
+                        stillRunning ? "⚠️ Watu still alive after kill" : "✅ Watu suppressed");
             }, 3000);
         }
+    }
+
+    private void killWatu() {
+        try {
+            ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+            am.killBackgroundProcesses(TARGET_PKG);
+            Runtime.getRuntime().exec("am force-stop " + TARGET_PKG);
+        } catch (IOException e) {
+            CrashLogger.log(this, "KillAttempt", "⚠️ Failed to force-stop via shell: " + e.getMessage());
+        }
+    }
+
+    private boolean isWatuAlive() {
+        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> procs = am.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo p : procs) {
+            if (p.processName.equals(TARGET_PKG)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -87,7 +90,6 @@ public class InterceptorService extends AccessibilityService {
         launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(launchIntent);
 
-        // Check overlay permission at startup
         if (!Settings.canDrawOverlays(this)) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                     Uri.parse("package:" + getPackageName()));
@@ -104,21 +106,9 @@ public class InterceptorService extends AccessibilityService {
     private final Runnable watuWatcher = new Runnable() {
         @Override
         public void run() {
-            ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            List<ActivityManager.RunningAppProcessInfo> procs = am.getRunningAppProcesses();
-
-            boolean isWatuRunning = false;
-
-            for (ActivityManager.RunningAppProcessInfo p : procs) {
-                if (p.processName.equals("com.watuke.app")) {
-                    isWatuRunning = true;
-                    break;
-                }
-            }
-
-            if (isWatuRunning) {
+            if (isWatuAlive()) {
                 CrashLogger.log(getApplicationContext(), "Watchdog", "⚠️ Watu revived — re-killing now");
-                am.killBackgroundProcesses("com.watuke.app");
+                killWatu();
                 performGlobalAction(GLOBAL_ACTION_BACK);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     OverlayBlocker.show(getApplicationContext());
@@ -128,7 +118,6 @@ public class InterceptorService extends AccessibilityService {
                 OverlayBlocker.hide(getApplicationContext());
             }
 
-            // Repeat check every 5 seconds
             new Handler(Looper.getMainLooper()).postDelayed(this, 5000);
         }
     };
