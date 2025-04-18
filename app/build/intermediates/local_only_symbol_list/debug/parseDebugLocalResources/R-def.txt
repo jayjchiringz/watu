@@ -4,6 +4,7 @@ drawable ic_launcher_background
 drawable ic_launcher_foreground
 id logTextView
 id refreshButton
+id toggleGuardianButton
 id toggleOverlay
 layout activity_main
 mipmap ic_launcher

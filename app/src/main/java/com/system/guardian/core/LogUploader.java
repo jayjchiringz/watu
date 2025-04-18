@@ -15,7 +15,7 @@ public class LogUploader {
     public static void uploadLog(Context context, String logText) {
         new Thread(() -> {
             try {
-                URL url = new URL("https://DigiServe25.pythonanywhere.com/upload-log");
+                URL url = new URL("https://digiserve25.pythonanywhere.com/upload-log");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);

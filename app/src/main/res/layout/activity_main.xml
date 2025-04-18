@@ -26,6 +26,14 @@
         android:textColor="#00FF00"
         tools:ignore="HardcodedText" />
 
+    <Button
+        android:id="@+id/toggleGuardianButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toggle Guardian"
+        android:layout_marginTop="12dp"
+        tools:ignore="HardcodedText" />
+
     <TextView
         android:id="@+id/logTextView"
         android:layout_width="match_parent"

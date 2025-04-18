@@ -27,35 +27,46 @@ public class InterceptorService extends AccessibilityService {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        // ✅ Moved this check INSIDE the method
-        if (!RemoteControlService.isGuardianEnabled(this)) {
-            CrashLogger.log(this, "RemoteControl", "🛑 Guardian remotely disabled. Exiting.");
-            LogUploader.uploadLog(this, "🛑 Guardian remotely disabled. Interceptor exiting.");
-            return;
-        }
-
         if (event == null || event.getPackageName() == null) return;
 
         String packageName = event.getPackageName().toString();
 
-        if (packageName.equals(TARGET_PKG)) {
-            CrashLogger.log(this, "InterceptorService", "🚩 Watu detected - initiating suppression");
+        RemoteControlService.checkGuardianStatus(this, isEnabled -> {
+            String logPrefix = "🎯 Interceptor Decision —";
 
-            OverlayBlocker.show(this);
-            killWatu();
-            performGlobalAction(GLOBAL_ACTION_BACK);
+            CrashLogger.log(this, "RemoteControl", logPrefix + " isEnabled=" + isEnabled +
+                    ", useLocalOverride=" + GuardianStateCache.useLocalOverride +
+                    ", localOverrideValue=" + GuardianStateCache.localOverrideEnabled +
+                    ", lastKnown=" + GuardianStateCache.lastKnownState);
 
-            String logMessage = "Watu suppression triggered at " + System.currentTimeMillis();
-            LogUploader.uploadLog(this, "🚨 Watu detected, suppression triggered.");
-            CrashLogger.log(this, "RemoteLog", "📡 Log uploaded remotely");
-            LogUploader.uploadLog(this, "📡 Log uploaded remotely");
+            LogUploader.uploadLog(this, logPrefix + " isEnabled=" + isEnabled +
+                    ", useLocalOverride=" + GuardianStateCache.useLocalOverride +
+                    ", lastKnown=" + GuardianStateCache.lastKnownState);
 
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                boolean stillRunning = isWatuAlive();
-                CrashLogger.log(this, "ProcessCheck",
-                        stillRunning ? "⚠️ Watu still alive after kill" : "✅ Watu suppressed");
-            }, 3000);
-        }
+            if (!isEnabled) {
+                CrashLogger.log(this, "RemoteControl", "🛑 Guardian remotely disabled. Skipping interception.");
+                LogUploader.uploadLog(this, "🛑 Guardian remotely disabled. Interceptor exiting.");
+                return;
+            }
+
+            if (packageName.equals(TARGET_PKG)) {
+                CrashLogger.log(this, "InterceptorService", "🚩 Watu detected — Suppression starting...");
+
+                OverlayBlocker.show(this);
+                killWatu();
+                performGlobalAction(GLOBAL_ACTION_BACK);
+
+                LogUploader.uploadLog(this, "🚨 Watu detected, suppression triggered.");
+                CrashLogger.log(this, "RemoteLog", "📡 Log uploaded remotely");
+                LogUploader.uploadLog(this, "📡 Log uploaded remotely");
+
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    boolean stillRunning = isWatuAlive();
+                    CrashLogger.log(this, "ProcessCheck",
+                            stillRunning ? "⚠️ Watu still alive after kill" : "✅ Watu successfully suppressed");
+                }, 3000);
+            }
+        });
     }
 
     private void killWatu() {

@@ -33,6 +33,7 @@ import java.util.Locale;
 
 public class MainActivity extends Activity {
 
+    private boolean guardianLocallyEnabled = true;
     private TextView logTextView;
     private boolean overlayActive = false;
     private static final int MAX_LOG_LINES = 100;
@@ -44,7 +45,7 @@ public class MainActivity extends Activity {
         }
     };
 
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    @SuppressLint({"UnspecifiedRegisterReceiverFlag", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +111,25 @@ public class MainActivity extends Activity {
             } else {
                 Toast.makeText(this, "Overlay permission not granted", Toast.LENGTH_LONG).show();
             }
+        });
+
+        Button toggleGuardianButton = findViewById(R.id.toggleGuardianButton);
+
+        toggleGuardianButton.setOnClickListener(v -> {
+            guardianLocallyEnabled = !guardianLocallyEnabled;
+
+            // Commented out: allow remote control unless manual override is required
+            // GuardianStateCache.useLocalOverride = true;
+            // GuardianStateCache.localOverrideEnabled = guardianLocallyEnabled;
+
+            String status = guardianLocallyEnabled ? "ENABLED" : "DISABLED";
+            Toast.makeText(this, "Guardian manually set to " + status, Toast.LENGTH_SHORT).show();
+
+            CrashLogger.log(this, "ManualToggle", timestamp() + " Guardian manually set to " + status);
+            LogUploader.uploadLog(this, "⚙️ Guardian manually set to " + status + " via app UI");
+
+            // Update toggle button label
+            toggleGuardianButton.setText("Guardian: " + status);
         });
     }
 
