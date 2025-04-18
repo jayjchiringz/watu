@@ -2,36 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="#000000"
-    android:padding="16dp"
+    android:background="#1e1e1e"
+    android:padding="20dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="top">
 
     <Button
         android:id="@+id/refreshButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Refresh Logs"
-        android:background="#333333"
-        android:textColor="#00FF00"
+        android:text="🔄 Refresh Logs"
+        android:background="#0e639c"
+        android:textColor="#ffffff"
+        android:padding="10dp"
+        android:textAllCaps="false"
+        android:layout_marginBottom="12dp"
+        android:textSize="14sp"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/toggleOverlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Toggle Overlay"
-        android:layout_marginTop="16dp"
-        android:background="#333333"
-        android:textColor="#00FF00"
+        android:text="🛰️ Toggle Overlay"
+        android:background="#0e639c"
+        android:textColor="#ffffff"
+        android:padding="10dp"
+        android:textAllCaps="false"
+        android:layout_marginBottom="12dp"
+        android:textSize="14sp"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/toggleGuardianButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Toggle Guardian"
-        android:layout_marginTop="12dp"
+        android:text="🛡️ Toggle Guardian"
+        android:background="#0e639c"
+        android:textColor="#ffffff"
+        android:padding="10dp"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -39,13 +52,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textIsSelectable="true"
-        android:textSize="14sp"
-        android:paddingTop="8dp"
         android:padding="16dp"
         android:background="#121212"
-        android:textColor="#00FF00"
+        android:textColor="#d4d4d4"
+        android:textSize="13sp"
         android:typeface="monospace"
         android:scrollbars="vertical"
-        android:gravity="start|top" />
+        android:textIsSelectable="true"
+        android:gravity="start|top"
+        tools:text="🚀 System ready.\n🛡️ Guardian enabled." />
 </LinearLayout>

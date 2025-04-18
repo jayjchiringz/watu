@@ -40,6 +40,10 @@
         "source": "com.system.guardian.app-main-27:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
+        "merged": "com.system.guardian.app-debug-25:/layout_activity_main_2.xml.flat",
+        "source": "com.system.guardian.app-main-27:/layout/activity_main_2.xml"
+    },
+    {
         "merged": "com.system.guardian.app-debug-25:/mipmap-xxhdpi_ic_launcher.webp.flat",
         "source": "com.system.guardian.app-main-27:/mipmap-xxhdpi/ic_launcher.webp"
     },

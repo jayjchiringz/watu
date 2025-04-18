@@ -7,6 +7,7 @@ id refreshButton
 id toggleGuardianButton
 id toggleOverlay
 layout activity_main
+layout activity_main_2
 mipmap ic_launcher
 mipmap ic_launcher_round
 string accessibility_service_description

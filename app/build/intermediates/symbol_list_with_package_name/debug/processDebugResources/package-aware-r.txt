@@ -1315,6 +1315,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout activity_main_2
 layout custom_dialog
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
