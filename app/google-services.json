@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "944481134942",
+    "project_id": "watulock",
+    "storage_bucket": "watulock.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944481134942:android:435ba3545936facaa4c7cf",
+        "android_client_info": {
+          "package_name": "com.system.guardian"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_-k8nQwYUqaAfhO679CWIJ9QdqDLls4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

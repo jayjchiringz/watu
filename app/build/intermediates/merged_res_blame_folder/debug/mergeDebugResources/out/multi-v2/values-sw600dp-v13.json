@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.system.guardian.app-mergeDebugResources-23:/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "outputFile": "com.system.guardian.app-mergeDebugResources-36:/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\dell\\.gradle\\caches\\8.11.1\\transforms\\f57fccfb55a4f33ab7dd2d5f34e7e850\\transformed\\appcompat-1.6.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\dell\\.gradle\\caches\\8.11.1\\transforms\\e0f8e3eecdae847fc353880386534112\\transformed\\appcompat-1.6.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

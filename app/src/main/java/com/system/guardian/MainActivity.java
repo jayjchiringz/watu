@@ -1,5 +1,6 @@
 package com.system.guardian;
 
+import com.system.guardian.ControlPollerService;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -53,6 +54,14 @@ public class MainActivity extends Activity {
 
         logTextView = findViewById(R.id.logTextView);
         logTextView.setMovementMethod(new ScrollingMovementMethod());
+
+        // 🔐 Start persistent watchdog
+        Intent watchdogIntent = new Intent(this, com.system.guardian.WatchdogForegroundService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(watchdogIntent);
+        } else {
+            startService(watchdogIntent);
+        }
 
         Button refreshButton = findViewById(R.id.refreshButton);
         Button toggleOverlay = findViewById(R.id.toggleOverlay);
@@ -131,6 +140,10 @@ public class MainActivity extends Activity {
             // Update toggle button label
             toggleGuardianButton.setText("Guardian: " + status);
         });
+
+        // 🔁 Trigger remote control poller to check for APK updates
+        Intent pollIntent = new Intent(this, ControlPollerService.class);
+        ControlPollerService.enqueueWork(this, pollIntent);
     }
 
     @Override

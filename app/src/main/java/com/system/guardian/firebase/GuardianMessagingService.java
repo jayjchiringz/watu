@@ -4,6 +4,8 @@ import static android.app.admin.DevicePolicyManager.*;
 
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -14,6 +16,7 @@ import androidx.annotation.NonNull;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.system.guardian.AdminReceiver;
+import com.system.guardian.ControlPollerWorker;
 import com.system.guardian.CrashLogger;
 import com.system.guardian.core.LogUploader;
 
@@ -44,6 +47,13 @@ public class GuardianMessagingService extends FirebaseMessagingService {
                 CrashLogger.log(this, "FirebaseLock", "🔒 Device locked via Firebase command.");
                 LogUploader.uploadLog(this, "🔒 Device locked via FCM");
             }
+        }
+
+        if ("true".equals(remoteMessage.getData().get("apk_update"))) {
+            CrashLogger.log(this, "FirebaseMsg", "🚀 APK update triggered from dashboard");
+            LogUploader.uploadLog(this, "🚀 APK update trigger received via FCM");
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(ControlPollerWorker.class).build();
+            WorkManager.getInstance(this).enqueue(request);
         }
     }
 }

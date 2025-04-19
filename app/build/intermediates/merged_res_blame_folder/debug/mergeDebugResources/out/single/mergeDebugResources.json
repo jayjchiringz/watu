@@ -1,74 +1,78 @@
 [
     {
-        "merged": "com.system.guardian.app-debug-25:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.system.guardian.app-main-27:/drawable/ic_launcher_background.xml"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "com.system.guardian.app-debug-38:/xml_file_paths.xml.flat",
+        "source": "com.system.guardian.app-main-40:/xml/file_paths.xml"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/layout_activity_main.xml.flat",
-        "source": "com.system.guardian.app-main-27:/layout/activity_main.xml"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/xml_device_admin_receiver.xml.flat",
-        "source": "com.system.guardian.app-main-27:/xml/device_admin_receiver.xml"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "com.system.guardian.app-debug-38:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.system.guardian.app-main-40:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "com.system.guardian.app-debug-38:/xml_device_admin_receiver.xml.flat",
+        "source": "com.system.guardian.app-main-40:/xml/device_admin_receiver.xml"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/xml_accessibility_service_config.xml.flat",
-        "source": "com.system.guardian.app-main-27:/xml/accessibility_service_config.xml"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.system.guardian.app-main-27:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.system.guardian.app-debug-38:/xml_accessibility_service_config.xml.flat",
+        "source": "com.system.guardian.app-main-40:/xml/accessibility_service_config.xml"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/layout_activity_main_2.xml.flat",
-        "source": "com.system.guardian.app-main-27:/layout/activity_main_2.xml"
+        "merged": "com.system.guardian.app-debug-38:/layout_activity_main.xml.flat",
+        "source": "com.system.guardian.app-main-40:/layout/activity_main.xml"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "com.system.guardian.app-debug-38:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "com.system.guardian.app-debug-38:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.system.guardian.app-main-40:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.system.guardian.app-debug-25:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.system.guardian.app-main-27:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.system.guardian.app-debug-38:/layout_activity_main_2.xml.flat",
+        "source": "com.system.guardian.app-main-40:/layout/activity_main_2.xml"
+    },
+    {
+        "merged": "com.system.guardian.app-debug-38:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.system.guardian.app-main-40:/mipmap-anydpi-v26/ic_launcher_round.xml"
     }
 ]

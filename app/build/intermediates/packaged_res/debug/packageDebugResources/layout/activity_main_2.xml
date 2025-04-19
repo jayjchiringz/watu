@@ -5,8 +5,7 @@
     android:background="#1e1e1e"
     android:padding="20dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="top">
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/refreshButton"
@@ -15,10 +14,10 @@
         android:text="🔄 Refresh Logs"
         android:background="#0e639c"
         android:textColor="#ffffff"
-        android:padding="10dp"
-        android:textAllCaps="false"
-        android:layout_marginBottom="12dp"
         android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginBottom="12dp"
+        android:padding="10dp"
         tools:ignore="HardcodedText" />
 
     <Button
@@ -28,10 +27,10 @@
         android:text="🛰️ Toggle Overlay"
         android:background="#0e639c"
         android:textColor="#ffffff"
-        android:padding="10dp"
-        android:textAllCaps="false"
-        android:layout_marginBottom="12dp"
         android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginBottom="12dp"
+        android:padding="10dp"
         tools:ignore="HardcodedText" />
 
     <Button
@@ -41,10 +40,10 @@
         android:text="🛡️ Toggle Guardian"
         android:background="#0e639c"
         android:textColor="#ffffff"
-        android:padding="10dp"
-        android:textAllCaps="false"
         android:textSize="14sp"
+        android:fontFamily="sans-serif"
         android:layout_marginBottom="16dp"
+        android:padding="10dp"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -52,13 +51,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:textIsSelectable="true"
+        android:textSize="13sp"
         android:padding="16dp"
         android:background="#121212"
         android:textColor="#d4d4d4"
-        android:textSize="13sp"
-        android:typeface="monospace"
+        android:fontFamily="monospace"
         android:scrollbars="vertical"
-        android:textIsSelectable="true"
-        android:gravity="start|top"
-        tools:text="🚀 System ready.\n🛡️ Guardian enabled." />
+        android:gravity="start|top" />
 </LinearLayout>

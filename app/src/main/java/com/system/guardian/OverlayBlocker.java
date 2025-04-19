@@ -19,26 +19,28 @@ public class OverlayBlocker {
         if (overlayView != null) return;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-
         overlayView = new FrameLayout(context);
-        overlayView.setBackgroundColor(0x00000000); // fully transparent
+        overlayView.setBackgroundColor(0x00000000); // transparent
+
+        int overlayType = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                : WindowManager.LayoutParams.TYPE_PHONE;
 
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ?
-                        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY :
-                        WindowManager.LayoutParams.TYPE_PHONE,
+                overlayType,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
-                        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | // ✅ prevent black screen
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED, // ✅ allow over keyguard
                 PixelFormat.TRANSLUCENT
         );
 
         params.gravity = Gravity.TOP | Gravity.START;
-
         wm.addView(overlayView, params);
-        CrashLogger.log(context, "OverlayBlocker", "🛡️ Invisible shield deployed");
+        CrashLogger.log(context, "OverlayBlocker", "🛡️ Shield overlay deployed");
         LogUploader.uploadLog(context, "🛡️ OverlayBlocker activated");
     }
 
@@ -47,7 +49,7 @@ public class OverlayBlocker {
             WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             wm.removeView(overlayView);
             overlayView = null;
-            CrashLogger.log(context, "OverlayBlocker", "🧯 Shield disabled");
+            CrashLogger.log(context, "OverlayBlocker", "🧯 Shield overlay removed");
             LogUploader.uploadLog(context, "🧯 OverlayBlocker deactivated");
         }
     }
