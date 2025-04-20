@@ -15,15 +15,25 @@ public class LogUploader {
     public static void uploadLog(Context context, String logText) {
         new Thread(() -> {
             try {
+                // Safety: Check internet permission
+                if (context.checkCallingOrSelfPermission(android.Manifest.permission.INTERNET)
+                        != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                    Log.w("LogUploader", "⚠️ INTERNET permission not granted. Skipping log upload.");
+                    return;
+                }
+
                 URL url = new URL("https://digiserve25.pythonanywhere.com/upload-log");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
+                conn.setConnectTimeout(4000);
+                conn.setReadTimeout(6000);
                 conn.setRequestProperty("Content-Type", "text/plain; charset=UTF-8");
 
-                // Include device token for backend linking
-                @SuppressLint("HardwareIds") String deviceToken = Settings.Secure.getString(
+                @SuppressLint("HardwareIds")
+                String deviceToken = Settings.Secure.getString(
                         context.getContentResolver(), Settings.Secure.ANDROID_ID);
+                if (deviceToken == null) deviceToken = "UNKNOWN";
                 conn.setRequestProperty("X-DEVICE-TOKEN", deviceToken);
 
                 try (OutputStream os = conn.getOutputStream()) {
@@ -31,7 +41,7 @@ public class LogUploader {
                     os.flush();
                 }
 
-                conn.getInputStream().close(); // Trigger complete
+                conn.getInputStream().close(); // ensure completion
                 Log.d("LogUploader", "✅ Log uploaded: " + logText);
 
             } catch (Exception e) {

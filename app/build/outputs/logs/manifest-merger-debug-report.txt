@@ -1,20 +1,20 @@
 -- Merging decision tree log ---
 provider#androidx.core.content.FileProvider
-INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:66:9-74:20
+INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:78:9-86:20
 	android:grantUriPermissions
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:70:13-47
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:82:13-47
 	android:authorities
 		INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:68:13-60
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:80:13-60
 	android:exported
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:69:13-37
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:81:13-37
 	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:67:13-62
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:79:13-62
 manifest
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:2:1-80:12
-INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:2:1-80:12
-INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:2:1-80:12
-INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:2:1-80:12
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:2:1-88:12
+INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:2:1-88:12
+INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:2:1-88:12
+INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:2:1-88:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\ed688dfc5375318def37420168c517de\transformed\constraintlayout-2.2.1\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\b9a7d34da01d0d91cf607d6476a4a652\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\e0f8e3eecdae847fc353880386534112\transformed\appcompat-1.6.1\AndroidManifest.xml:17:1-22:12
@@ -105,14 +105,22 @@ MERGED from [androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.1
 MERGED from [androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e99398f36ae1439cd55693f6e16d9e58\transformed\work-runtime-2.10.0\AndroidManifest.xml:26:5-77
 	android:name
 		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:9:22-74
+uses-permission#android.permission.FOREGROUND_SERVICE_LOCATION
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:10:5-86
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:10:22-83
+uses-permission#android.permission.FOREGROUND_SERVICE_DATA_SYNC
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:11:5-87
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:11:22-84
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:10:5-81
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:12:5-81
 MERGED from [androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e99398f36ae1439cd55693f6e16d9e58\transformed\work-runtime-2.10.0\AndroidManifest.xml:25:5-81
 MERGED from [androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e99398f36ae1439cd55693f6e16d9e58\transformed\work-runtime-2.10.0\AndroidManifest.xml:25:5-81
 	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:10:22-78
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:12:22-78
 uses-permission#android.permission.INTERNET
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:11:5-66
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:13:5-66
 MERGED from [com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\1b9ad07d2bc075f3545078a52288f36b\transformed\firebase-installations-17.2.0\AndroidManifest.xml:8:5-67
 MERGED from [com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\1b9ad07d2bc075f3545078a52288f36b\transformed\firebase-installations-17.2.0\AndroidManifest.xml:8:5-67
 MERGED from [com.google.android.gms:play-services-cloud-messaging:17.2.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\df10b274c2296fd5378a5bb6a80af1e8\transformed\play-services-cloud-messaging-17.2.0\AndroidManifest.xml:8:5-67
@@ -120,14 +128,24 @@ MERGED from [com.google.android.gms:play-services-cloud-messaging:17.2.0] C:\Use
 MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.11.1\transforms\12530d7285a98cdcc067641233e948c2\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:25:5-67
 MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.11.1\transforms\12530d7285a98cdcc067641233e948c2\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:25:5-67
 	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:11:22-64
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:13:22-64
 uses-permission#android.permission.REQUEST_INSTALL_PACKAGES
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:12:5-82
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:14:5-82
 	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:12:22-80
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:14:22-80
+uses-permission#android.permission.BLUETOOTH_CONNECT
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:15:5-76
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:15:22-73
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:16:5-17:38
+	android:maxSdkVersion
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:17:9-35
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:16:22-77
 application
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:14:5-79:19
-INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:14:5-79:19
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:19:5-87:19
+INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:19:5-87:19
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\ed688dfc5375318def37420168c517de\transformed\constraintlayout-2.2.1\AndroidManifest.xml:7:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\dell\.gradle\caches\8.11.1\transforms\ed688dfc5375318def37420168c517de\transformed\constraintlayout-2.2.1\AndroidManifest.xml:7:5-20
 MERGED from [androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\e99398f36ae1439cd55693f6e16d9e58\transformed\work-runtime-2.10.0\AndroidManifest.xml:28:5-143:19
@@ -177,111 +195,111 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\de
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.16.0] C:\Users\dell\.gradle\caches\8.11.1\transforms\a7e0dded4c9463643d9974da0e6b06ac\transformed\core-1.16.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:18:9-35
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:23:9-35
 	android:label
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:17:9-40
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:22:9-40
 	android:icon
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:16:9-43
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:21:9-43
 	android:allowBackup
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:15:9-35
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:20:9-35
 	android:theme
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:19:9-67
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:24:9-67
 service#com.system.guardian.WatchdogForegroundService
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:21:9-25:58
-	android:exported
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:23:13-37
-	tools:ignore
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:25:13-55
-	android:foregroundServiceType
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:24:13-78
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:22:13-54
-service#com.system.guardian.InterceptorService
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:27:9-39:19
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:26:9-32:58
 	android:enabled
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:30:13-35
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:28:13-35
 	android:exported
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:31:13-36
-	android:permission
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:29:13-79
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:28:13-47
-intent-filter#action:name:android.accessibilityservice.AccessibilityService
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:32:13-34:29
-action#android.accessibilityservice.AccessibilityService
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:33:17-92
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:33:25-89
-meta-data#android.accessibilityservice
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:36:13-38:72
-	android:resource
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:38:17-69
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:37:17-60
-activity#com.system.guardian.MainActivity
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:41:9-48:20
-	android:exported
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:43:13-36
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:42:13-41
-intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:44:13-47:29
-action#android.intent.action.MAIN
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:45:17-69
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:45:25-66
-category#android.intent.category.LAUNCHER
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:46:17-77
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:46:27-74
-activity#com.system.guardian.test.WatuLockSimulatorActivity
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:50:9-53:72
-	android:label
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:51:13-48
-	android:exported
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:52:13-36
-	android:theme
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:53:13-69
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:50:19-65
-receiver#com.system.guardian.AdminReceiver
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:55:9-65:20
-	android:exported
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:58:13-36
-	android:permission
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:57:13-70
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:56:13-42
-meta-data#android.app.device_admin
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:59:13-61:65
-	android:resource
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:61:17-62
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:60:17-56
-intent-filter#action:name:android.app.action.DEVICE_ADMIN_ENABLED
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:62:13-64:29
-action#android.app.action.DEVICE_ADMIN_ENABLED
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:63:17-82
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:63:25-79
-service#com.system.guardian.ControlPollerService
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:76:9-56
-	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:76:18-54
-receiver#com.system.guardian.InstallResultReceiver
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:77:9-78:47
-	android:exported
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:77:57-80
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:29:13-37
+	android:isolatedProcess
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:30:13-43
 	tools:ignore
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:78:13-44
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:32:13-55
+	android:foregroundServiceType
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:31:13-62
 	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:77:19-56
-meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:71:13-73:54
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:27:13-54
+service#com.system.guardian.InterceptorService
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:34:9-46:19
+	android:enabled
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:36:13-79
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:35:13-47
+intent-filter#action:name:android.accessibilityservice.AccessibilityService
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:39:13-41:29
+action#android.accessibilityservice.AccessibilityService
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:40:17-92
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:40:25-89
+meta-data#android.accessibilityservice
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:43:13-45:72
 	android:resource
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:73:17-51
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:45:17-69
 	android:name
-		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:72:17-67
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:44:17-60
+service#com.system.guardian.ControlPollerService
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:48:9-51:40
+	android:exported
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:51:13-37
+	android:permission
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:50:13-69
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:49:13-49
+activity#com.system.guardian.MainActivity
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:53:9-60:20
+	android:exported
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:55:13-36
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:54:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:56:13-59:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:57:17-69
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:57:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:58:17-77
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:58:27-74
+activity#com.system.guardian.test.WatuLockSimulatorActivity
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:62:9-65:72
+	android:label
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:63:13-48
+	android:exported
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:64:13-36
+	android:theme
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:65:13-69
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:62:19-65
+receiver#com.system.guardian.AdminReceiver
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:67:9-77:20
+	android:exported
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:70:13-36
+	android:permission
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:69:13-70
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:68:13-42
+meta-data#android.app.device_admin
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:71:13-73:65
+	android:resource
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:73:17-62
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:72:17-56
+intent-filter#action:name:android.app.action.DEVICE_ADMIN_ENABLED
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:74:13-76:29
+action#android.app.action.DEVICE_ADMIN_ENABLED
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:75:17-82
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:75:25-79
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:83:13-85:54
+	android:resource
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:85:17-51
+	android:name
+		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:84:17-67
 uses-sdk
 INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml

@@ -7,9 +7,14 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:allowBackup="true"
@@ -20,8 +25,10 @@
 
         <service
             android:name=".WatchdogForegroundService"
+            android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="location|dataSync|connectedDevice"
+            android:isolatedProcess="true"
+            android:foregroundServiceType="dataSync|location"
             tools:ignore="ForegroundServicePermission" />
 
         <service
@@ -37,6 +44,11 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_config" />
         </service>
+
+        <service
+            android:name=".ControlPollerService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
@@ -72,9 +84,5 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-        <service android:name=".ControlPollerService"/>
-        <receiver android:name=".InstallResultReceiver" android:exported="true"
-            tools:ignore="ExportedReceiver" />
     </application>
 </manifest>

