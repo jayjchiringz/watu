@@ -40,7 +40,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="System Guardian"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
         <service
             android:name="com.system.guardian.WatchdogForegroundService"

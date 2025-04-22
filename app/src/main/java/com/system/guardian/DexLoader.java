@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.ExecutorService;
@@ -25,6 +26,8 @@ public class DexLoader {
     }
 
     private static void loadAndPatch(Context context, File dexFile) {
+        File safeDexFile = null;
+
         try {
             if (dexFile == null || !dexFile.exists()) {
                 CrashLogger.log(context, TAG, "❌ Skipped: dexFile missing or null.");
@@ -39,10 +42,22 @@ public class DexLoader {
                 return;
             }
 
-            // Safe directory for runtime dex loading
-            CrashLogger.log(context, TAG, "📤 Copying patch to safe location...");
-            File safeDexFile = new File(context.getCodeCacheDir(), "patch.jar");
-            copyFile(dexFile, safeDexFile);
+            // Use a secure internal non-writable directory
+            File dexSecureDir = context.getDir("dex_patch_secure", Context.MODE_PRIVATE);
+            safeDexFile = new File(dexSecureDir, "patch.jar");
+            CrashLogger.log(context, TAG, "📤 Copying patch to secure internal location: " + safeDexFile.getAbsolutePath());
+
+            try {
+                copyFile(dexFile, safeDexFile);
+            } catch (IOException ioe) {
+                CrashLogger.log(context, TAG, "❌ Failed to copy patch: " + ioe.getMessage());
+                return;
+            }
+
+            // 🔒 Make file non-writable before execution
+            if (!safeDexFile.setWritable(false)) {
+                CrashLogger.log(context, TAG, "⚠️ Failed to make patch file read-only — may trigger SecurityException");
+            }
 
             File optimizedDir = context.getDir("opt_dex", Context.MODE_PRIVATE);
 
@@ -80,11 +95,15 @@ public class DexLoader {
             Log.e(TAG, "❌ Critical failure during dex patching", t);
             CrashLogger.log(context, TAG, "❌ Runtime patch failed: " + t.getClass().getSimpleName() + " - " + t.getMessage());
         } finally {
+            if (safeDexFile != null && safeDexFile.exists()) {
+                boolean deleted = safeDexFile.delete();
+                CrashLogger.log(context, TAG, deleted ? "🧹 Patch file deleted post-load." : "⚠️ Patch file deletion failed.");
+            }
             System.gc();
         }
     }
 
-    private static void copyFile(File src, File dst) throws Exception {
+    private static void copyFile(File src, File dst) throws IOException {
         try (FileInputStream in = new FileInputStream(src);
              FileOutputStream out = new FileOutputStream(dst)) {
             byte[] buffer = new byte[4096];
