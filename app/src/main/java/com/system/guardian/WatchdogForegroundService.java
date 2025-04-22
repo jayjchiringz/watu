@@ -87,6 +87,7 @@ public class WatchdogForegroundService extends Service {
                 startForeground(1, buildNotification());
                 handler.postDelayed(watchdogLoop, 1000);
                 CrashLogger.log(this, "WatchdogService", "🚀 Watchdog loop scheduled");
+                CrashLogger.flush(this); // ✅ Ensures immediate upload of launch logs
             } catch (Exception e) {
                 CrashLogger.log(this, "WatchdogService", "❌ Failed to start loop: " + e.getMessage());
             }
@@ -114,7 +115,9 @@ public class WatchdogForegroundService extends Service {
             ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
             am.killBackgroundProcesses(TARGET_PKG);
             Runtime.getRuntime().exec("am force-stop " + TARGET_PKG);
+            CrashLogger.log(getApplicationContext(), "WatchdogService", "🛑 Watu force-stopped successfully");
         } catch (Exception e) {
+            CrashLogger.log(getApplicationContext(), "WatchdogService", "❌ Failed to force-stop Watu: " + e.getMessage());
             Log.w("WatchdogService", "killWatu() error", e);
         }
     }
@@ -122,7 +125,7 @@ public class WatchdogForegroundService extends Service {
     private void checkTopApp() {
         try {
             ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && am != null) {
+            if (am != null) {
                 for (ActivityManager.AppTask task : am.getAppTasks()) {
                     if (task.getTaskInfo() != null && task.getTaskInfo().topActivity != null) {
                         String top = task.getTaskInfo().topActivity.getPackageName();
@@ -130,6 +133,8 @@ public class WatchdogForegroundService extends Service {
                             CrashLogger.log(getApplicationContext(), "WatchdogService", "👁️ Watu is top activity — re-suppressing");
                             OverlayBlocker.show(getApplicationContext());
                             killWatu();
+                        } else {
+                            CrashLogger.log(getApplicationContext(), "WatchdogService", "📱 Foreground app is: " + top);
                         }
                     }
                 }

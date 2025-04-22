@@ -116,7 +116,7 @@
 59
 60            <meta-data
 60-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:43:13-45:72
-61                android:name="android.accessibilityservice"
+61                android:name="android.accessibilityService"
 61-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:44:17-60
 62                android:resource="@xml/accessibility_service_config" />
 62-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:45:17-69

@@ -25,6 +25,7 @@ import java.util.List;
 public class InterceptorService extends AccessibilityService {
 
     private static final String TARGET_PKG = "com.watuke.app";
+    private boolean wasWatuAlive = false;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -144,13 +145,20 @@ public class InterceptorService extends AccessibilityService {
     private final Runnable watuWatcher = new Runnable() {
         @Override
         public void run() {
-            if (isWatuAlive()) {
+            boolean currentlyAlive = isWatuAlive();
+
+            if (currentlyAlive) {
                 CrashLogger.log(getApplicationContext(), "Watchdog", "⚠️ Watu revived — re-killing now");
                 killWatu();
                 performGlobalAction(GLOBAL_ACTION_HOME);
                 OverlayBlocker.show(getApplicationContext());
+                wasWatuAlive = true;
             } else {
-                CrashLogger.log(getApplicationContext(), "Watchdog", "✅ Watu not detected in memory");
+                // ✅ Log only if status changed from alive to not alive
+                if (wasWatuAlive) {
+                    CrashLogger.log(getApplicationContext(), "Watchdog", "✅ Watu not detected in memory");
+                    wasWatuAlive = false;
+                }
                 OverlayBlocker.hide(getApplicationContext());
             }
 

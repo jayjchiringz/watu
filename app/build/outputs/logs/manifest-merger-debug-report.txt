@@ -234,7 +234,7 @@ action#android.accessibilityservice.AccessibilityService
 ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:40:17-92
 	android:name
 		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:40:25-89
-meta-data#android.accessibilityservice
+meta-data#android.accessibilityService
 ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:43:13-45:72
 	android:resource
 		ADDED from C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:45:17-69

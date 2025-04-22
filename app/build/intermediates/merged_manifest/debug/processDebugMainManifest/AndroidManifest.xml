@@ -58,7 +58,7 @@
             </intent-filter>
 
             <meta-data
-                android:name="android.accessibilityservice"
+                android:name="android.accessibilityService"
                 android:resource="@xml/accessibility_service_config" />
         </service>
         <service

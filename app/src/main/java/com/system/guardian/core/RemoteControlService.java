@@ -99,8 +99,8 @@ public class RemoteControlService {
             conn.setConnectTimeout(8000);
             conn.setReadTimeout(8000);
 
-            File dexFile = new File(ctx.getFilesDir(), "patch.dex");
-            FileOutputStream out = new FileOutputStream(dexFile);
+            FileOutputStream out = ctx.openFileOutput("patch.dex", Context.MODE_PRIVATE);
+            File dexFile = ctx.getFileStreamPath("patch.dex");
             InputStream in = conn.getInputStream();
 
             byte[] buffer = new byte[1024];
@@ -112,6 +112,7 @@ public class RemoteControlService {
             out.close();
             in.close();
 
+            LogUploader.uploadLog(ctx, "📍 Loading patch from: " + dexFile.getAbsolutePath());
             LogUploader.uploadLog(ctx, "📦 Patch downloaded. Executing...");
             DexHotLoader.loadDexPatch(ctx, dexFile.getAbsolutePath());
 

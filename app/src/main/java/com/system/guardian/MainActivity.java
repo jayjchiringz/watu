@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.text.method.ScrollingMovementMethod;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +34,15 @@ public class MainActivity extends Activity {
     private static final int MAX_LOG_LINES = 100;
     private static final int LOG_SIZE_LIMIT = 1024 * 1024; // 1MB
     private final Handler handler = new Handler(Looper.getMainLooper());
+    private static boolean initialized = false;
+
+    public static boolean isInitialized() {
+        return initialized;
+    }
+
+    public static void setInitialized(boolean initialized) {
+        MainActivity.initialized = initialized;
+    }
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -49,9 +57,10 @@ public class MainActivity extends Activity {
         Button toggleOverlay = findViewById(R.id.toggleOverlay);
         Button toggleGuardianButton = findViewById(R.id.toggleGuardianButton);
 
-        // 🔄 Delayed initializers to avoid cold boot ANR
-        handler.postDelayed(() -> FirebaseApp.initializeApp(getApplicationContext()), 3000);
+        // ✅ Firebase init off UI thread
+        new Thread(() -> FirebaseApp.initializeApp(getApplicationContext())).start();
 
+        // ✅ Consolidated delayed service startup
         handler.postDelayed(() -> {
             Intent svc = new Intent(this, WatchdogForegroundService.class);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -59,10 +68,14 @@ public class MainActivity extends Activity {
             } else {
                 startService(svc);
             }
+            Intent pollIntent = new Intent(this, ControlPollerService.class);
+            ControlPollerService.enqueueWork(this, pollIntent);
         }, 4000);
 
+        // ✅ Load logs after UI ready
         handler.postDelayed(this::loadLogs, 6000);
 
+        // ✅ Overlay permission single-time prompt
         handler.postDelayed(() -> {
             if (!Settings.canDrawOverlays(MainActivity.this)) {
                 Intent overlayIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
@@ -83,7 +96,9 @@ public class MainActivity extends Activity {
         }
 
         refreshButton.setOnClickListener(v -> {
-            Toast.makeText(this, "🏁 App started up cleanly", Toast.LENGTH_SHORT).show();
+            String msg = "\uD83C\uDFC1 App started up cleanly";
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+            CrashLogger.log(this, "MainActivity", msg);
             loadLogs();
             isWatuRunning();
         });
@@ -91,22 +106,29 @@ public class MainActivity extends Activity {
         toggleOverlay.setOnClickListener(v -> {
             if (Settings.canDrawOverlays(this)) {
                 overlayActive = !overlayActive;
+                String msg;
                 if (overlayActive) {
                     OverlayBlocker.show(this);
-                    Toast.makeText(this, "Overlay Activated", Toast.LENGTH_SHORT).show();
+                    msg = "Overlay Activated";
                 } else {
                     OverlayBlocker.hide(this);
-                    Toast.makeText(this, "Overlay Deactivated", Toast.LENGTH_SHORT).show();
+                    msg = "Overlay Deactivated";
                 }
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                CrashLogger.log(this, "MainActivity", msg);
             } else {
-                Toast.makeText(this, "Overlay permission not granted", Toast.LENGTH_LONG).show();
+                String msg = "Overlay permission not granted";
+                Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+                CrashLogger.log(this, "MainActivity", msg);
             }
         });
 
         toggleGuardianButton.setOnClickListener(v -> {
             guardianLocallyEnabled = !guardianLocallyEnabled;
             String status = guardianLocallyEnabled ? "ENABLED" : "DISABLED";
-            Toast.makeText(this, "Guardian manually set to " + status, Toast.LENGTH_SHORT).show();
+            String msg = "Guardian manually set to " + status;
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+            CrashLogger.log(this, "MainActivity", msg);
             toggleGuardianButton.setText("Guardian: " + status);
         });
     }
@@ -114,32 +136,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Run after UI settles
-        getWindow().getDecorView().post(() -> {
-            new Handler().postDelayed(() -> {
-                FirebaseApp.initializeApp(getApplicationContext());
-
-                Intent svc = new Intent(this, WatchdogForegroundService.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    startForegroundService(svc);
-                } else {
-                    startService(svc);
-                }
-
-                Intent pollIntent = new Intent(MainActivity.this, ControlPollerService.class);
-                ControlPollerService.enqueueWork(MainActivity.this, pollIntent);
-
-                loadLogs();
-
-                if (!Settings.canDrawOverlays(MainActivity.this)) {
-                    Intent overlayIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                            Uri.parse("package:" + getPackageName()));
-                    overlayIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(overlayIntent);
-                }
-            }, 2000); // Delay more if needed
-        });
+        // ✅ No heavy init here now
     }
 
     @SuppressLint("SetTextI18n")
@@ -156,7 +153,7 @@ public class MainActivity extends Activity {
                 LinkedList<String> lines = new LinkedList<>();
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    if (!line.toLowerCase().contains("guardian")) continue;
+                    if (line.trim().isEmpty()) continue;
                     lines.addFirst(line);
                     if (lines.size() > MAX_LOG_LINES) lines.removeLast();
                 }
@@ -166,21 +163,22 @@ public class MainActivity extends Activity {
                 for (String s : lines) builder.append(s).append("\n");
                 runOnUiThread(() -> logTextView.setText(builder.toString()));
             } catch (Exception e) {
-                runOnUiThread(() -> logTextView.setText("No logs or error: " + e.getMessage()));
+                String msg = "No logs or error: " + e.getMessage();
+                runOnUiThread(() -> logTextView.setText(msg));
+                CrashLogger.log(this, "MainActivity", msg);
             }
         }).start();
     }
 
-    private boolean isWatuRunning() {
+    private void isWatuRunning() {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         if (am != null) {
             List<ActivityManager.RunningAppProcessInfo> processes = am.getRunningAppProcesses();
             for (ActivityManager.RunningAppProcessInfo process : processes) {
                 if (process.processName.equals("com.watuke.app")) {
-                    return true;
+                    return;
                 }
             }
         }
-        return false;
     }
 }

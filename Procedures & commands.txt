@@ -1,3 +1,22 @@
 javac -classpath "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar" -d build\out PatchOverride.java
 
 & "C:\Users\dell\AppData\Local\Android\Sdk\build-tools\35.0.0\d8.bat" out/com/system/guardian/dex_patch_build/PatchOverride.class --output=.
+
+------------------------------------------------------------------
+javac `
+  -classpath "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar" `
+  -d build\out `
+  PatchOverride.java PatchInstaller.java
+
+jar cf patch.jar -C build\out .
+
+
+.\grant_permissions.ps1
+------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+adb logcat -c
+adb logcat | Tee-Object -Variable logs | Select-String "system.guardian" | Tee-Object guardian_logs.txt
+adb shell am start -n com.system.guardian/.MainActivity

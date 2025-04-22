@@ -8,7 +8,7 @@ import java.io.File;
 public class PatchInstaller {
     public static void install(Context context, File apkFile) {
         try {
-            Uri apkUri = Uri.fromFile(apkFile);  // ⚠️ Less secure, but works
+            Uri apkUri = Uri.fromFile(apkFile); // Less secure, but works for testing
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

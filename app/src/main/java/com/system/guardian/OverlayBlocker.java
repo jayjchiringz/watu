@@ -18,6 +18,7 @@ public class OverlayBlocker {
     // ✅ Track internal state
     private static boolean isShowing = false;
 
+    @SuppressLint("ObsoleteSdkInt")
     public static void show(Context context) {
         if (isShowing || overlayView != null) return;
 
