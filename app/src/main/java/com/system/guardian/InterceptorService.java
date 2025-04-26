@@ -2,17 +2,16 @@ package com.system.guardian;
 
 import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import android.net.Uri;
 import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityWindowInfo;
 import android.widget.Toast;
-import android.app.KeyguardManager;
 
 import androidx.annotation.RequiresApi;
 
@@ -25,90 +24,116 @@ import java.util.List;
 public class InterceptorService extends AccessibilityService {
 
     private static final String TARGET_PKG = "com.watuke.app";
+    private static final boolean DEBUG_MODE = false;
+
     private boolean wasWatuAlive = false;
+    private final Handler watchdogHandler = new Handler(Looper.getMainLooper());
+    private boolean suppressionInProgress = false;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (event == null || event.getPackageName() == null) return;
 
-        String packageName = event.getPackageName().toString();
+        final String packageName = event.getPackageName().toString();
+        if (!packageName.equals(TARGET_PKG) || suppressionInProgress) return;
+
+        suppressionInProgress = true;
 
         RemoteControlService.checkGuardianStatus(this, isEnabled -> {
-            String logPrefix = "🎯 Interceptor Decision —";
+            final String logPrefix = "🎯 Interceptor Decision —";
 
-            CrashLogger.log(this, "RemoteControl", logPrefix + " isEnabled=" + isEnabled +
+            String decisionLog = logPrefix + " isEnabled=" + isEnabled +
                     ", useLocalOverride=" + GuardianStateCache.useLocalOverride +
                     ", localOverrideValue=" + GuardianStateCache.localOverrideEnabled +
-                    ", lastKnown=" + GuardianStateCache.lastKnownState);
+                    ", lastKnown=" + GuardianStateCache.lastKnownState;
 
-            LogUploader.uploadLog(this, logPrefix + " isEnabled=" + isEnabled +
-                    ", useLocalOverride=" + GuardianStateCache.useLocalOverride +
-                    ", lastKnown=" + GuardianStateCache.lastKnownState);
+            if (!decisionLog.equals(GuardianStateCache.lastLog)) {
+                CrashLogger.log(this, "RemoteControl", decisionLog);
+                LogUploader.uploadLog(this, decisionLog);
+                GuardianStateCache.lastLog = decisionLog;
+            }
 
             if (!isEnabled) {
-                CrashLogger.log(this, "RemoteControl", "🛑 Guardian remotely disabled. Skipping interception.");
-                LogUploader.uploadLog(this, "🛑 Guardian remotely disabled. Interceptor exiting.");
+                suppressionInProgress = false;
+                CrashLogger.log(this, "RemoteControl", "🛑 Guardian remotely disabled.");
+                GuardianStateCache.lastLog = "guardian-disabled";
                 return;
             }
 
-            if (packageName.equals(TARGET_PKG)) {
-                CrashLogger.log(this, "InterceptorService", "🚩 Watu detected — Suppression starting...");
+            CrashLogger.log(this, "InterceptorService", "🚩 Watu detected — Suppression starting...");
+            boolean overlayShown = OverlayBlocker.show(this);
 
-                OverlayBlocker.show(this);
-                killWatu();
-                performGlobalAction(GLOBAL_ACTION_BACK); // Try backing out
-                performGlobalAction(GLOBAL_ACTION_HOME); // Immediately send user to home
-
-                LogUploader.uploadLog(this, "🚨 Watu detected, suppression triggered.");
-                CrashLogger.log(this, "Suppression", "📡 Suppression actions applied");
-
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    boolean stillRunning = isWatuAlive();
-                    CrashLogger.log(this, "ProcessCheck",
-                            stillRunning ? "⚠️ Watu still alive after kill" : "✅ Watu successfully suppressed");
-
-                    if (stillRunning) {
-                        CrashLogger.log(this, "RetryKill", "🔁 Retrying suppression sequence");
-                        killWatu();
-                        performGlobalAction(GLOBAL_ACTION_HOME);
-                        OverlayBlocker.show(this);
-                    }
-                }, 3000);
+            if (!overlayShown && !"overlay-failed".equals(GuardianStateCache.lastLog)) {
+                CrashLogger.log(this, "OverlayBlocker", "⚠️ Overlay failed to display.");
+                GuardianStateCache.lastLog = "overlay-failed";
             }
+
+            killWatu();
+            performGlobalAction(GLOBAL_ACTION_BACK);
+            performGlobalAction(GLOBAL_ACTION_HOME);
+
+            String suppressMsg = "🚨 Watu suppressed";
+            CrashLogger.log(this, "Suppression", suppressMsg);
+            LogUploader.uploadLog(this, suppressMsg);
+
+            watchdogHandler.postDelayed(() -> {
+                if (isWatuAlive()) {
+                    if (!"retry-suppression".equals(GuardianStateCache.lastLog)) {
+                        CrashLogger.log(this, "RetryKill", "🔁 Retrying suppression");
+                        GuardianStateCache.lastLog = "retry-suppression";
+                    }
+                    killWatu();
+                    performGlobalAction(GLOBAL_ACTION_HOME);
+                    OverlayBlocker.show(this);
+                }
+                suppressionInProgress = false;
+            }, 2500);
         });
     }
 
     private void killWatu() {
         try {
             ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            am.killBackgroundProcesses(TARGET_PKG);
+            if (am != null) {
+                am.killBackgroundProcesses(TARGET_PKG);
+                CrashLogger.log(this, "KillCommand", "🔪 Background kill");
+            }
+
             Runtime.getRuntime().exec("am force-stop " + TARGET_PKG);
+            CrashLogger.log(this, "KillCommand", "💀 Shell force-stop sent");
 
-            CrashLogger.log(this, "KillCommand", "💀 Watu kill sequence executed");
-
-            // Optional: kill lingering services
             killWatuServices();
         } catch (IOException e) {
-            CrashLogger.log(this, "KillAttempt", "⚠️ Failed to force-stop via shell: " + e.getMessage());
+            CrashLogger.log(this, "KillAttempt", "⚠️ Shell kill failed: " + e.getMessage());
         }
     }
 
     private void killWatuServices() {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> services = am.getRunningServices(Integer.MAX_VALUE);
+        if (am == null) return;
 
+        List<ActivityManager.RunningServiceInfo> services = am.getRunningServices(Integer.MAX_VALUE);
         for (ActivityManager.RunningServiceInfo service : services) {
-            if (service.service.getPackageName().equals(TARGET_PKG)) {
-                CrashLogger.log(this, "ServiceWatch", "💣 Killing Watu service: " + service.service.getClassName());
-                Intent intent = new Intent().setComponent(service.service);
-                stopService(intent);
+            if (TARGET_PKG.equals(service.service.getPackageName())) {
+                String name = service.service.getClassName();
+                if (!name.equals(GuardianStateCache.lastServiceKill)) {
+                    try {
+                        stopService(new Intent().setComponent(service.service));
+                        CrashLogger.log(this, "ServiceWatch", "💣 Service stopped: " + name);
+                        GuardianStateCache.lastServiceKill = name;
+                    } catch (Exception ex) {
+                        CrashLogger.log(this, "ServiceStopFail", "⚠️ Failed to stop: " + name);
+                    }
+                }
             }
         }
     }
 
     private boolean isWatuAlive() {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null) return false;
+
         List<ActivityManager.RunningAppProcessInfo> procs = am.getRunningAppProcesses();
         for (ActivityManager.RunningAppProcessInfo proc : procs) {
             if (proc.processName.equals(TARGET_PKG)) {
@@ -120,7 +145,9 @@ public class InterceptorService extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
-        CrashLogger.log(this, "InterceptorService", "Service interrupted.");
+        if (DEBUG_MODE) {
+            CrashLogger.log(this, "InterceptorService", "⚠️ AccessibilityService interrupted");
+        }
     }
 
     @Override
@@ -136,9 +163,8 @@ public class InterceptorService extends AccessibilityService {
             startActivity(intent);
         }
 
-        new Handler(Looper.getMainLooper()).postDelayed(watuWatcher, 3000);
-        super.onServiceConnected();
-        CrashLogger.log(this, "InterceptorService", "Accessibility Service CONNECTED");
+        watchdogHandler.postDelayed(watuWatcher, 3000);
+        CrashLogger.log(this, "InterceptorService", "✅ Accessibility Service connected");
         Toast.makeText(this, "System Guardian: Accessibility connected", Toast.LENGTH_LONG).show();
     }
 
@@ -147,30 +173,28 @@ public class InterceptorService extends AccessibilityService {
         public void run() {
             boolean currentlyAlive = isWatuAlive();
 
-            if (currentlyAlive) {
-                CrashLogger.log(getApplicationContext(), "Watchdog", "⚠️ Watu revived — re-killing now");
+            if (currentlyAlive && !wasWatuAlive) {
+                wasWatuAlive = true;
+                CrashLogger.log(getApplicationContext(), "Watchdog", "⚠️ Watu revived");
                 killWatu();
                 performGlobalAction(GLOBAL_ACTION_HOME);
                 OverlayBlocker.show(getApplicationContext());
-                wasWatuAlive = true;
-            } else {
-                // ✅ Log only if status changed from alive to not alive
-                if (wasWatuAlive) {
-                    CrashLogger.log(getApplicationContext(), "Watchdog", "✅ Watu not detected in memory");
-                    wasWatuAlive = false;
-                }
+            } else if (!currentlyAlive && wasWatuAlive) {
+                wasWatuAlive = false;
+                CrashLogger.log(getApplicationContext(), "Watchdog", "✅ Watu not detected");
                 OverlayBlocker.hide(getApplicationContext());
             }
 
-            // 🔒 Lock detection
             KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
             if (km != null && km.isKeyguardLocked()) {
-                CrashLogger.log(getApplicationContext(), "Keyguard", "🔒 Lock screen detected");
-                OverlayBlocker.show(getApplicationContext());
-                LogUploader.uploadLog(getApplicationContext(), "🔐 Anti-lock defense triggered");
+                if (!"lock-screen".equals(GuardianStateCache.lastLog)) {
+                    CrashLogger.log(getApplicationContext(), "Keyguard", "🔒 Lock screen");
+                    LogUploader.uploadLog(getApplicationContext(), "🔐 Anti-lock defense triggered");
+                    GuardianStateCache.lastLog = "lock-screen";
+                }
             }
 
-            new Handler(Looper.getMainLooper()).postDelayed(this, 5000);
+            watchdogHandler.postDelayed(this, 5000);
         }
     };
 }

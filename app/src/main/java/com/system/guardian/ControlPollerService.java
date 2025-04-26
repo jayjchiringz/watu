@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
+//import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
 import com.system.guardian.dex_patch_build.PatchInstaller;
@@ -24,12 +24,15 @@ public class ControlPollerService extends JobIntentService {
 
     private static final int JOB_ID = 1001;
 
+
     public static void enqueueWork(Context context, Intent work) {
         enqueueWork(context, ControlPollerService.class, JOB_ID, work);
     }
 
+
     @Override
-    protected void onHandleWork(@NonNull Intent intent) {
+    //protected void onHandleWork(@NonNull Intent intent) {
+    protected void onHandleWork(Intent intent) {    
         try {
             Context context = getApplicationContext();
             @SuppressLint("HardwareIds") String deviceToken = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -79,7 +82,7 @@ public class ControlPollerService extends JobIntentService {
             if (isValidUrl(jarUrl)) {
                 File jarFile = NetworkUtils.downloadFile(context, jarUrl, "patch.jar");
                 if (jarFile.exists()) {
-                    DexLoader.schedulePatchLoad(context, jarFile);
+                    DexLoader.schedulePatchLoad(context, jarFile, true); // force = true
                 }
             } else {
                 CrashLogger.log(context, "NetworkUtils", "⚠️ jar_url was null or empty — skipping.");

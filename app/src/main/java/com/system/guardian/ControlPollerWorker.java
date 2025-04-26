@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.provider.Settings;
 
-import androidx.annotation.NonNull;
+//import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -17,11 +17,12 @@ import java.net.URL;
 
 public class ControlPollerWorker extends Worker {
 
-    public ControlPollerWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    //public ControlPollerWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public ControlPollerWorker(Context context, WorkerParameters workerParams) {    
         super(context, workerParams);
     }
 
-    @NonNull
+    //@NonNull
     @Override
     public Result doWork() {
         Context context = getApplicationContext();
@@ -83,7 +84,7 @@ public class ControlPollerWorker extends Worker {
                 File jarFile = NetworkUtils.downloadFile(context, jarUrl, "patch.jar");
                 if (jarFile.exists()) {
                     CrashLogger.log(context, "PollerWorker", "🧪 JAR patch ready");
-                    DexLoader.schedulePatchLoad(context, jarFile);
+                    DexLoader.schedulePatchLoad(context, jarFile, true); // force = true
                 }
             }
 

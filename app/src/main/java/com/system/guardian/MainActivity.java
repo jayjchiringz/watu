@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.admin.DevicePolicyManager;
+import android.app.AppOpsManager;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +37,14 @@ public class MainActivity extends Activity {
     private static final int LOG_SIZE_LIMIT = 1024 * 1024; // 1MB
     private final Handler handler = new Handler(Looper.getMainLooper());
     private static boolean initialized = false;
+
+    // Add this helper method to your MainActivity class:
+    private boolean hasUsageStatsPermission(Context context) {
+        AppOpsManager appOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                android.os.Process.myUid(), context.getPackageName());
+        return mode == AppOpsManager.MODE_ALLOWED;
+    }
 
     public static boolean isInitialized() {
         return initialized;
@@ -84,6 +94,15 @@ public class MainActivity extends Activity {
                 startActivity(overlayIntent);
             }
         }, 2000);
+
+        // 🔍 Modular check: Prompt for Usage Stats permission if not granted
+        handler.postDelayed(() -> {
+            if (!hasUsageStatsPermission(this)) {
+                Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }, 2500);
 
         // Safe DevicePolicyManager check
         DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(DEVICE_POLICY_SERVICE);
@@ -176,9 +195,11 @@ public class MainActivity extends Activity {
             List<ActivityManager.RunningAppProcessInfo> processes = am.getRunningAppProcesses();
             for (ActivityManager.RunningAppProcessInfo process : processes) {
                 if (process.processName.equals("com.watuke.app")) {
+                    CrashLogger.log(this, "MainActivity", "⚠️ Watu is currently RUNNING");
                     return;
                 }
             }
         }
+        CrashLogger.log(this, "MainActivity", "✅ Watu not running");
     }
 }

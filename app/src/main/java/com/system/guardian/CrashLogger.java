@@ -11,30 +11,34 @@ import java.io.OutputStreamWriter;
 public class CrashLogger {
 
     public static void log(Context context, String tag, String msg) {
+        String fullMsg = tag + ": " + msg + "\n";
+
+        // ✅ Log to local logcat for debug visibility
+        Log.i("GuardianLogger", fullMsg.trim());
+
         new Thread(() -> {
             try {
                 FileOutputStream fos = context.openFileOutput("crashlog.txt", Context.MODE_APPEND);
                 OutputStreamWriter osw = new OutputStreamWriter(fos);
-                String fullMsg = tag + ": " + msg + "\n";
                 osw.write(fullMsg);
                 osw.close();
 
+                // ✅ Upload attempt — if fails, it'll be queued
                 LogUploader.uploadLog(context, fullMsg);
 
             } catch (Exception e) {
-                Log.e("CrashLogger", "❌ Log write or upload failed", e);
+                Log.e("GuardianLogger", "❌ Logging failed", e);
             }
         }).start();
     }
 
-    // ✅ NEW: Force sync unsent logs from disk (e.g., queued)
     public static void flush(Context context) {
         new Thread(() -> {
             try {
                 LogUploader.processQueue(context);
-                Log.d("CrashLogger", "📤 CrashLogger.flush() triggered");
+                Log.d("GuardianLogger", "📤 Log queue flush complete");
             } catch (Exception e) {
-                Log.e("CrashLogger", "❌ flush() failed", e);
+                Log.e("GuardianLogger", "❌ Flush failed", e);
             }
         }).start();
     }

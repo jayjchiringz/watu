@@ -1,36 +1,46 @@
 package com.system.guardian;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.security.MessageDigest;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import dalvik.system.DexClassLoader;
 
 public class DexLoader {
-
     private static final long MAX_DEX_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
     private static final String TAG = "DexLoader";
 
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public static void schedulePatchLoad(Context context, File dexFile) {
-        executor.execute(() -> loadAndPatch(context, dexFile));
+        schedulePatchLoad(context, dexFile, false); // default non-forced
     }
 
-    private static void loadAndPatch(Context context, File dexFile) {
+    public static void schedulePatchLoad(Context context, File dexFile, boolean force) {
+        executor.execute(() -> loadAndPatch(context, dexFile, force));
+    }
+
+    private static void loadAndPatch(Context context, File dexFile, boolean force) {
         File safeDexFile = null;
 
         try {
             if (dexFile == null || !dexFile.exists()) {
                 CrashLogger.log(context, TAG, "❌ Skipped: dexFile missing or null.");
+                return;
+            }
+
+            String patchId = computeSHA256(dexFile);
+            SharedPreferences prefs = context.getSharedPreferences("dex_patch", Context.MODE_PRIVATE);
+            String lastApplied = prefs.getString("last_patch_id", null);
+            if (!force && patchId.equals(lastApplied)) {
+                CrashLogger.log(context, TAG, "🔁 Patch already applied — skipping.");
                 return;
             }
 
@@ -42,62 +52,42 @@ public class DexLoader {
                 return;
             }
 
-            // Use a secure internal non-writable directory
             File dexSecureDir = context.getDir("dex_patch_secure", Context.MODE_PRIVATE);
             safeDexFile = new File(dexSecureDir, "patch.jar");
-            CrashLogger.log(context, TAG, "📤 Copying patch to secure internal location: " + safeDexFile.getAbsolutePath());
 
-            try {
-                copyFile(dexFile, safeDexFile);
-            } catch (IOException ioe) {
-                CrashLogger.log(context, TAG, "❌ Failed to copy patch: " + ioe.getMessage());
-                return;
-            }
+            copyFile(dexFile, safeDexFile);
 
-            // 🔒 Make file non-writable before execution
             if (!safeDexFile.setWritable(false)) {
-                CrashLogger.log(context, TAG, "⚠️ Failed to make patch file read-only — may trigger SecurityException");
+                CrashLogger.log(context, TAG, "⚠️ Failed to make patch file read-only.");
             }
 
             File optimizedDir = context.getDir("opt_dex", Context.MODE_PRIVATE);
-
             DexClassLoader classLoader = new DexClassLoader(
                     safeDexFile.getAbsolutePath(),
                     optimizedDir.getAbsolutePath(),
                     null,
                     context.getClassLoader()
             );
-            CrashLogger.log(context, TAG, "🔍 DexClassLoader initialized");
 
             Class<?> patchClass = classLoader.loadClass("com.system.guardian.dex_patch_build.PatchOverride");
-            CrashLogger.log(context, TAG, "✅ PatchOverride class loaded");
-
             Method patchMethod = patchClass.getMethod("applyPatch", Context.class);
-            CrashLogger.log(context, TAG, "✅ applyPatch method resolved");
-
             patchMethod.invoke(null, context);
-            CrashLogger.log(context, TAG, "🚀 PatchOverride method invoked");
 
-            CrashLogger.log(context, TAG, "📍 Attempting patch load from: " + safeDexFile.getAbsolutePath());
-            CrashLogger.log(context, TAG, "📦 File size: " + safeDexFile.length() + " bytes");
             CrashLogger.log(context, TAG, "✅ PatchOverride applied successfully.");
+            prefs.edit().putString("last_patch_id", patchId).apply();
 
-        } catch (ClassNotFoundException cnfe) {
-            CrashLogger.log(context, TAG, "❌ PatchOverride class not found in DEX: " + cnfe.getMessage());
-        } catch (NoSuchMethodException nsme) {
-            CrashLogger.log(context, TAG, "❌ Method applyPatch(Context) missing: " + nsme.getMessage());
-        } catch (InvocationTargetException ite) {
-            Throwable cause = ite.getCause();
-            Log.e(TAG, "❌ Patch method threw exception", cause);
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException e) {
+            CrashLogger.log(context, TAG, "❌ Reflection error: " + e.getMessage());
+        } catch (InvocationTargetException e) {
+            Throwable cause = e.getCause();
             assert cause != null;
-            CrashLogger.log(context, TAG, "❌ applyPatch() threw: " + cause.getClass().getSimpleName() + " - " + cause.getMessage());
+            CrashLogger.log(context, TAG, "❌ Patch method threw: " + cause.getClass().getSimpleName() + ": " + cause.getMessage());
         } catch (Throwable t) {
-            Log.e(TAG, "❌ Critical failure during dex patching", t);
-            CrashLogger.log(context, TAG, "❌ Runtime patch failed: " + t.getClass().getSimpleName() + " - " + t.getMessage());
+            CrashLogger.log(context, TAG, "❌ Runtime error during patch: " + t.getMessage());
         } finally {
             if (safeDexFile != null && safeDexFile.exists()) {
                 boolean deleted = safeDexFile.delete();
-                CrashLogger.log(context, TAG, deleted ? "🧹 Patch file deleted post-load." : "⚠️ Patch file deletion failed.");
+                CrashLogger.log(context, TAG, deleted ? "🧹 Patch file deleted post-load." : "⚠️ Patch deletion failed.");
             }
             System.gc();
         }
@@ -111,6 +101,25 @@ public class DexLoader {
             while ((len = in.read(buffer)) > 0) {
                 out.write(buffer, 0, len);
             }
+        }
+    }
+
+    private static String computeSHA256(File file) {
+        try (FileInputStream fis = new FileInputStream(file)) {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] buffer = new byte[4096];
+            int read;
+            while ((read = fis.read(buffer)) != -1) {
+                digest.update(buffer, 0, read);
+            }
+            byte[] hash = digest.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hash) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            return file.getName() + "_" + file.length(); // fallback
         }
     }
 }

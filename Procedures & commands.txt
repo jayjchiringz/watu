@@ -13,6 +13,9 @@ jar cf patch.jar -C build\out .
 ------------------------------------------------------------------
 cd "app/src/main/java/com/system/guardian/dex_patch_build"
 
+rmdir /s /q build
+mkdir build\out
+
 javac `
   -classpath "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar" `
   -d build\out `
@@ -37,4 +40,192 @@ adb shell am start -n com.system.guardian/.MainActivity
 ------------------------------------------------------------------
 ./gradlew clean
 ./gradlew app:assemble:debug
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+if (Test-Path .\build) { Remove-Item -Recurse -Force .\build }
+New-Item -ItemType Directory -Path .\build\out
+
+javac `
+  -classpath "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar" `
+  -d build\out `
+  ..\CrashLogger.java `
+  ..\core\LogUploader.java `
+  ..\OverlayBlocker.java `
+  PatchOverride.java
+
+jar cf patch.jar -C build\out .
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+if (Test-Path .\build) { Remove-Item -Recurse -Force .\build }
+New-Item -ItemType Directory -Path .\build\out
+
+javac `
+  -classpath "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar" `
+  -d build\out `
+  ..\CrashLogger.java `
+  ..\OverlayBlocker.java `
+  ..\core\LogUploader.java `
+  ..\DexLoader.java `
+  PatchOverride.java
+
+jar cf patch.jar -C build\out .
+
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+if (Test-Path .\build) { Remove-Item -Recurse -Force .\build }
+New-Item -ItemType Directory -Path .\build\out
+
+javac `
+  -classpath `
+  "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar;`
+  ..\..\..\..\..\build\intermediates\javac\debug\classes" `
+  -d build\out `
+  ..\CrashLogger.java `
+  ..\OverlayBlocker.java `
+  ..\core\LogUploader.java `
+  ..\DexLoader.java `
+  ..\ControlPollerService.java `
+  ..\ControlPollerWorker.java `
+  PatchOverride.java
+
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+if (Test-Path .\build) { Remove-Item -Recurse -Force .\build }
+New-Item -ItemType Directory -Path .\build\out | Out-Null
+
+$androidJar = "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar"
+$appClasses = "..\..\..\..\..\build\intermediates\javac\debug\classes"
+
+$libs = @(
+  "..\..\..\..\..\app\libs\androidx.annotation.jar",
+  "..\..\..\..\..\app\libs\androidx.core.jar",
+  "..\..\..\..\..\app\libs\androidx.work-runtime.jar"
+)
+
+$classpath = "$androidJar;$appClasses;" + ($libs -join ";")
+
+javac `
+  -classpath $classpath `
+  -d build\out `
+  ..\CrashLogger.java `
+  ..\OverlayBlocker.java `
+  ..\core\LogUploader.java `
+  ..\DexLoader.java `
+  ..\ControlPollerService.java `
+  ..\ControlPollerWorker.java `
+  PatchOverride.java
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "❌ Compilation failed. Check classpath and missing dependencies."
+    exit 1
+}
+
+jar cf patch.jar -C build\out .
+
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+# =======================
+# Patch Build Script 🛠️
+# =======================
+
+# 1. Change to patch source directory
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+# 2. Clean previous build
+if (Test-Path .\build) { Remove-Item -Recurse -Force .\build }
+New-Item -ItemType Directory -Path .\build\out | Out-Null
+
+# 3. Construct full classpath
+$androidJar = "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar"
+$appClasses = "..\..\..\..\..\build\intermediates\javac\debug\classes"
+
+# Optional: put these `.jar` files in `app/libs/`
+$libs = @(
+  "..\..\..\..\..\app\libs\androidx.annotation.jar",
+  "..\..\..\..\..\app\libs\androidx.core.jar",
+  "..\..\..\..\..\app\libs\androidx.work-runtime.jar"
+)
+
+# Combine into classpath string
+$classpath = "$androidJar;$appClasses;" + ($libs -join ";")
+
+# 4. Compile all patch-related classes
+javac `
+  -classpath $classpath `
+  -d build\out `
+  ..\CrashLogger.java `
+  ..\OverlayBlocker.java `
+  ..\core\LogUploader.java `
+  ..\DexLoader.java `
+  ..\ControlPollerService.java `
+  ..\ControlPollerWorker.java `
+  PatchOverride.java
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "❌ Compilation failed. Check classpath and missing dependencies."
+    exit 1
+}
+
+# 5. Create JAR file from compiled classes
+jar cf patch.jar -C build\out .
+
+Write-Host "✅ patch.jar created successfully!"
+
+# 6. (Optional) Convert JAR to DEX (requires d8 in your PATH)
+# d8 --output=patch.dex patch.jar
+
+Write-Host "🎯 Patch build completed."
+------------------------------------------------------------------
+PowerShell -ExecutionPolicy Bypass -File build-patch.ps1
+
+
+
+------------------------------------------------------------------
+# Test adb
+------------------------------------------------------------------
+adb shell am force-stop com.system.guardian
+adb shell monkey -p com.system.guardian -c android.intent.category.LAUNCHER 1
+
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+adb shell pm grant com.system.guardian android.permission.DISABLE_KEYGUARD
+adb shell pm grant com.system.guardian android.permission.SYSTEM_ALERT_WINDOW
+adb shell pm grant com.system.guardian android.permission.KILL_BACKGROUND_PROCESSES
+adb shell pm grant com.system.guardian android.permission.FOREGROUND_SERVICE
+adb shell pm grant com.system.guardian android.permission.RECEIVE_BOOT_COMPLETED
+adb shell pm grant com.system.guardian android.permission.INTERNET
+adb shell pm grant com.system.guardian android.permission.REQUEST_INSTALL_PACKAGES
+adb shell pm grant com.system.guardian android.permission.BLUETOOTH_CONNECT
+adb shell pm grant com.system.guardian android.permission.READ_EXTERNAL_STORAGE
+
+adb shell appops set com.system.guardian SYSTEM_ALERT_WINDOW allow
+adb shell appops set com.system.guardian android:get_usage_stats allow
+
+adb shell settings put secure accessibility_enabled 1
+adb shell settings put secure enabled_accessibility_services com.system.guardian/.InterceptorService
+
+adb shell am broadcast -a android.intent.action.BOOT_COMPLETED -p com.system.guardian
+
+adb shell monkey -p com.system.guardian -c android.intent.category.LAUNCHER 1
+
 ------------------------------------------------------------------
