@@ -11,10 +11,13 @@ import java.io.OutputStreamWriter;
 public class CrashLogger {
 
     public static void log(Context context, String tag, String msg) {
-        String fullMsg = tag + ": " + msg + "\n";
+        log(context, tag, msg, Log.INFO); // Default
+    }
 
-        // ✅ Log to local logcat for debug visibility
-        Log.i("GuardianLogger", fullMsg.trim());
+    public static void log(Context context, String tag, String msg, int level) {
+        String fullMsg = "[" + levelToText(level) + "] " + tag + ": " + msg + "\n";
+
+        Log.println(level, "GuardianLogger", fullMsg.trim());
 
         new Thread(() -> {
             try {
@@ -23,13 +26,21 @@ public class CrashLogger {
                 osw.write(fullMsg);
                 osw.close();
 
-                // ✅ Upload attempt — if fails, it'll be queued
                 LogUploader.uploadLog(context, fullMsg);
 
             } catch (Exception e) {
                 Log.e("GuardianLogger", "❌ Logging failed", e);
             }
         }).start();
+    }
+
+    private static String levelToText(int level) {
+        return switch (level) {
+            case Log.DEBUG -> "DEBUG";
+            case Log.WARN -> "WARN";
+            case Log.ERROR -> "ERROR";
+            default -> "INFO";
+        };
     }
 
     public static void flush(Context context) {

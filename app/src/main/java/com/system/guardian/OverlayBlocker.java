@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,18 +18,30 @@ public class OverlayBlocker {
     @SuppressLint("StaticFieldLeak")
     private static View overlayView;
     private static boolean isShowing = false;
+    private static boolean overlayLoggedMissing = false;
+
+    public static void ensureOverlay(Context context) {
+        if (!Settings.canDrawOverlays(context)) {
+            if (!overlayLoggedMissing) {
+                CrashLogger.log(context, "OverlayBlocker", "❌ Missing overlay permission. Aborting overlay.", Log.WARN);
+                overlayLoggedMissing = true;
+            }
+        } else {
+            overlayLoggedMissing = false; // Reset once permission granted
+        }
+    }
 
     @SuppressLint("ObsoleteSdkInt")
-    public static boolean show(Context context) {
+    public static void show(Context context) {
         if (isShowing || overlayView != null) {
             CrashLogger.log(context, "OverlayBlocker", "⚠️ Overlay already shown, skipping.");
-            return true;
+            return;
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 !Settings.canDrawOverlays(context)) {
             CrashLogger.log(context, "OverlayBlocker", "❌ Missing overlay permission. Aborting overlay.");
-            return false;
+            return;
         }
 
         new Handler(Looper.getMainLooper()).post(() -> {
@@ -64,7 +77,6 @@ public class OverlayBlocker {
             }
         });
 
-        return true; // overlay will *attempt* to show, assumed safe
     }
 
     public static void hide(Context context) {

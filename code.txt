@@ -1,0 +1,1332 @@
+package com.watuke.app.adapters;
+
+import a4.h;
+import a4.y;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.Toast;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.b;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ViewListener;
+import com.watuke.app.GeneralCommands;
+import com.watuke.app.LoanCompleteActivity;
+import com.watuke.app.MakePaymentActivity;
+import com.watuke.app.font.FirmaTextView;
+import com.watuke.app.objects.AdCardObject;
+import com.watuke.app.objects.AssetObject;
+import com.watuke.app.objects.LoanCompleteIconObject;
+import com.watuke.app.view.MaterialRippleLayout;
+import h7.a;
+import i1.c;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import m7.a;
+import n1.f;
+import n7.a;
+import o1.g;
+import o7.d;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import x0.s;
+
+/* loaded from: C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\watu_apk_contents\classes.dex */
+public class LoansListAdapter extends RecyclerView.e<ViewHolder> implements Filterable {
+    private static Context mContext;
+    static a v;
+
+    /* renamed from: w, reason: collision with root package name */
+    static Activity f7402w;
+
+    /* renamed from: x, reason: collision with root package name */
+    static RelativeLayout f7403x;
+
+    /* renamed from: a, reason: collision with root package name */
+    LayoutInflater f7404a;
+
+    /* renamed from: b, reason: collision with root package name */
+    CarouselView f7405b;
+
+    /* renamed from: c, reason: collision with root package name */
+    ViewListener f7406c;
+
+    /* renamed from: i, reason: collision with root package name */
+    RelativeLayout f7410i;
+    private ArrayList<AssetObject> mItems;
+    private ArrayList<AssetObject> mOriginalItems;
+
+    /* renamed from: n, reason: collision with root package name */
+    ViewListener f7411n;
+
+    /* renamed from: o, reason: collision with root package name */
+    CarouselView f7412o;
+
+    /* renamed from: s, reason: collision with root package name */
+    com.google.firebase.remoteconfig.a f7416s;
+    private Handler handler = new Handler();
+
+    /* renamed from: d, reason: collision with root package name */
+    String f7407d = "";
+
+    /* renamed from: e, reason: collision with root package name */
+    int[] f7408e = {2131167486, 2131167487, 2131167488, 2131167489, 2131167490};
+
+    /* renamed from: f, reason: collision with root package name */
+    boolean f7409f = true;
+
+    /* renamed from: p, reason: collision with root package name */
+    String f7413p = "";
+
+    /* renamed from: q, reason: collision with root package name */
+    int[] f7414q = {2131167451, 2131167452, 2131167453, 2131167454, 2131167455};
+
+    /* renamed from: r, reason: collision with root package name */
+    boolean f7415r = true;
+
+    /* renamed from: t, reason: collision with root package name */
+    int f7417t = 8;
+
+    /* renamed from: u, reason: collision with root package name */
+    boolean f7418u = true;
+
+    class ViewHolder extends RecyclerView.y {
+        RelativeLayout A;
+        RelativeLayout B;
+        FirmaTextView C;
+        FirmaTextView D;
+        FirmaTextView E;
+        FirmaTextView F;
+        FirmaTextView G;
+        FirmaTextView H;
+        FirmaTextView I;
+        FirmaTextView J;
+        FirmaTextView K;
+        FirmaTextView L;
+        FirmaTextView M;
+        FirmaTextView N;
+        FirmaTextView O;
+        LinearLayoutCompat P;
+        ImageView Q;
+        FirmaTextView R;
+        FirmaTextView S;
+        FirmaTextView T;
+        FirmaTextView U;
+        FirmaTextView V;
+        FirmaTextView W;
+        RelativeLayout X;
+        LinearLayout Y;
+        ImageView Z;
+
+        /* renamed from: a0, reason: collision with root package name */
+        MaterialRippleLayout f7443a0;
+
+        /* renamed from: b0, reason: collision with root package name */
+        RelativeLayout f7444b0;
+
+        /* renamed from: c0, reason: collision with root package name */
+        MaterialRippleLayout f7445c0;
+
+        /* renamed from: d0, reason: collision with root package name */
+        RelativeLayout f7446d0;
+
+        /* renamed from: e0, reason: collision with root package name */
+        RelativeLayout f7447e0;
+
+        /* renamed from: f0, reason: collision with root package name */
+        RelativeLayout f7448f0;
+
+        /* renamed from: g0, reason: collision with root package name */
+        ImageView f7449g0;
+
+        /* renamed from: h0, reason: collision with root package name */
+        ImageView f7450h0;
+
+        /* renamed from: i0, reason: collision with root package name */
+        FirmaTextView f7451i0;
+
+        /* renamed from: q, reason: collision with root package name */
+        FirmaTextView f7453q;
+
+        /* renamed from: r, reason: collision with root package name */
+        FirmaTextView f7454r;
+
+        /* renamed from: s, reason: collision with root package name */
+        FirmaTextView f7455s;
+
+        /* renamed from: t, reason: collision with root package name */
+        ImageView f7456t;
+        private CountDownTimer timerPayment;
+        private CountDownTimer timerUnlock;
+
+        /* renamed from: u, reason: collision with root package name */
+        ImageView f7457u;
+        ImageView v;
+
+        /* renamed from: w, reason: collision with root package name */
+        SeekBar f7458w;
+
+        /* renamed from: x, reason: collision with root package name */
+        RelativeLayout f7459x;
+
+        /* renamed from: y, reason: collision with root package name */
+        RelativeLayout f7460y;
+
+        /* renamed from: z, reason: collision with root package name */
+        RelativeLayout f7461z;
+
+        /* renamed from: com.watuke.app.adapters.LoansListAdapter$ViewHolder$8, reason: invalid class name */
+        class AnonymousClass8 implements f<c> {
+            AnonymousClass8() {
+            }
+
+            @Override // n1.f
+            public boolean onLoadFailed(s sVar, Object obj, g<c> gVar, boolean z9) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.8.1
+                    @Override // java.lang.Runnable
+                    public void run() {
+                        b.n(LoansListAdapter.f7402w).b().l0(2131165266).k0(new f<c>() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.8.1.1
+                            @Override // n1.f
+                            public boolean onLoadFailed(s sVar2, Object obj2, g<c> gVar2, boolean z10) {
+                                ViewHolder.this.Q.setVisibility(8);
+                                return false;
+                            }
+
+                            @Override // n1.f
+                            public boolean onResourceReady(c cVar, Object obj2, g<c> gVar2, v0.a aVar, boolean z10) {
+                                cVar.h();
+                                cVar.f(new androidx.vectordrawable.graphics.drawable.b() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.8.1.1.1
+                                    @Override // androidx.vectordrawable.graphics.drawable.b
+                                    public void onAnimationEnd(Drawable drawable) {
+                                        super.onAnimationEnd(drawable);
+                                    }
+                                });
+                                cVar.start();
+                                return false;
+                            }
+                        }).h0(ViewHolder.this.Q);
+                    }
+                });
+                return false;
+            }
+
+            @Override // n1.f
+            public boolean onResourceReady(c cVar, Object obj, g<c> gVar, v0.a aVar, boolean z9) {
+                return false;
+            }
+        }
+
+        public ViewHolder(View view) {
+            super(view);
+            LoansListAdapter.this.f7404a = (LayoutInflater) LoansListAdapter.mContext.getSystemService("layout_inflater");
+            this.H = (FirmaTextView) view.findViewById(2131297189);
+            this.f7453q = (FirmaTextView) view.findViewById(2131296993);
+            this.f7454r = (FirmaTextView) view.findViewById(2131297010);
+            this.v = (ImageView) view.findViewById(2131297000);
+            this.f7449g0 = (ImageView) view.findViewById(2131296994);
+            this.f7448f0 = (RelativeLayout) view.findViewById(2131296995);
+            this.f7447e0 = (RelativeLayout) view.findViewById(2131296416);
+            this.f7451i0 = (FirmaTextView) view.findViewById(2131296997);
+            this.f7450h0 = (ImageView) view.findViewById(2131296996);
+            this.f7456t = (ImageView) view.findViewById(2131296887);
+            this.f7455s = (FirmaTextView) view.findViewById(2131296719);
+            this.f7459x = (RelativeLayout) view.findViewById(2131296417);
+            this.R = (FirmaTextView) view.findViewById(2131296718);
+            this.S = (FirmaTextView) view.findViewById(2131296717);
+            this.T = (FirmaTextView) view.findViewById(2131296925);
+            this.U = (FirmaTextView) view.findViewById(2131297033);
+            this.G = (FirmaTextView) view.findViewById(2131297002);
+            this.W = (FirmaTextView) view.findViewById(2131296415);
+            this.Q = (ImageView) view.findViewById(2131296420);
+            LoansListAdapter.this.f7410i = (RelativeLayout) view.findViewById(2131297150);
+            this.f7445c0 = (MaterialRippleLayout) view.findViewById(2131297460);
+            this.f7443a0 = (MaterialRippleLayout) view.findViewById(2131297151);
+            this.f7444b0 = (RelativeLayout) view.findViewById(2131296547);
+            this.f7446d0 = (RelativeLayout) view.findViewById(2131296585);
+            this.Y = (LinearLayout) view.findViewById(2131296918);
+            this.P = (LinearLayoutCompat) view.findViewById(2131296467);
+            this.f7458w = (SeekBar) view.findViewById(2131297288);
+            this.C = (FirmaTextView) view.findViewById(2131296384);
+            this.E = (FirmaTextView) view.findViewById(2131297001);
+            this.G = (FirmaTextView) view.findViewById(2131297002);
+            this.F = (FirmaTextView) view.findViewById(2131296992);
+            this.Z = (ImageView) view.findViewById(2131297144);
+            this.I = (FirmaTextView) view.findViewById(2131296998);
+            this.J = (FirmaTextView) view.findViewById(2131296991);
+            this.f7460y = (RelativeLayout) view.findViewById(2131296545);
+            this.A = (RelativeLayout) view.findViewById(2131297371);
+            this.X = (RelativeLayout) view.findViewById(2131296556);
+            this.f7454r = (FirmaTextView) view.findViewById(2131297010);
+            this.K = (FirmaTextView) view.findViewById(2131297008);
+            this.L = (FirmaTextView) view.findViewById(2131296989);
+            this.M = (FirmaTextView) view.findViewById(2131296999);
+            this.N = (FirmaTextView) view.findViewById(2131297014);
+            this.O = (FirmaTextView) view.findViewById(2131297004);
+            this.V = (FirmaTextView) view.findViewById(2131297003);
+            this.f7461z = (RelativeLayout) view.findViewById(2131296584);
+            this.B = (RelativeLayout) view.findViewById(2131297457);
+            this.f7457u = (ImageView) view.findViewById(2131297456);
+            this.D = (FirmaTextView) view.findViewById(2131297459);
+        }
+
+        public void bindData(final int i10, final ArrayList<AssetObject> arrayList) {
+            String str;
+            int i11;
+            final AssetObject assetObject = arrayList.get(i10);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d/M/yyyy");
+            SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("HH:mm");
+            assetObject.getLoanProductName();
+            String str2 = "" + assetObject.getAssetTypeId();
+            String currencyCode = assetObject.getCurrencyCode().equals("KES") ? "Ksh. " : assetObject.getCurrencyCode();
+            int parseInt = Integer.parseInt(assetObject.getRemainingBalance());
+            int parseInt2 = Integer.parseInt(assetObject.getTotalRepayment());
+            StringBuilder sb = new StringBuilder("");
+            int i12 = parseInt2 - parseInt;
+            sb.append(i12);
+            GeneralCommands.A(sb.toString());
+            String A = GeneralCommands.A("" + (parseInt2 - i12));
+            float f10 = parseInt2 > 0 ? (i12 / parseInt2) * 100 : 0.0f;
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append(LoansListAdapter.mContext.getResources().getString(2131755095));
+            sb2.append(" ");
+            String str3 = (String) DateFormat.format("hh:mm aaa", Calendar.getInstance().getTime());
+            sb2.append(new SimpleDateFormat("dd MMM yyyy").format(Calendar.getInstance().getTime()) + " " + str3);
+            String sb3 = sb2.toString();
+            final String assetTypeName = assetObject.getAssetTypeName();
+            final String format = simpleDateFormat.format(Long.valueOf(assetObject.getDeviceActiveTill()));
+            final String format2 = simpleDateFormat2.format(Long.valueOf(assetObject.getDeviceActiveTill()));
+            String format3 = simpleDateFormat.format(Long.valueOf(assetObject.getNextPaymentDueDate()));
+            String format4 = simpleDateFormat.format(Long.valueOf(assetObject.getDisbursementDate()));
+            String format5 = simpleDateFormat.format(Long.valueOf(assetObject.getMaturityDate()));
+            assetObject.getLoanStatus();
+            String A2 = GeneralCommands.A(assetObject.getRemainingBalance());
+            String A3 = GeneralCommands.A(assetObject.getOverdueAmount());
+            String A4 = GeneralCommands.A(assetObject.getDailyPayment());
+            String A5 = GeneralCommands.A(assetObject.getWeeklyPayment());
+            String A6 = GeneralCommands.A(assetObject.getMonthlyPayment());
+            String branchName = assetObject.getBranchName();
+            long deviceActiveTill = assetObject.getDeviceActiveTill() - System.currentTimeMillis();
+            assetObject.getNextPaymentDueDate();
+            System.currentTimeMillis();
+            String str4 = assetObject.getVehicleMakeName() + " | " + assetObject.getVehicleModelName();
+            String str5 = str4.toLowerCase().contains("null") ? "" : str4;
+            this.f7453q.setText(assetTypeName);
+            this.f7454r.setText(assetTypeName);
+            this.f7458w.setProgress((int) f10);
+            this.f7458w.setEnabled(false);
+            this.C.setText(LoansListAdapter.mContext.getResources().getString(2131755044) + " " + sb3);
+            this.E.setText(format4);
+            this.G.setText(format5);
+            this.I.setText(currencyCode);
+            this.J.setText(A2);
+            this.K.setText(currencyCode + " " + A);
+            this.L.setText(currencyCode + " " + A3);
+            this.M.setText(currencyCode + " " + A4);
+            this.N.setText(currencyCode + " " + A5);
+            this.O.setText(currencyCode + " " + A6);
+            this.V.setText(str5);
+            if (branchName == null || branchName.equals("")) {
+                this.P.setVisibility(8);
+            } else {
+                this.P.setVisibility(0);
+                this.W.setText(branchName);
+            }
+            this.R.setText(format3);
+            if (str2.equals("4")) {
+                if (LoansListAdapter.v.K() == 0) {
+                    this.A.setVisibility(8);
+                } else {
+                    this.A.setVisibility(0);
+                }
+                h.i(LoansListAdapter.mContext, 2131755259, this.T);
+                this.U.setVisibility(8);
+                this.G.setVisibility(8);
+                this.H.setVisibility(8);
+                this.f7458w.setVisibility(8);
+            } else {
+                this.H.setVisibility(0);
+                this.f7458w.setVisibility(0);
+                this.A.setVisibility(8);
+                this.U.setVisibility(0);
+                h.i(LoansListAdapter.mContext, 2131755631, this.T);
+                this.G.setVisibility(0);
+            }
+            if (str2.equals("4")) {
+                this.R.setVisibility(8);
+                this.S.setVisibility(0);
+                if (deviceActiveTill > 0) {
+                    LoansListAdapter.v.L0(false);
+                    this.A.setVisibility(8);
+                    this.J.setText("" + A4);
+                    this.F.setText(LoansListAdapter.mContext.getString(2131755236));
+                    if (LoansListAdapter.v.X0()) {
+                        this.f7443a0.setVisibility(0);
+                        this.f7445c0.setVisibility(8);
+                    }
+                    this.f7460y.setBackgroundResource(2131951671);
+                    CountDownTimer countDownTimer = this.timerPayment;
+                    if (countDownTimer != null) {
+                        countDownTimer.cancel();
+                    }
+                    str = str5;
+                    this.timerPayment = new CountDownTimer(deviceActiveTill) { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.1
+                        @Override // android.os.CountDownTimer
+                        public void onFinish() {
+                        }
+
+                        @Override // android.os.CountDownTimer
+                        public void onTick(long j10) {
+                            long j11 = j10 / 3600000;
+                            long j12 = j11 / 24;
+                            String.format("%02d", Long.valueOf(j11));
+                            String.format("%02d", Long.valueOf((j10 % 3600000) / 60000));
+                            String.format("%02d", Long.valueOf((j10 % 60000) / 1000));
+                            if (j11 > 24) {
+                                String.format("%02d", Long.valueOf(j11 % 24));
+                            }
+                            ViewHolder viewHolder = ViewHolder.this;
+                            viewHolder.S.setText(format + " " + format2);
+                            if (j12 >= 0) {
+                                viewHolder.f7459x.setBackgroundResource(2131951673);
+                                viewHolder.f7456t.setColorFilter(LoansListAdapter.mContext.getResources().getColor(2131034293));
+                                androidx.core.content.c.n(LoansListAdapter.mContext, 2131034293, viewHolder.S);
+                                androidx.core.content.c.n(LoansListAdapter.mContext, 2131034293, viewHolder.R);
+                                return;
+                            }
+                            viewHolder.f7459x.setBackgroundResource(2131951678);
+                            viewHolder.f7456t.setColorFilter(LoansListAdapter.mContext.getResources().getColor(2131034300));
+                            androidx.core.content.c.n(LoansListAdapter.mContext, 2131034300, viewHolder.S);
+                            androidx.core.content.c.n(LoansListAdapter.mContext, 2131034300, viewHolder.R);
+                            androidx.core.content.c.n(LoansListAdapter.mContext, 2131034300, viewHolder.S);
+                        }
+                    }.start();
+                } else {
+                    str = str5;
+                    LoansListAdapter.v.L0(true);
+                    h.i(LoansListAdapter.mContext, 2131755262, this.f7455s);
+                    this.S.setText(format + " " + format2);
+                    this.f7459x.setBackgroundResource(2131951678);
+                    this.f7456t.setColorFilter(LoansListAdapter.mContext.getResources().getColor(2131034300));
+                    androidx.core.content.c.n(LoansListAdapter.mContext, 2131034300, this.S);
+                    androidx.core.content.c.n(LoansListAdapter.mContext, 2131034300, this.R);
+                    androidx.core.content.c.n(LoansListAdapter.mContext, 2131034300, this.S);
+                    if (LoansListAdapter.v.Y0()) {
+                        this.f7443a0.setVisibility(8);
+                        this.f7445c0.setVisibility(0);
+                    }
+                    this.f7460y.setBackgroundResource(2131951676);
+                    if (LoansListAdapter.v.K() == 0) {
+                        this.A.setVisibility(8);
+                    } else {
+                        this.A.setVisibility(0);
+                    }
+                    this.F.setText(LoansListAdapter.mContext.getString(2131755077));
+                    this.J.setText("" + A4);
+                }
+                i11 = 2131034300;
+            } else {
+                str = str5;
+                if (deviceActiveTill < 0) {
+                    this.f7459x.setBackgroundResource(2131951678);
+                    androidx.core.content.c.n(LoansListAdapter.mContext, 2131034300, this.R);
+                    this.J.setText("" + A3);
+                    this.F.setText(LoansListAdapter.mContext.getString(2131755080));
+                } else {
+                    this.f7459x.setBackgroundResource(2131951673);
+                    androidx.core.content.c.n(LoansListAdapter.mContext, 2131034293, this.R);
+                }
+                this.R.setVisibility(0);
+                this.S.setVisibility(8);
+                i11 = 2131034300;
+            }
+            if (str2.equals("4")) {
+                this.f7459x.setVisibility(0);
+                this.v.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167374));
+                this.f7449g0.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167374));
+                this.f7456t.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167341));
+            } else if (str2.equals("2")) {
+                this.f7459x.setVisibility(0);
+                this.v.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167381));
+                this.f7449g0.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167381));
+                this.f7455s.setText(LoansListAdapter.mContext.getString(2131755794));
+                this.f7456t.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167312));
+                androidx.core.content.c.n(LoansListAdapter.mContext, 2131034293, this.f7454r);
+                androidx.core.content.c.n(LoansListAdapter.mContext, 2131034293, this.J);
+                androidx.core.content.c.n(LoansListAdapter.mContext, 2131034293, this.I);
+                this.f7460y.setBackgroundResource(2131951671);
+            } else if (str2.equals("1")) {
+                this.f7459x.setVisibility(0);
+                this.v.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167293));
+                this.f7449g0.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167293));
+                this.f7455s.setText(LoansListAdapter.mContext.getString(2131755794));
+                this.f7456t.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167312));
+                androidx.core.content.c.n(LoansListAdapter.mContext, 2131034288, this.f7454r);
+                androidx.core.content.c.n(LoansListAdapter.mContext, 2131034288, this.J);
+                androidx.core.content.c.n(LoansListAdapter.mContext, 2131034288, this.I);
+                this.f7460y.setBackgroundResource(2131951665);
+            } else if (str2.equals("3")) {
+                this.f7459x.setVisibility(8);
+                this.v.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167320));
+                this.f7449g0.setImageDrawable(LoansListAdapter.mContext.getDrawable(2131167320));
+                androidx.core.content.c.n(LoansListAdapter.mContext, i11, this.f7454r);
+                androidx.core.content.c.n(LoansListAdapter.mContext, i11, this.J);
+                androidx.core.content.c.n(LoansListAdapter.mContext, i11, this.I);
+                this.f7460y.setBackgroundResource(2131951676);
+            }
+            this.f7460y.setOnClickListener(new View.OnClickListener() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.2
+                @Override // android.view.View.OnClickListener
+                public void onClick(View view) {
+                    ArrayList arrayList2 = arrayList;
+                    int i13 = i10;
+                    AssetObject assetObject2 = (AssetObject) arrayList2.get(i13);
+                    LoansListAdapter.v.Y(assetObject2);
+                    JSONObject jSONObject = new JSONObject();
+                    try {
+                        jSONObject.put("assetLoanNumber", assetObject2.getLoanNumber());
+                        jSONObject.put("assetName", assetObject2.getAssetTypeName());
+                        jSONObject.put("assetTypeId", assetObject2.getAssetTypeId());
+                    } catch (JSONException e10) {
+                        e10.printStackTrace();
+                    }
+                    GeneralCommands.G(LoansListAdapter.f7402w, "click_pay_loan_asset_", "click_pay_loan_asset", jSONObject);
+                    if (assetObject2.getLoanStatus().toLowerCase().contains("closed")) {
+                        LoansListAdapter.goToLoanCompletePage("" + i13);
+                    } else {
+                        LoansListAdapter.goToMakePaymentPage("" + i13);
+                    }
+                }
+            });
+            this.f7461z.setOnClickListener(new View.OnClickListener() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.3
+                @Override // android.view.View.OnClickListener
+                public void onClick(View view) {
+                    int i13 = i10;
+                    ArrayList arrayList2 = arrayList;
+                    JSONObject jSONObject = new JSONObject();
+                    try {
+                        jSONObject.put("loanNumber", ((AssetObject) arrayList2.get(i13)).getLoanNumber());
+                    } catch (JSONException e10) {
+                        e10.printStackTrace();
+                    }
+                    GeneralCommands.G(LoansListAdapter.f7402w, "click_temporary_unlock", "click_temporary_unlock", jSONObject);
+                    m7.a aVar = new m7.a();
+                    aVar.p(LoansListAdapter.f7402w, LoansListAdapter.f7403x);
+                    aVar.i0(((AssetObject) arrayList2.get(i13)).getLoanNumber());
+                    if (LoansListAdapter.v.L() > LoansListAdapter.v.K()) {
+                        LoansListAdapter.v.t0();
+                    }
+                    aVar.P(new a.r() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.3.1
+                        @Override // m7.a.r
+                        public void onDataLoaded(long j10) {
+                            AnonymousClass3 anonymousClass3 = AnonymousClass3.this;
+                            CountDownTimer countDownTimer2 = ViewHolder.this.timerUnlock;
+                            ViewHolder viewHolder = ViewHolder.this;
+                            LoansListAdapter.setWaitingTime(countDownTimer2, viewHolder.B, viewHolder.D, viewHolder.f7457u, viewHolder.f7461z, j10);
+                        }
+
+                        public void onObjectReady(String str6) {
+                        }
+                    });
+                }
+            });
+            this.X.setOnClickListener(new View.OnClickListener() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.4
+                @Override // android.view.View.OnClickListener
+                public void onClick(View view) {
+                    AssetObject assetObject2 = assetObject;
+                    JSONObject jSONObject = new JSONObject();
+                    try {
+                        jSONObject.put("loanNumber", assetObject2.getLoanNumber());
+                    } catch (JSONException e10) {
+                        e10.printStackTrace();
+                    }
+                    GeneralCommands.G(LoansListAdapter.f7402w, "click_refresh_loan", "click_refresh_loan", jSONObject);
+                    m7.a aVar = new m7.a();
+                    aVar.q(LoansListAdapter.f7402w);
+                    aVar.Y(assetObject2.getLoanNumber());
+                    aVar.L(new a.k() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.4.1
+                        @Override // m7.a.k
+                        public void onDataLoaded(AssetObject assetObject3) {
+                            if (assetObject3 != null) {
+                                Context context = LoansListAdapter.mContext;
+                                Resources resources = LoansListAdapter.mContext.getResources();
+                                StringBuilder sb4 = new StringBuilder("");
+                                AnonymousClass4 anonymousClass4 = AnonymousClass4.this;
+                                sb4.append(assetTypeName);
+                                Toast.makeText(context, resources.getString(2131755663, sb4.toString()), 0).show();
+                                arrayList.set(i10, assetObject3);
+                                LoansListAdapter.this.notifyDataSetChanged();
+                            }
+                        }
+
+                        public void onObjectReady(String str6) {
+                        }
+                    });
+                }
+            });
+            int size = arrayList.size();
+            LoansListAdapter loansListAdapter = LoansListAdapter.this;
+            if (size > 1) {
+                this.Y.setVisibility(0);
+                loansListAdapter.addIndicatorViews(this.Y, i10);
+            } else {
+                this.Y.setVisibility(8);
+            }
+            LoansListAdapter.setWaitingTime(this.timerUnlock, this.B, this.D, this.f7457u, this.f7461z, LoansListAdapter.v.V());
+            this.f7444b0.setOnClickListener(new View.OnClickListener() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.5
+                @Override // android.view.View.OnClickListener
+                public void onClick(View view) {
+                    LoansListAdapter.this.openDialogPayCarousel();
+                }
+            });
+            this.f7446d0.setOnClickListener(new View.OnClickListener() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.6
+                @Override // android.view.View.OnClickListener
+                public void onClick(View view) {
+                    LoansListAdapter.this.openDialogUnlockCarousel();
+                }
+            });
+            try {
+                loansListAdapter.setConfigsPay();
+                loansListAdapter.setCarouselDetailsPay();
+                loansListAdapter.setConfigsUnlock();
+                loansListAdapter.setCarouselDetailsUnlock();
+            } catch (Exception unused) {
+            }
+            if (LoansListAdapter.v.W0()) {
+                this.Z.setVisibility(0);
+            } else {
+                this.Z.setVisibility(8);
+            }
+            if (str2.equals("4")) {
+                loansListAdapter.f7410i.setVisibility(0);
+            } else {
+                loansListAdapter.f7410i.setVisibility(8);
+            }
+            AdCardObject q9 = LoansListAdapter.v.q();
+            if (q9.getImage_url() == null || !LoansListAdapter.v.V0()) {
+                this.Q.setVisibility(8);
+            } else {
+                this.Q.setVisibility(0);
+                String image_url = q9.getImage_url();
+                String image_url_sw = q9.getImage_url_sw();
+                if (LoansListAdapter.v.z().equals("sw")) {
+                    image_url = image_url_sw;
+                }
+                if (q9.getType().equalsIgnoreCase("gif")) {
+                    b.n(LoansListAdapter.f7402w).b().m0(image_url).k0(new AnonymousClass8()).i0(new o1.c<c>() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.7
+                        @Override // o1.g
+                        public void onLoadCleared(Drawable drawable) {
+                        }
+
+                        @Override // o1.g
+                        public /* bridge */ /* synthetic */ void onResourceReady(Object obj, p1.b bVar) {
+                            onResourceReady((c) obj, (p1.b<? super c>) bVar);
+                        }
+
+                        public void onResourceReady(c cVar, p1.b<? super c> bVar) {
+                            ViewHolder.this.Q.setImageDrawable(cVar);
+                            cVar.h();
+                            cVar.f(new androidx.vectordrawable.graphics.drawable.b() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.7.1
+                                @Override // androidx.vectordrawable.graphics.drawable.b
+                                public void onAnimationEnd(Drawable drawable) {
+                                    super.onAnimationEnd(drawable);
+                                }
+                            });
+                            cVar.start();
+                        }
+                    });
+                } else {
+                    d.a(this.Q, image_url, null);
+                }
+            }
+            if (!assetObject.getLoanStatus().toLowerCase().contains("closed")) {
+                this.f7448f0.setVisibility(8);
+                this.f7449g0.setVisibility(8);
+                this.f7447e0.setVisibility(0);
+                return;
+            }
+            this.f7448f0.setVisibility(0);
+            this.f7447e0.setVisibility(8);
+            this.f7449g0.setVisibility(0);
+            this.f7451i0.setVisibility(0);
+            this.f7451i0.setText(LoansListAdapter.mContext.getResources().getString(2131755665, str));
+            LoanCompleteIconObject s5 = LoansListAdapter.v.s();
+            if (s5.getImage_url() == null) {
+                this.f7450h0.setImageResource(2131167303);
+                return;
+            }
+            this.f7450h0.setVisibility(0);
+            final String image_url2 = s5.getImage_url();
+            String image_url_sw2 = s5.getImage_url_sw();
+            if (LoansListAdapter.v.z().equals("sw")) {
+                image_url2 = image_url_sw2;
+            }
+            if (s5.getType().equalsIgnoreCase("gif")) {
+                b.n(LoansListAdapter.f7402w).b().m0(image_url2).k0(new f<c>() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.10
+                    @Override // n1.f
+                    public boolean onLoadFailed(s sVar, Object obj, g<c> gVar, boolean z9) {
+                        d.a(ViewHolder.this.f7450h0, image_url2, new c7.a() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.10.1
+                            @Override // c7.a
+                            public void onLoadingCancelled(String str6, View view) {
+                            }
+
+                            @Override // c7.a
+                            public void onLoadingComplete(String str6, View view, Bitmap bitmap) {
+                            }
+
+                            @Override // c7.a
+                            public void onLoadingFailed(String str6, View view, w6.b bVar) {
+                                ((ImageView) view).setImageResource(2131167303);
+                            }
+
+                            @Override // c7.a
+                            public void onLoadingStarted(String str6, View view) {
+                            }
+                        });
+                        return false;
+                    }
+
+                    @Override // n1.f
+                    public boolean onResourceReady(c cVar, Object obj, g<c> gVar, v0.a aVar, boolean z9) {
+                        return false;
+                    }
+                }).i0(new o1.c<c>() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.9
+                    @Override // o1.g
+                    public void onLoadCleared(Drawable drawable) {
+                    }
+
+                    @Override // o1.g
+                    public /* bridge */ /* synthetic */ void onResourceReady(Object obj, p1.b bVar) {
+                        onResourceReady((c) obj, (p1.b<? super c>) bVar);
+                    }
+
+                    public void onResourceReady(c cVar, p1.b<? super c> bVar) {
+                        ViewHolder.this.f7450h0.setImageDrawable(cVar);
+                        cVar.h();
+                        cVar.f(new androidx.vectordrawable.graphics.drawable.b() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.9.1
+                            @Override // androidx.vectordrawable.graphics.drawable.b
+                            public void onAnimationEnd(Drawable drawable) {
+                                super.onAnimationEnd(drawable);
+                            }
+                        });
+                        cVar.start();
+                    }
+                });
+            } else {
+                d.a(this.f7450h0, image_url2, new c7.a() { // from class: com.watuke.app.adapters.LoansListAdapter.ViewHolder.11
+                    @Override // c7.a
+                    public void onLoadingCancelled(String str6, View view) {
+                    }
+
+                    @Override // c7.a
+                    public void onLoadingComplete(String str6, View view, Bitmap bitmap) {
+                    }
+
+                    @Override // c7.a
+                    public void onLoadingFailed(String str6, View view, w6.b bVar) {
+                        ((ImageView) view).setImageResource(2131167303);
+                    }
+
+                    @Override // c7.a
+                    public void onLoadingStarted(String str6, View view) {
+                    }
+                });
+            }
+        }
+
+        public void cancelTimer() {
+            CountDownTimer countDownTimer = this.timerUnlock;
+            if (countDownTimer != null) {
+                countDownTimer.cancel();
+            }
+            CountDownTimer countDownTimer2 = this.timerPayment;
+            if (countDownTimer2 != null) {
+                countDownTimer2.cancel();
+            }
+        }
+
+        public void updateTimer(long j10) {
+        }
+    }
+
+    public LoansListAdapter(Activity activity, ArrayList<AssetObject> arrayList, RelativeLayout relativeLayout) {
+        this.mItems = new ArrayList<>();
+        this.mOriginalItems = new ArrayList<>();
+        f7402w = activity;
+        Context applicationContext = activity.getApplicationContext();
+        mContext = applicationContext;
+        f7403x = relativeLayout;
+        this.mItems = arrayList;
+        this.mOriginalItems = arrayList;
+        v = new n7.a(applicationContext);
+        Locale locale = new Locale(v.z());
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        mContext.getResources().updateConfiguration(configuration, f7402w.getBaseContext().getResources().getDisplayMetrics());
+    }
+
+    public static void goToLoanCompletePage(String str) {
+        Intent intent = new Intent(f7402w, (Class<?>) LoanCompleteActivity.class);
+        intent.putExtra("start_from", "user_accounts");
+        intent.putExtra("0", str);
+        GeneralCommands.D(f7402w, intent, false);
+    }
+
+    public static void goToMakePaymentPage(String str) {
+        Intent intent = new Intent(f7402w, (Class<?>) MakePaymentActivity.class);
+        intent.putExtra("start_from", "user_accounts");
+        intent.putExtra("0", str);
+        GeneralCommands.D(f7402w, intent, false);
+    }
+
+    public static void setWaitingTime(CountDownTimer countDownTimer, RelativeLayout relativeLayout, final FirmaTextView firmaTextView, final ImageView imageView, final RelativeLayout relativeLayout2, long j10) {
+        if (j10 < 0) {
+            Context context = mContext;
+            Toast.makeText(context, context.getResources().getString(2131755712), 0).show();
+            relativeLayout.setVisibility(0);
+            firmaTextView.setText(mContext.getResources().getString(2131756097));
+            imageView.setImageResource(2131167385);
+            relativeLayout2.setBackgroundResource(2131951676);
+            v.q0(0L);
+            relativeLayout2.setEnabled(true);
+            return;
+        }
+        if (j10 > 0) {
+            relativeLayout.setVisibility(8);
+            relativeLayout2.setEnabled(false);
+            long currentTimeMillis = j10 - System.currentTimeMillis();
+            if (currentTimeMillis < 0) {
+                firmaTextView.setText(mContext.getResources().getString(2131755261));
+                imageView.setImageResource(2131167386);
+                relativeLayout2.setBackgroundResource(2131951708);
+                v.q0(0L);
+                return;
+            }
+            if (countDownTimer != null) {
+                countDownTimer.cancel();
+            }
+            new CountDownTimer(currentTimeMillis) { // from class: com.watuke.app.adapters.LoansListAdapter.2
+                @Override // android.os.CountDownTimer
+                public void onFinish() {
+                    firmaTextView.setText(LoansListAdapter.mContext.getResources().getString(2131756097));
+                    imageView.setImageResource(2131167384);
+                    RelativeLayout relativeLayout3 = relativeLayout2;
+                    relativeLayout3.setBackgroundResource(2131951677);
+                    LoansListAdapter.v.q0(0L);
+                    relativeLayout3.setEnabled(true);
+                }
+
+                @Override // android.os.CountDownTimer
+                public void onTick(long j11) {
+                    long j12 = j11 / 3600000;
+                    long j13 = j12 / 24;
+                    String format = String.format("%02d", Long.valueOf(j12));
+                    String format2 = String.format("%02d", Long.valueOf((j11 % 3600000) / 60000));
+                    String format3 = String.format("%02d", Long.valueOf((j11 % 60000) / 1000));
+                    if (j12 > 24) {
+                        format = String.format("%02d", Long.valueOf(j12 % 24));
+                    }
+                    firmaTextView.setText(LoansListAdapter.mContext.getResources().getString(2131756096) + "\n" + j13 + ":" + format + ":" + format2 + ":" + format3 + " " + LoansListAdapter.mContext.getResources().getString(2131755759));
+                }
+            }.start();
+            imageView.setImageResource(2131167386);
+            relativeLayout2.setBackgroundResource(2131951708);
+        }
+    }
+
+    public void addIndicatorViews(LinearLayout linearLayout, int i10) {
+        linearLayout.removeAllViews();
+        for (int i11 = 0; i11 < this.mItems.size(); i11++) {
+            View inflate = this.f7404a.inflate(2131493012, (ViewGroup) null);
+            RelativeLayout relativeLayout = (RelativeLayout) inflate.findViewById(2131296880);
+            if (i11 == i10) {
+                relativeLayout.setBackgroundResource(2131951646);
+            } else {
+                relativeLayout.setBackgroundResource(2131951645);
+            }
+            linearLayout.addView(inflate);
+        }
+    }
+
+    public void clearAll() {
+        this.handler.removeCallbacksAndMessages(null);
+    }
+
+    public void deselectAllItems(ArrayList<AssetObject> arrayList) {
+        for (int i10 = 0; i10 < arrayList.size(); i10++) {
+            arrayList.get(i10).setSelected(false);
+        }
+        notifyDataSetChanged();
+    }
+
+    @Override // android.widget.Filterable
+    public Filter getFilter() {
+        return new Filter() { // from class: com.watuke.app.adapters.LoansListAdapter.1
+            @Override // android.widget.Filter
+            protected Filter.FilterResults performFiltering(CharSequence charSequence) {
+                Filter.FilterResults filterResults = new Filter.FilterResults();
+                ArrayList arrayList = new ArrayList();
+                LoansListAdapter loansListAdapter = LoansListAdapter.this;
+                if (loansListAdapter.mOriginalItems == null) {
+                    loansListAdapter.mOriginalItems = new ArrayList(loansListAdapter.mItems);
+                }
+                if (charSequence == null || charSequence.length() == 0) {
+                    filterResults.count = loansListAdapter.mOriginalItems.size();
+                    filterResults.values = loansListAdapter.mOriginalItems;
+                } else {
+                    String lowerCase = charSequence.toString().toLowerCase();
+                    for (int i10 = 0; i10 < loansListAdapter.mOriginalItems.size(); i10++) {
+                        if (("" + ((AssetObject) loansListAdapter.mOriginalItems.get(i10)).getLoanProductName()).toLowerCase().contains(lowerCase.toString())) {
+                            arrayList.add((AssetObject) loansListAdapter.mOriginalItems.get(i10));
+                        }
+                    }
+                    filterResults.count = arrayList.size();
+                    filterResults.values = arrayList;
+                }
+                return filterResults;
+            }
+
+            @Override // android.widget.Filter
+            protected void publishResults(CharSequence charSequence, Filter.FilterResults filterResults) {
+                ArrayList arrayList = (ArrayList) filterResults.values;
+                LoansListAdapter loansListAdapter = LoansListAdapter.this;
+                loansListAdapter.mItems = arrayList;
+                loansListAdapter.notifyDataSetChanged();
+            }
+        };
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.e
+    public int getItemCount() {
+        return this.mItems.size();
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.e
+    public long getItemId(int i10) {
+        return i10;
+    }
+
+    public void openDialogPayCarousel() {
+        View inflate = f7402w.getLayoutInflater().inflate(2131492930, (ViewGroup) null);
+        final h7.a f10 = y.f(inflate, new a.d(f7402w), 3, 2131034145);
+        View i10 = f10.i();
+        ((RelativeLayout) i10.findViewById(2131296482)).setOnClickListener(new View.OnClickListener() { // from class: com.watuke.app.adapters.LoansListAdapter.4
+            @Override // android.view.View.OnClickListener
+            public void onClick(View view) {
+                h7.a.this.g();
+            }
+        });
+        this.f7412o = (CarouselView) inflate.findViewById(2131297183);
+        try {
+            setConfigsPay();
+            setCarouselDetailsPay();
+        } catch (Exception unused) {
+        }
+        f10.l();
+    }
+
+    public void openDialogUnlockCarousel() {
+        View inflate = f7402w.getLayoutInflater().inflate(2131492930, (ViewGroup) null);
+        final h7.a f10 = y.f(inflate, new a.d(f7402w), 3, 2131034145);
+        View i10 = f10.i();
+        ((RelativeLayout) i10.findViewById(2131296482)).setOnClickListener(new View.OnClickListener() { // from class: com.watuke.app.adapters.LoansListAdapter.3
+            @Override // android.view.View.OnClickListener
+            public void onClick(View view) {
+                h7.a.this.g();
+            }
+        });
+        this.f7405b = (CarouselView) inflate.findViewById(2131297183);
+        try {
+            setConfigsUnlock();
+            setCarouselDetailsUnlock();
+        } catch (Exception unused) {
+        }
+        f10.l();
+    }
+
+    public void refreshCarouselDetailsPay(JSONObject jSONObject) {
+        CarouselView carouselView;
+        final JSONArray jSONArray = new JSONArray();
+        new JSONArray();
+        if (jSONObject.has("drc")) {
+            JSONObject jSONObject2 = jSONObject.getJSONObject("drc");
+            jSONArray = (jSONObject2.has("fr") && v.z().equals("fr")) ? jSONObject2.getJSONArray("fr") : jSONObject2.getJSONArray("en");
+        }
+        if (jSONArray.length() <= 0 || (carouselView = this.f7412o) == null) {
+            return;
+        }
+        carouselView.setSlideInterval(this.f7417t * 1000);
+        this.f7412o.setPageCount(jSONArray.length());
+        this.f7411n = new ViewListener() { // from class: com.watuke.app.adapters.LoansListAdapter.12
+            @Override // com.synnapps.carouselview.ViewListener
+            public View setViewForPosition(final int i10) {
+                LoansListAdapter loansListAdapter = LoansListAdapter.this;
+                View inflate = loansListAdapter.f7404a.inflate(2131492903, (ViewGroup) null);
+                final ImageView imageView = (ImageView) inflate.findViewById(2131296910);
+                FirmaTextView firmaTextView = (FirmaTextView) inflate.findViewById(2131297027);
+                FirmaTextView firmaTextView2 = (FirmaTextView) inflate.findViewById(2131297338);
+                try {
+                    JSONObject jSONObject3 = jSONArray.getJSONObject(i10);
+                    jSONObject3.getString("title");
+                    jSONObject3.getString("message");
+                    String string = jSONObject3.getString("image");
+                    String string2 = jSONObject3.getString("timeout_seconds");
+                    firmaTextView.setVisibility(8);
+                    firmaTextView2.setVisibility(8);
+                    if (string2 != null && !string2.equals("")) {
+                        try {
+                            int parseInt = Integer.parseInt(string2);
+                            if (parseInt > 0) {
+                                loansListAdapter.f7417t = parseInt;
+                                loansListAdapter.f7412o.setSlideInterval(parseInt * 1000);
+                            }
+                        } catch (Exception e10) {
+                            e10.printStackTrace();
+                        }
+                    }
+                    d.b(imageView, string, new c7.a() { // from class: com.watuke.app.adapters.LoansListAdapter.12.1
+                        @Override // c7.a
+                        public void onLoadingCancelled(String str, View view) {
+                            ImageView imageView2;
+                            int[] iArr = LoansListAdapter.this.f7414q;
+                            if (iArr != null) {
+                                int length = iArr.length;
+                                int i11 = i10;
+                                if (length <= i11 || (imageView2 = imageView) == null) {
+                                    return;
+                                }
+                                imageView2.setImageResource(iArr[i11]);
+                            }
+                        }
+
+                        @Override // c7.a
+                        public void onLoadingComplete(String str, View view, Bitmap bitmap) {
+                        }
+
+                        @Override // c7.a
+                        public void onLoadingFailed(String str, View view, w6.b bVar) {
+                            ImageView imageView2;
+                            LoansListAdapter loansListAdapter2 = LoansListAdapter.this;
+                            if (loansListAdapter2.f7412o != null) {
+                                int[] iArr = loansListAdapter2.f7414q;
+                                int length = iArr.length;
+                                int i11 = i10;
+                                if (length <= i11 || (imageView2 = imageView) == null) {
+                                    return;
+                                }
+                                imageView2.setImageResource(iArr[i11]);
+                            }
+                        }
+
+                        @Override // c7.a
+                        public void onLoadingStarted(String str, View view) {
+                        }
+                    });
+                } catch (JSONException e11) {
+                    e11.printStackTrace();
+                }
+                return inflate;
+            }
+        };
+        this.f7412o.setPageCount(jSONArray.length());
+        this.f7412o.setViewListener(this.f7411n);
+    }
+
+    public void refreshCarouselDetailsUnlock(JSONObject jSONObject) {
+        CarouselView carouselView;
+        final JSONArray jSONArray = new JSONArray();
+        new JSONArray();
+        if (jSONObject.has("drc")) {
+            JSONObject jSONObject2 = jSONObject.getJSONObject("drc");
+            jSONArray = (jSONObject2.has("fr") && v.z().equals("fr")) ? jSONObject2.getJSONArray("fr") : jSONObject2.getJSONArray("en");
+        }
+        if (jSONArray.length() <= 0 || (carouselView = this.f7405b) == null) {
+            return;
+        }
+        carouselView.setSlideInterval(this.f7417t * 1000);
+        this.f7405b.setPageCount(jSONArray.length());
+        this.f7406c = new ViewListener() { // from class: com.watuke.app.adapters.LoansListAdapter.8
+            @Override // com.synnapps.carouselview.ViewListener
+            public View setViewForPosition(final int i10) {
+                LoansListAdapter loansListAdapter = LoansListAdapter.this;
+                View inflate = loansListAdapter.f7404a.inflate(2131492903, (ViewGroup) null);
+                final ImageView imageView = (ImageView) inflate.findViewById(2131296910);
+                FirmaTextView firmaTextView = (FirmaTextView) inflate.findViewById(2131297027);
+                FirmaTextView firmaTextView2 = (FirmaTextView) inflate.findViewById(2131297338);
+                try {
+                    JSONObject jSONObject3 = jSONArray.getJSONObject(i10);
+                    jSONObject3.getString("title");
+                    jSONObject3.getString("message");
+                    String string = jSONObject3.getString("image");
+                    String string2 = jSONObject3.getString("timeout_seconds");
+                    firmaTextView.setVisibility(8);
+                    firmaTextView2.setVisibility(8);
+                    if (string2 != null && !string2.equals("")) {
+                        try {
+                            int parseInt = Integer.parseInt(string2);
+                            if (parseInt > 0) {
+                                loansListAdapter.f7417t = parseInt;
+                                loansListAdapter.f7405b.setSlideInterval(parseInt * 1000);
+                            }
+                        } catch (Exception e10) {
+                            e10.printStackTrace();
+                        }
+                    }
+                    d.b(imageView, string, new c7.a() { // from class: com.watuke.app.adapters.LoansListAdapter.8.1
+                        @Override // c7.a
+                        public void onLoadingCancelled(String str, View view) {
+                            ImageView imageView2;
+                            int[] iArr = LoansListAdapter.this.f7408e;
+                            if (iArr != null) {
+                                int length = iArr.length;
+                                int i11 = i10;
+                                if (length <= i11 || (imageView2 = imageView) == null) {
+                                    return;
+                                }
+                                imageView2.setImageResource(iArr[i11]);
+                            }
+                        }
+
+                        @Override // c7.a
+                        public void onLoadingComplete(String str, View view, Bitmap bitmap) {
+                        }
+
+                        @Override // c7.a
+                        public void onLoadingFailed(String str, View view, w6.b bVar) {
+                            ImageView imageView2;
+                            int[] iArr = LoansListAdapter.this.f7408e;
+                            if (iArr != null) {
+                                int length = iArr.length;
+                                int i11 = i10;
+                                if (length <= i11 || (imageView2 = imageView) == null) {
+                                    return;
+                                }
+                                imageView2.setImageResource(iArr[i11]);
+                            }
+                        }
+
+                        @Override // c7.a
+                        public void onLoadingStarted(String str, View view) {
+                        }
+                    });
+                } catch (JSONException e11) {
+                    e11.printStackTrace();
+                }
+                return inflate;
+            }
+        };
+        this.f7405b.setPageCount(jSONArray.length());
+        this.f7405b.setViewListener(this.f7406c);
+    }
+
+    public void setCarouselDetailsPay() {
+        this.f7411n = new ViewListener() { // from class: com.watuke.app.adapters.LoansListAdapter.11
+            @Override // com.synnapps.carouselview.ViewListener
+            public View setViewForPosition(int i10) {
+                LoansListAdapter loansListAdapter = LoansListAdapter.this;
+                View inflate = loansListAdapter.f7404a.inflate(2131492903, (ViewGroup) null);
+                ImageView imageView = (ImageView) inflate.findViewById(2131296910);
+                int[] iArr = loansListAdapter.f7414q;
+                if (iArr != null && iArr.length > i10) {
+                    imageView.setImageResource(iArr[i10]);
+                }
+                FirmaTextView firmaTextView = (FirmaTextView) inflate.findViewById(2131297027);
+                FirmaTextView firmaTextView2 = (FirmaTextView) inflate.findViewById(2131297338);
+                firmaTextView.setVisibility(8);
+                firmaTextView2.setVisibility(8);
+                return inflate;
+            }
+        };
+        this.f7412o.setPageCount(this.f7414q.length);
+        this.f7412o.setViewListener(this.f7411n);
+    }
+
+    public void setCarouselDetailsUnlock() {
+        this.f7406c = new ViewListener() { // from class: com.watuke.app.adapters.LoansListAdapter.7
+            @Override // com.synnapps.carouselview.ViewListener
+            public View setViewForPosition(int i10) {
+                LoansListAdapter loansListAdapter = LoansListAdapter.this;
+                View inflate = loansListAdapter.f7404a.inflate(2131492903, (ViewGroup) null);
+                ImageView imageView = (ImageView) inflate.findViewById(2131296910);
+                int[] iArr = loansListAdapter.f7408e;
+                if (iArr != null && iArr.length > i10) {
+                    imageView.setImageResource(iArr[i10]);
+                }
+                FirmaTextView firmaTextView = (FirmaTextView) inflate.findViewById(2131297027);
+                FirmaTextView firmaTextView2 = (FirmaTextView) inflate.findViewById(2131297338);
+                firmaTextView.setVisibility(8);
+                firmaTextView2.setVisibility(8);
+                return inflate;
+            }
+        };
+        this.f7405b.setPageCount(this.f7408e.length);
+        this.f7405b.setViewListener(this.f7406c);
+    }
+
+    public void setConfigsPay() {
+        com.google.firebase.remoteconfig.a a10 = new o7.c().a();
+        this.f7416s = a10;
+        a10.f().addOnCompleteListener(f7402w, new OnCompleteListener<Boolean>() { // from class: com.watuke.app.adapters.LoansListAdapter.9
+            @Override // com.google.android.gms.tasks.OnCompleteListener
+            public void onComplete(Task<Boolean> task) {
+                if (!task.isSuccessful()) {
+                    Log.d("ZeFetchFailed", "ZeFetchFailed");
+                    return;
+                }
+                task.getResult().booleanValue();
+                LoansListAdapter loansListAdapter = LoansListAdapter.this;
+                loansListAdapter.f7413p = loansListAdapter.f7416s.m("how_to_pay_tooltip_carousel");
+                loansListAdapter.f7409f = loansListAdapter.f7416s.h("has_how_to_pay_tooltip");
+                loansListAdapter.f7418u = loansListAdapter.f7416s.h("accessibility_has_pay_icon");
+                LoansListAdapter.v.R0(loansListAdapter.f7409f);
+                LoansListAdapter.v.Q0(loansListAdapter.f7418u);
+                String str = loansListAdapter.f7413p;
+                if (str == null || str.equals("")) {
+                    return;
+                }
+                try {
+                    JSONObject jSONObject = new JSONObject(loansListAdapter.f7413p);
+                    Log.d("ZeCarousel", "ZeCarousel" + jSONObject.toString());
+                    loansListAdapter.refreshCarouselDetailsPay(jSONObject);
+                } catch (JSONException e10) {
+                    e10.printStackTrace();
+                }
+            }
+        });
+        this.f7416s.e(new j6.c() { // from class: com.watuke.app.adapters.LoansListAdapter.10
+            @Override // j6.c
+            public void onError(j6.g gVar) {
+                Log.w("ZeConfigs", "Config update error with code: ".concat(y.q(gVar.a())), gVar);
+            }
+
+            @Override // j6.c
+            public void onUpdate(j6.b bVar) {
+                LoansListAdapter.this.f7416s.d().addOnCompleteListener(new OnCompleteListener() { // from class: com.watuke.app.adapters.LoansListAdapter.10.1
+                    @Override // com.google.android.gms.tasks.OnCompleteListener
+                    public void onComplete(Task task) {
+                        AnonymousClass10 anonymousClass10 = AnonymousClass10.this;
+                        LoansListAdapter loansListAdapter = LoansListAdapter.this;
+                        loansListAdapter.f7413p = loansListAdapter.f7416s.m("how_to_pay_tooltip_carousel");
+                        LoansListAdapter loansListAdapter2 = LoansListAdapter.this;
+                        loansListAdapter2.f7409f = loansListAdapter2.f7416s.h("has_how_to_pay_tooltip");
+                        LoansListAdapter loansListAdapter3 = LoansListAdapter.this;
+                        loansListAdapter3.f7418u = loansListAdapter3.f7416s.h("accessibility_has_pay_icon");
+                        LoansListAdapter.v.R0(LoansListAdapter.this.f7409f);
+                        LoansListAdapter.v.Q0(LoansListAdapter.this.f7418u);
+                        String str = LoansListAdapter.this.f7413p;
+                        if (str == null || str.equals("")) {
+                            return;
+                        }
+                        try {
+                            JSONObject jSONObject = new JSONObject(LoansListAdapter.this.f7413p);
+                            Log.d("ZeCarousel", "ZeCarousel" + jSONObject.toString());
+                            LoansListAdapter.this.refreshCarouselDetailsPay(jSONObject);
+                        } catch (JSONException e10) {
+                            e10.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    public void setConfigsUnlock() {
+        com.google.firebase.remoteconfig.a a10 = new o7.c().a();
+        this.f7416s = a10;
+        a10.f().addOnCompleteListener(f7402w, new OnCompleteListener<Boolean>() { // from class: com.watuke.app.adapters.LoansListAdapter.5
+            @Override // com.google.android.gms.tasks.OnCompleteListener
+            public void onComplete(Task<Boolean> task) {
+                if (!task.isSuccessful()) {
+                    Log.d("ZeFetchFailed", "ZeFetchFailed");
+                    return;
+                }
+                task.getResult().booleanValue();
+                LoansListAdapter loansListAdapter = LoansListAdapter.this;
+                loansListAdapter.f7407d = loansListAdapter.f7416s.m("how_to_temporary_unlock_tooltip_carousel");
+                loansListAdapter.f7415r = loansListAdapter.f7416s.h("has_how_to_temporary_unlock_tooltip");
+                loansListAdapter.f7418u = loansListAdapter.f7416s.h("accessibility_has_pay_icon");
+                LoansListAdapter.v.T0(loansListAdapter.f7415r);
+                LoansListAdapter.v.Q0(loansListAdapter.f7418u);
+                String str = loansListAdapter.f7407d;
+                if (str == null || str.equals("")) {
+                    return;
+                }
+                try {
+                    JSONObject jSONObject = new JSONObject(loansListAdapter.f7407d);
+                    Log.d("ZeCarousel", "ZeCarousel" + jSONObject.toString());
+                    loansListAdapter.refreshCarouselDetailsUnlock(jSONObject);
+                } catch (JSONException e10) {
+                    e10.printStackTrace();
+                }
+            }
+        });
+        this.f7416s.e(new j6.c() { // from class: com.watuke.app.adapters.LoansListAdapter.6
+            @Override // j6.c
+            public void onError(j6.g gVar) {
+                Log.w("ZeConfigs", "Config update error with code: ".concat(y.q(gVar.a())), gVar);
+            }
+
+            @Override // j6.c
+            public void onUpdate(j6.b bVar) {
+                LoansListAdapter.this.f7416s.d().addOnCompleteListener(new OnCompleteListener() { // from class: com.watuke.app.adapters.LoansListAdapter.6.1
+                    @Override // com.google.android.gms.tasks.OnCompleteListener
+                    public void onComplete(Task task) {
+                        AnonymousClass6 anonymousClass6 = AnonymousClass6.this;
+                        LoansListAdapter loansListAdapter = LoansListAdapter.this;
+                        loansListAdapter.f7407d = loansListAdapter.f7416s.m("how_to_temporary_unlock_tooltip_carousel");
+                        LoansListAdapter loansListAdapter2 = LoansListAdapter.this;
+                        loansListAdapter2.f7415r = loansListAdapter2.f7416s.h("has_how_to_temporary_unlock_tooltip");
+                        LoansListAdapter loansListAdapter3 = LoansListAdapter.this;
+                        loansListAdapter3.f7418u = loansListAdapter3.f7416s.h("accessibility_has_pay_icon");
+                        LoansListAdapter.v.T0(LoansListAdapter.this.f7415r);
+                        LoansListAdapter.v.Q0(LoansListAdapter.this.f7418u);
+                        String str = LoansListAdapter.this.f7407d;
+                        if (str == null || str.equals("")) {
+                            return;
+                        }
+                        try {
+                            JSONObject jSONObject = new JSONObject(LoansListAdapter.this.f7407d);
+                            Log.d("ZeCarousel", "ZeCarousel" + jSONObject.toString());
+                            LoansListAdapter.this.refreshCarouselDetailsUnlock(jSONObject);
+                        } catch (JSONException e10) {
+                            e10.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.e
+    public void onBindViewHolder(ViewHolder viewHolder, int i10) {
+        viewHolder.bindData(i10, this.mItems);
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.e
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i10) {
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(2131493014, viewGroup, false));
+    }
+}

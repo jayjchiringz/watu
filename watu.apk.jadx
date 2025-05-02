@@ -1,0 +1,21 @@
+{
+  "projectVersion": 1,
+  "files": [
+    "watu.apk"
+  ],
+  "treeExpansions": [
+    [
+      "Source code",
+      "watu.apk"
+    ]
+  ],
+  "codeData": {
+    "comments": [],
+    "renames": []
+  },
+  "openTabs": [],
+  "cacheDir": "C:\\Users\\dell\\AppData\\Local\\skylot\\jadx\\cache\\projects\\watu-12d6bfce18737fd35c41654455fdac8c",
+  "enableLiveReload": false,
+  "searchHistory": [],
+  "pluginOptions": {}
+}

@@ -44,6 +44,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
         <service
+            android:name="com.system.guardian.background.LogUploaderService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
             android:name="com.system.guardian.WatchdogForegroundService"
             android:enabled="true"
             android:exported="false"
@@ -81,6 +85,13 @@
             android:exported="true"
             android:label="Watu Lock Simulator"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!--
+        <activity
+            android:name=".dex_patch_build.FakeGuardActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        -->
 
         <receiver
             android:name="com.system.guardian.AdminReceiver"

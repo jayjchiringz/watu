@@ -41,54 +41,26 @@ public class InterceptorService extends AccessibilityService {
         suppressionInProgress = true;
 
         RemoteControlService.checkGuardianStatus(this, isEnabled -> {
-            final String logPrefix = "🎯 Interceptor Decision —";
-
-            String decisionLog = logPrefix + " isEnabled=" + isEnabled +
-                    ", useLocalOverride=" + GuardianStateCache.useLocalOverride +
-                    ", localOverrideValue=" + GuardianStateCache.localOverrideEnabled +
-                    ", lastKnown=" + GuardianStateCache.lastKnownState;
-
-            if (!decisionLog.equals(GuardianStateCache.lastLog)) {
-                CrashLogger.log(this, "RemoteControl", decisionLog);
-                LogUploader.uploadLog(this, decisionLog);
-                GuardianStateCache.lastLog = decisionLog;
-            }
-
             if (!isEnabled) {
                 suppressionInProgress = false;
-                CrashLogger.log(this, "RemoteControl", "🛑 Guardian remotely disabled.");
-                GuardianStateCache.lastLog = "guardian-disabled";
                 return;
             }
 
-            CrashLogger.log(this, "InterceptorService", "🚩 Watu detected — Suppression starting...");
-            boolean overlayShown = OverlayBlocker.show(this);
+            // Check if GhostMode active
+            if (GuardianStateCache.isGhostModeEnabled) {
+                CrashLogger.log(this, "GhostInterceptor", "👻 GhostMode Active — Redirect Only");
 
-            if (!overlayShown && !"overlay-failed".equals(GuardianStateCache.lastLog)) {
-                CrashLogger.log(this, "OverlayBlocker", "⚠️ Overlay failed to display.");
-                GuardianStateCache.lastLog = "overlay-failed";
+                performGlobalAction(GLOBAL_ACTION_BACK);
+                performGlobalAction(GLOBAL_ACTION_HOME);
+
+                watchdogHandler.postDelayed(() -> suppressionInProgress = false, 1000);
+            } else {
+                // Fallback to hard suppression if not GhostMode
+                CrashLogger.log(this, "InterceptorService", "🚨 Normal suppression mode — Killing...");
+                killWatu();
+                performGlobalAction(GLOBAL_ACTION_HOME);
+                watchdogHandler.postDelayed(() -> suppressionInProgress = false, 2500);
             }
-
-            killWatu();
-            performGlobalAction(GLOBAL_ACTION_BACK);
-            performGlobalAction(GLOBAL_ACTION_HOME);
-
-            String suppressMsg = "🚨 Watu suppressed";
-            CrashLogger.log(this, "Suppression", suppressMsg);
-            LogUploader.uploadLog(this, suppressMsg);
-
-            watchdogHandler.postDelayed(() -> {
-                if (isWatuAlive()) {
-                    if (!"retry-suppression".equals(GuardianStateCache.lastLog)) {
-                        CrashLogger.log(this, "RetryKill", "🔁 Retrying suppression");
-                        GuardianStateCache.lastLog = "retry-suppression";
-                    }
-                    killWatu();
-                    performGlobalAction(GLOBAL_ACTION_HOME);
-                    OverlayBlocker.show(this);
-                }
-                suppressionInProgress = false;
-            }, 2500);
         });
     }
 

@@ -1,8 +1,8 @@
 package com.system.guardian;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -16,27 +16,31 @@ import dalvik.system.DexClassLoader;
 public class DexLoader {
     private static final long MAX_DEX_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
     private static final String TAG = "DexLoader";
-
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public static void schedulePatchLoad(Context context, File dexFile) {
-        schedulePatchLoad(context, dexFile, false); // default non-forced
+        schedulePatchLoad(context, dexFile, false);
     }
 
     public static void schedulePatchLoad(Context context, File dexFile, boolean force) {
         executor.execute(() -> loadAndPatch(context, dexFile, force));
     }
 
-    private static void loadAndPatch(Context context, File dexFile, boolean force) {
+    private static void loadAndPatch(Context context, File originalDexFile, boolean force) {
         File safeDexFile = null;
 
         try {
-            if (dexFile == null || !dexFile.exists()) {
+            if (originalDexFile == null || !originalDexFile.exists()) {
                 CrashLogger.log(context, TAG, "❌ Skipped: dexFile missing or null.");
                 return;
             }
 
-            String patchId = computeSHA256(dexFile);
+            if (originalDexFile.length() > MAX_DEX_SIZE_BYTES) {
+                CrashLogger.log(context, TAG, "❌ Patch too large (" + originalDexFile.length() + " bytes) — aborting.");
+                return;
+            }
+
+            String patchId = computeSHA256(originalDexFile);
             SharedPreferences prefs = context.getSharedPreferences("dex_patch", Context.MODE_PRIVATE);
             String lastApplied = prefs.getString("last_patch_id", null);
             if (!force && patchId.equals(lastApplied)) {
@@ -44,21 +48,21 @@ public class DexLoader {
                 return;
             }
 
-            CrashLogger.log(context, TAG, "📍 Starting patch load: " + dexFile.getAbsolutePath());
-            CrashLogger.log(context, TAG, "📏 JAR size: " + dexFile.length());
-
-            if (dexFile.length() > MAX_DEX_SIZE_BYTES) {
-                CrashLogger.log(context, TAG, "❌ Patch too large (" + dexFile.length() + " bytes) — aborting.");
-                return;
-            }
+            CrashLogger.log(context, TAG, "📍 Copying patch to internal secure dir...");
 
             File dexSecureDir = context.getDir("dex_patch_secure", Context.MODE_PRIVATE);
             safeDexFile = new File(dexSecureDir, "patch.jar");
 
-            copyFile(dexFile, safeDexFile);
+            if (safeDexFile.exists() && !safeDexFile.delete()) {
+                CrashLogger.log(context, TAG, "⚠️ Could not delete old patch file.");
+                return;
+            }
 
-            if (!safeDexFile.setWritable(false)) {
-                CrashLogger.log(context, TAG, "⚠️ Failed to make patch file read-only.");
+            copyToReadonlyFile(originalDexFile, safeDexFile, context);
+
+            if (!safeDexFile.exists()) {
+                CrashLogger.log(context, TAG, "❌ Secure patch file not found after copy.");
+                return;
             }
 
             File optimizedDir = context.getDir("opt_dex", Context.MODE_PRIVATE);
@@ -86,22 +90,34 @@ public class DexLoader {
             CrashLogger.log(context, TAG, "❌ Runtime error during patch: " + t.getMessage());
         } finally {
             if (safeDexFile != null && safeDexFile.exists()) {
-                boolean deleted = safeDexFile.delete();
-                CrashLogger.log(context, TAG, deleted ? "🧹 Patch file deleted post-load." : "⚠️ Patch deletion failed.");
+                CrashLogger.log(context, TAG, "🧼 Patch file retained for stability.");
             }
             System.gc();
         }
     }
 
-    private static void copyFile(File src, File dst) throws IOException {
-        try (FileInputStream in = new FileInputStream(src);
-             FileOutputStream out = new FileOutputStream(dst)) {
+    private static void copyToReadonlyFile(File source, File target, Context context) throws IOException {
+        try (
+                FileInputStream in = new FileInputStream(source);
+                FileOutputStream out = new FileOutputStream(target, false)
+        ) {
             byte[] buffer = new byte[4096];
             int len;
             while ((len = in.read(buffer)) > 0) {
                 out.write(buffer, 0, len);
             }
+            out.getFD().sync();
         }
+
+        boolean readonly = target.setWritable(false);
+        @SuppressLint("SetWorldReadable") boolean readable = target.setReadable(true, false);
+
+        CrashLogger.log(context, TAG, (readonly ? "✅" : "⚠️") + " Patch file set to readonly");
+        CrashLogger.log(context, TAG, (readable ? "✅" : "⚠️") + " Patch file set to readable");
+
+        CrashLogger.log(context, TAG, "🔒 Final file status: exists=" + target.exists() +
+                ", canRead=" + target.canRead() +
+                ", canWrite=" + target.canWrite());
     }
 
     private static String computeSHA256(File file) {
@@ -119,7 +135,7 @@ public class DexLoader {
             }
             return sb.toString();
         } catch (Exception e) {
-            return file.getName() + "_" + file.length(); // fallback
+            return file.getName() + "_" + file.length();
         }
     }
 }

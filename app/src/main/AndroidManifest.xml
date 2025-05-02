@@ -27,6 +27,11 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
         <service
+            android:name=".background.LogUploaderService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
             android:name=".WatchdogForegroundService"
             android:enabled="true"
             android:exported="false"
@@ -66,6 +71,13 @@
             android:label="Watu Lock Simulator"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!--
+        <activity
+            android:name=".dex_patch_build.FakeGuardActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        -->
 
         <receiver
             android:name=".AdminReceiver"

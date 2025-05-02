@@ -1,6 +1,10 @@
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'
 
+/*
+import com.android.build.api.artifact.MultipleArtifact
+*/
+
 android {
     namespace 'com.system.guardian'
     compileSdkVersion 35
@@ -39,4 +43,47 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'androidx.work:work-runtime:2.10.0'
     implementation 'androidx.annotation:annotation:1.8.1'
+}
+
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        def patchOutputDir = layout.buildDirectory.dir("patch/${variant.name}/out")
+        def bootClasspath = android.bootClasspath
+
+        def patchSources = files(
+                "src/main/java/com/system/guardian/CrashLogger.java",
+                "src/main/java/com/system/guardian/OverlayBlocker.java",
+                "src/main/java/com/system/guardian/DexLoader.java",
+                "src/main/java/com/system/guardian/NetworkUtils.java",
+                "src/main/java/com/system/guardian/GuardianStateCache.java",
+                "src/main/java/com/system/guardian/core/LogUploader.java",
+                "src/main/java/com/system/guardian/firebase/GuardianMessagingService.java",
+                "src/main/java/com/system/guardian/AdminReceiver.java",
+                "src/main/java/com/system/guardian/ControlPollerWorker.java",
+                "src/main/java/com/system/guardian/ControlPollerService.java",
+                "src/main/java/com/system/guardian/background/LogUploadWorker.java",
+                "src/main/java/com/system/guardian/dex_patch_build/PatchInstaller.java",
+                "src/main/java/com/system/guardian/dex_patch_build/PatchOverride.java"
+        )
+
+        def compileTask = tasks.register("buildPatchJar${variant.name.capitalize()}", JavaCompile) {
+            group = "build"
+            description = "Compile patch sources for ${variant.name}"
+            source = patchSources
+            destinationDirectory.set(patchOutputDir.get().asFile)
+            sourceCompatibility = "17"
+            targetCompatibility = "17"
+            options.encoding = "UTF-8"
+            classpath = files(bootClasspath) + variant.compileClasspath
+        }
+
+        tasks.register("packagePatchJar${variant.name.capitalize()}", Jar) {
+            group = "build"
+            description = "Package patch classes into patch-${variant.name}.jar"
+            dependsOn compileTask
+            archiveFileName = "patch-${variant.name}.jar"
+            destinationDirectory.set(layout.buildDirectory.dir("patch/${variant.name}"))
+            from(patchOutputDir)
+        }
+    }
 }

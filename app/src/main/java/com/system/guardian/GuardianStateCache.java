@@ -9,6 +9,11 @@ public class GuardianStateCache {
 
     // 🔁 New: log suppression helpers
     public static String lastLog = "";            // General last log tag
-    public static String lastServiceKill = "";    // Last service killed
-    public static long lastSuppressionTime = 0L;  // For timing-based throttles if needed
+    public static String lastServiceKill = "";      // Last service killed
+    public static long lastSuppressionTime = 0L;      // For timing-based throttles if needed
+
+    public static boolean isGhostModeEnabled = true; // or false if disabled by default
+
+    // ✅ New flag: Set to true after successful FCM token registration
+    public static boolean isTokenUploaded = false;
 }

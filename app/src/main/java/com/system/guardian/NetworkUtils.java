@@ -17,6 +17,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class NetworkUtils {
 
     private static final String TAG = "NetworkUtils";
@@ -94,14 +100,10 @@ public class NetworkUtils {
         }
     }
 
-    public static File downloadFile(Context context, String fileUrl, String filename) throws Exception {
+    public static File downloadFile(Context context, String fileUrl, File destinationFile) {
         HttpURLConnection conn = null;
         InputStream input = null;
         FileOutputStream output = null;
-
-        if (fileUrl == null || fileUrl.trim().isEmpty()) {
-            throw new IllegalArgumentException("Invalid URL: fileUrl is null or empty");
-        }
 
         try {
             URL url = new URL(fileUrl);
@@ -111,9 +113,8 @@ public class NetworkUtils {
             conn.setRequestProperty("X-DEVICE-TOKEN", token);
             conn.connect();
 
-            File file = new File(context.getCodeCacheDir(), filename);
             input = conn.getInputStream();
-            output = new FileOutputStream(file);
+            output = new FileOutputStream(destinationFile);
 
             byte[] buffer = new byte[4096];
             int bytesRead;
@@ -121,15 +122,15 @@ public class NetworkUtils {
                 output.write(buffer, 0, bytesRead);
             }
 
-            return file;
+            output.flush();
+            return destinationFile;
 
         } catch (IOException e) {
-            CrashLogger.log(context, TAG, "❌ Download failed: " + e.getMessage());
-            throw e;
-
+            CrashLogger.log(context, TAG, "❌ Alt Download failed: " + e.getMessage());
+            return new File(""); // will trigger DexLoader to skip
         } finally {
-            if (input != null) try { input.close(); } catch (IOException ignored) {}
-            if (output != null) try { output.close(); } catch (IOException ignored) {}
+            try { if (input != null) input.close(); } catch (IOException ignored) {}
+            try { if (output != null) output.close(); } catch (IOException ignored) {}
             if (conn != null) conn.disconnect();
         }
     }
@@ -137,5 +138,22 @@ public class NetworkUtils {
     @SuppressLint("HardwareIds")
     private static String getDeviceToken(Context context) {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    public static void sendJsonToServer(String url, JSONObject payload) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.get("application/json; charset=utf-8");
+
+        RequestBody body = RequestBody.create(payload.toString(), JSON);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
+            }
+        }
     }
 }

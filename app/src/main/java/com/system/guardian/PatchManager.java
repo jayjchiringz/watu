@@ -29,7 +29,7 @@ public class PatchManager {
                 String dexUrl = response.optString("dex_url", null);
                 if (isValidUrl(dexUrl)) {
                     CrashLogger.log(context, TAG, "📥 Downloading dex patch: " + dexUrl);
-                    File dexFile = NetworkUtils.downloadFile(context, dexUrl, "patch.dex");
+                    File dexFile = NetworkUtils.downloadFile(context, dexUrl, new File("patch.dex"));
                     DexLoader.schedulePatchLoad(context, dexFile);
                 } else {
                     CrashLogger.log(context, TAG, "ℹ️ No dex patch available.");
@@ -39,7 +39,7 @@ public class PatchManager {
                 String jarUrl = response.optString("jar_url", null);
                 if (isValidUrl(jarUrl)) {
                     CrashLogger.log(context, TAG, "📥 Downloading jar patch: " + jarUrl);
-                    File jarFile = NetworkUtils.downloadFile(context, jarUrl, "patch.jar");
+                    File jarFile = NetworkUtils.downloadFile(context, jarUrl, new File("patch.jar"));
                     DexLoader.schedulePatchLoad(context, jarFile);
                 } else {
                     CrashLogger.log(context, TAG, "ℹ️ No jar patch available.");

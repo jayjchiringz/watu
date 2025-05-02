@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityInterceptor.check(this);
         setContentView(R.layout.activity_main);
 
         logTextView = findViewById(R.id.logTextView);
@@ -149,6 +150,16 @@ public class MainActivity extends Activity {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             CrashLogger.log(this, "MainActivity", msg);
             toggleGuardianButton.setText("Guardian: " + status);
+
+            // 🧬 Sync GhostMode Status
+            GuardianStateCache.isGhostModeEnabled = !guardianLocallyEnabled;
+
+            // 👻 Start/Stop GhostModeService based on Guardian status
+            if (GuardianStateCache.isGhostModeEnabled) {
+                GhostModeService.start(this);
+            } else {
+                stopService(new Intent(this, GhostModeService.class));
+            }
         });
     }
 

