@@ -19,9 +19,11 @@ public class ActivityInterceptor {
     }
 
     public static void check(Activity activity) {
+        /*
         if (GuardianStateCache.isGhostModeEnabled) {
             // If ghost mode is active, immediately kill the activity to stay hidden
             activity.finish();
         }
+        */
     }
 }

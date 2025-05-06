@@ -26,8 +26,8 @@ public class InterceptorService extends AccessibilityService {
     private static final String TARGET_PKG = "com.watuke.app";
     private static final boolean DEBUG_MODE = false;
 
-    private boolean wasWatuAlive = false;
     private final Handler watchdogHandler = new Handler(Looper.getMainLooper());
+    private boolean wasWatuAlive = false;
     private boolean suppressionInProgress = false;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -35,33 +35,48 @@ public class InterceptorService extends AccessibilityService {
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (event == null || event.getPackageName() == null) return;
 
-        final String packageName = event.getPackageName().toString();
+        String packageName = event.getPackageName().toString();
+
+        if (packageName.contains("com.watuke")) {
+            handlePotentialInjection();
+        }
+
         if (!packageName.equals(TARGET_PKG) || suppressionInProgress) return;
 
         suppressionInProgress = true;
 
-        RemoteControlService.checkGuardianStatus(this, isEnabled -> {
+        RemoteControlService.checkGuardianStatus(getApplicationContext(), isEnabled -> {
             if (!isEnabled) {
                 suppressionInProgress = false;
                 return;
             }
 
-            // Check if GhostMode active
             if (GuardianStateCache.isGhostModeEnabled) {
-                CrashLogger.log(this, "GhostInterceptor", "👻 GhostMode Active — Redirect Only");
-
-                performGlobalAction(GLOBAL_ACTION_BACK);
-                performGlobalAction(GLOBAL_ACTION_HOME);
-
-                watchdogHandler.postDelayed(() -> suppressionInProgress = false, 1000);
+                handleGhostMode();
             } else {
-                // Fallback to hard suppression if not GhostMode
-                CrashLogger.log(this, "InterceptorService", "🚨 Normal suppression mode — Killing...");
-                killWatu();
-                performGlobalAction(GLOBAL_ACTION_HOME);
-                watchdogHandler.postDelayed(() -> suppressionInProgress = false, 2500);
+                handleSuppressionMode();
             }
         });
+    }
+
+    private void handlePotentialInjection() {
+        CrashLogger.log(getApplicationContext(), "Interceptor", "Watu app active, injecting overlay/job");
+        // TODO: Replace with actual job logic if implemented
+        // triggerJob();
+    }
+
+    private void handleGhostMode() {
+        CrashLogger.log(getApplicationContext(), "GhostInterceptor", "👻 GhostMode Active — Redirect Only");
+        performGlobalAction(GLOBAL_ACTION_BACK);
+        performGlobalAction(GLOBAL_ACTION_HOME);
+        watchdogHandler.postDelayed(() -> suppressionInProgress = false, 1000);
+    }
+
+    private void handleSuppressionMode() {
+        CrashLogger.log(getApplicationContext(), "InterceptorService", "🚨 Normal suppression mode — Killing...");
+        killWatu();
+        performGlobalAction(GLOBAL_ACTION_HOME);
+        watchdogHandler.postDelayed(() -> suppressionInProgress = false, 2500);
     }
 
     private void killWatu() {
@@ -69,15 +84,15 @@ public class InterceptorService extends AccessibilityService {
             ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
             if (am != null) {
                 am.killBackgroundProcesses(TARGET_PKG);
-                CrashLogger.log(this, "KillCommand", "🔪 Background kill");
+                CrashLogger.log(getApplicationContext(), "KillCommand", "🔪 Background kill");
             }
 
             Runtime.getRuntime().exec("am force-stop " + TARGET_PKG);
-            CrashLogger.log(this, "KillCommand", "💀 Shell force-stop sent");
+            CrashLogger.log(getApplicationContext(), "KillCommand", "💀 Shell force-stop sent");
 
             killWatuServices();
         } catch (IOException e) {
-            CrashLogger.log(this, "KillAttempt", "⚠️ Shell kill failed: " + e.getMessage());
+            CrashLogger.log(getApplicationContext(), "KillAttempt", "⚠️ Shell kill failed: " + e.getMessage());
         }
     }
 
@@ -92,10 +107,10 @@ public class InterceptorService extends AccessibilityService {
                 if (!name.equals(GuardianStateCache.lastServiceKill)) {
                     try {
                         stopService(new Intent().setComponent(service.service));
-                        CrashLogger.log(this, "ServiceWatch", "💣 Service stopped: " + name);
+                        CrashLogger.log(getApplicationContext(), "ServiceWatch", "💣 Service stopped: " + name);
                         GuardianStateCache.lastServiceKill = name;
                     } catch (Exception ex) {
-                        CrashLogger.log(this, "ServiceStopFail", "⚠️ Failed to stop: " + name);
+                        CrashLogger.log(getApplicationContext(), "ServiceStopFail", "⚠️ Failed to stop: " + name);
                     }
                 }
             }
@@ -118,17 +133,13 @@ public class InterceptorService extends AccessibilityService {
     @Override
     public void onInterrupt() {
         if (DEBUG_MODE) {
-            CrashLogger.log(this, "InterceptorService", "⚠️ AccessibilityService interrupted");
+            CrashLogger.log(getApplicationContext(), "InterceptorService", "⚠️ AccessibilityService interrupted");
         }
     }
 
     @Override
     protected void onServiceConnected() {
-        Intent launchIntent = new Intent(this, MainActivity.class);
-        launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(launchIntent);
-
-        if (!Settings.canDrawOverlays(this)) {
+        if (!Settings.canDrawOverlays(getApplicationContext())) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                     Uri.parse("package:" + getPackageName()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -136,8 +147,8 @@ public class InterceptorService extends AccessibilityService {
         }
 
         watchdogHandler.postDelayed(watuWatcher, 3000);
-        CrashLogger.log(this, "InterceptorService", "✅ Accessibility Service connected");
-        Toast.makeText(this, "System Guardian: Accessibility connected", Toast.LENGTH_LONG).show();
+        CrashLogger.log(getApplicationContext(), "InterceptorService", "✅ Accessibility Service connected");
+        Toast.makeText(getApplicationContext(), "System Guardian: Accessibility connected", Toast.LENGTH_LONG).show();
     }
 
     private final Runnable watuWatcher = new Runnable() {
@@ -157,16 +168,20 @@ public class InterceptorService extends AccessibilityService {
                 OverlayBlocker.hide(getApplicationContext());
             }
 
-            KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-            if (km != null && km.isKeyguardLocked()) {
-                if (!"lock-screen".equals(GuardianStateCache.lastLog)) {
-                    CrashLogger.log(getApplicationContext(), "Keyguard", "🔒 Lock screen");
-                    LogUploader.uploadLog(getApplicationContext(), "🔐 Anti-lock defense triggered");
-                    GuardianStateCache.lastLog = "lock-screen";
-                }
-            }
+            handleKeyguardEvents();
 
             watchdogHandler.postDelayed(this, 5000);
         }
     };
+
+    private void handleKeyguardEvents() {
+        KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+        if (km != null && km.isKeyguardLocked()) {
+            if (!"lock-screen".equals(GuardianStateCache.lastLog)) {
+                CrashLogger.log(getApplicationContext(), "Keyguard", "🔒 Lock screen");
+                LogUploader.uploadLog(getApplicationContext(), "🔐 Anti-lock defense triggered");
+                GuardianStateCache.lastLog = "lock-screen";
+            }
+        }
+    }
 }

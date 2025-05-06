@@ -70,6 +70,11 @@
             android:name="com.system.guardian.ControlPollerService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="com.system.guardian.GhostModeService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
 
         <activity
             android:name="com.system.guardian.MainActivity"
@@ -85,13 +90,6 @@
             android:exported="true"
             android:label="Watu Lock Simulator"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-        <!--
-        <activity
-            android:name=".dex_patch_build.FakeGuardActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        -->
 
         <receiver
             android:name="com.system.guardian.AdminReceiver"

@@ -3,9 +3,9 @@ package com.system.guardian;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.admin.DevicePolicyManager;
 import android.app.AppOpsManager;
-
+import android.app.Application;
+import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.work.Configuration;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import com.google.firebase.FirebaseApp;
+import com.system.guardian.background.LogUploadWorker;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -60,6 +68,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         ActivityInterceptor.check(this);
         setContentView(R.layout.activity_main);
+
+        handler.postDelayed(() -> scheduleLogUploader(this), 7000);
 
         logTextView = findViewById(R.id.logTextView);
         logTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -212,5 +222,25 @@ public class MainActivity extends Activity {
             }
         }
         CrashLogger.log(this, "MainActivity", "✅ Watu not running");
+    }
+
+    public static class App extends Application implements Configuration.Provider {
+        @NonNull
+        @Override
+        public Configuration getWorkManagerConfiguration() {
+            return new Configuration.Builder()
+                    .setJobSchedulerJobIdRange(1000, 2000) // Avoids conflict with system jobs
+                    .build();
+        }
+    }
+
+    private void scheduleLogUploader(Context context) {
+        OneTimeWorkRequest uploadWork = new OneTimeWorkRequest.Builder(LogUploadWorker.class)
+                .setConstraints(new Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build())
+                .build();
+
+        WorkManager.getInstance(context).enqueue(uploadWork);
     }
 }

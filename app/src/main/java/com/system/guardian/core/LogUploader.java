@@ -5,7 +5,12 @@ import android.content.Context;
 import android.provider.Settings;
 import android.util.Log;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -14,15 +19,13 @@ import java.util.Queue;
 
 public class LogUploader {
 
-    private static final String QUEUE_FILENAME = "upload_queue.txt";
     private static final String TAG = "LogUploader";
+    private static final String QUEUE_FILENAME = "upload_queue.txt";
 
     public static void uploadLog(Context context, String logText) {
         new Thread(() -> {
             try {
-                // Try uploading current log
                 boolean uploaded = attemptUpload(context, logText);
-
                 if (!uploaded) {
                     queueLog(context, logText);
                     Log.w(TAG, "⚠️ Log upload failed — queued for retry.");
@@ -30,9 +33,7 @@ public class LogUploader {
                     Log.d(TAG, "✅ Log uploaded: " + logText);
                 }
 
-                // Always process queue
                 processQueue(context);
-
             } catch (Exception e) {
                 Log.e(TAG, "❌ Unexpected failure in uploadLog", e);
             }
@@ -56,8 +57,7 @@ public class LogUploader {
             conn.setRequestProperty("Content-Type", "text/plain; charset=UTF-8");
 
             @SuppressLint("HardwareIds")
-            String deviceToken = Settings.Secure.getString(
-                    context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            String deviceToken = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
             if (deviceToken == null) deviceToken = "UNKNOWN";
             conn.setRequestProperty("X-DEVICE-TOKEN", deviceToken);
 
@@ -77,16 +77,24 @@ public class LogUploader {
     }
 
     private static void queueLog(Context context, String logText) {
-        try (FileOutputStream fos = context.openFileOutput(QUEUE_FILENAME, Context.MODE_APPEND);
-             OutputStreamWriter osw = new OutputStreamWriter(fos)) {
-            osw.write(logText.replace("\n", "␤") + "\n"); // use placeholder newline
-        } catch (Exception e) {
+        File logDir = new File(context.getFilesDir(), "logs");
+        if (!logDir.exists() && !logDir.mkdirs()) {
+            Log.w("CrashLogger", "⚠️ Failed to create logs directory at: " + logDir.getAbsolutePath());
+        }
+
+        File queueFile = new File(logDir, QUEUE_FILENAME);
+
+        try (FileWriter writer = new FileWriter(queueFile, true)) {
+            writer.write(logText.replace("\n", "␤") + "\n");
+        } catch (IOException e) {
             Log.e(TAG, "❌ Failed to queue log", e);
         }
     }
 
     public static void processQueue(Context context) {
-        File queueFile = new File(context.getFilesDir(), QUEUE_FILENAME);
+        File logDir = new File(context.getFilesDir(), "logs");
+        File queueFile = new File(logDir, QUEUE_FILENAME);
+
         if (!queueFile.exists()) return;
 
         Queue<String> lines = new LinkedList<>();
@@ -95,7 +103,7 @@ public class LogUploader {
             while ((line = reader.readLine()) != null) {
                 lines.add(line.replace("␤", "\n"));
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             Log.e(TAG, "❌ Failed to read upload queue", e);
             return;
         }
@@ -108,10 +116,8 @@ public class LogUploader {
             }
         }
 
-        if (allUploaded) {
-            if (queueFile.delete()) {
-                Log.d(TAG, "✅ Cleared upload queue after successful sync.");
-            }
+        if (allUploaded && queueFile.delete()) {
+            Log.d(TAG, "✅ Cleared upload queue after successful sync.");
         } else {
             Log.w(TAG, "⚠️ Queue partially uploaded. Retaining remaining logs.");
         }

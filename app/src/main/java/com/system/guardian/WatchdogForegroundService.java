@@ -1,7 +1,6 @@
 package com.system.guardian;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -9,139 +8,92 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import com.system.guardian.CrashLogger;
-import com.system.guardian.OverlayBlocker;
-import com.system.guardian.R;
+import com.system.guardian.background.LogUploadWorker;
+import com.system.guardian.util.AppUtils;
+import com.system.guardian.util.OverlayUtils;
+import com.system.guardian.util.WatchdogLogger;
 
 public class WatchdogForegroundService extends Service {
 
     private static final String CHANNEL_ID = "guardian_watchdog";
     private static final String TARGET_PKG = "com.watuke.app";
-    private final Handler handler = new Handler();
+
+    private Handler handler;
+    private long lastUpload = 0;
+    private boolean started = false;
 
     private final Runnable watchdogLoop = new Runnable() {
         @Override
         public void run() {
             try {
-                checkTopApp(); // 🆕 monitor foreground UI context
-
-                if (isWatuAlive()) {
-                    CrashLogger.log(getApplicationContext(), "WatchdogService", "⚠️ Watu running — suppressing again");
-                    OverlayBlocker.show(getApplicationContext());
-                    killWatu();
-                } else {
-                    // 🛡️ Keep suppression persistent
-                    CrashLogger.log(getApplicationContext(), "WatchdogService", "🛡️ Keeping overlay active post-Watu kill");
-                }
-
-                // 🔒 Keyguard overlay protection
-                KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-                if (km != null && km.isKeyguardLocked()) {
-                    CrashLogger.log(getApplicationContext(), "WatchdogService", "🔒 Keyguard detected — re-enabling overlay");
-                    OverlayBlocker.show(getApplicationContext());
-                }
-
-                // 🩺 Check if overlay is still showing
-                if (!OverlayBlocker.isShowing()) {
-                    CrashLogger.log(getApplicationContext(), "WatchdogService", "❗ Overlay unexpectedly hidden — restoring");
-                    OverlayBlocker.show(getApplicationContext());
-                }
-
+                executeWatchdogCycle();
             } catch (Exception e) {
-                CrashLogger.log(getApplicationContext(), "WatchdogService", "❌ Watchdog error: " + e.getMessage());
+                WatchdogLogger.logError(getApplicationContext(), "[WATCHDOG] ❌ Loop error: " + e.getMessage());
             }
-
-            handler.postDelayed(this, 5000); // 5s interval
+            handler.postDelayed(this, 5000);
         }
     };
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        // Now using safe loop trigger inside onStartCommand()
-    }
+    private void executeWatchdogCycle() {
+        Context context = getApplicationContext();
 
-    @Override
-    public void onDestroy() {
-        handler.removeCallbacks(watchdogLoop);
-        super.onDestroy();
-        CrashLogger.log(this, "WatchdogService", "🧯 Foreground watchdog stopped");
-    }
+        WatchdogLogger.log(context, "[WATCHDOG] 🌀 Watchdog cycle triggered");
 
-    private boolean started = false;
+        if (AppUtils.isAppRunning(context, TARGET_PKG)) {
+            WatchdogLogger.log(context, "[WATCHDOG] ⚠️ Watu running — suppressing again");
+            OverlayUtils.ensureOverlayVisible(context);
+            AppUtils.forceStopApp(context, TARGET_PKG);
+        } else {
+            WatchdogLogger.log(context, "[WATCHDOG] ✅ Watu not detected — ensuring overlay stays active");
+        }
+
+        KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+        if (km != null && km.isKeyguardLocked()) {
+            boolean isSecure = km.isKeyguardSecure();
+            WatchdogLogger.log(context, "[WATCHDOG] 🔒 Keyguard detected (secure=" + isSecure + ") — re-enabling overlay");
+            OverlayUtils.ensureOverlayVisible(context);
+        }
+
+        OverlayUtils.ensureOverlayVisible(context); // catch any other overlay loss
+
+        long now = System.currentTimeMillis();
+        if (now - lastUpload > 5 * 60 * 1000) {
+            lastUpload = now;
+            WatchdogLogger.log(context, "[WATCHDOG] 📡 Uploading logs via WorkManager (5-min interval)");
+            androidx.work.OneTimeWorkRequest logWork =
+                    new androidx.work.OneTimeWorkRequest.Builder(LogUploadWorker.class)
+                            .addTag("WatchdogLogUpload").build();
+            androidx.work.WorkManager.getInstance(context).enqueue(logWork);
+        }
+    }
 
     @SuppressLint("ForegroundServiceType")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!started) {
-            try {
-                startForeground(1, buildNotification());
-                handler.postDelayed(watchdogLoop, 1000);
-                CrashLogger.log(this, "WatchdogService", "🚀 Watchdog loop scheduled");
-                CrashLogger.flush(this); // ✅ Ensures immediate upload of launch logs
-            } catch (Exception e) {
-                CrashLogger.log(this, "WatchdogService", "❌ Failed to start loop: " + e.getMessage());
-            }
+            HandlerThread thread = new HandlerThread("WatchdogThread");
+            thread.start();
+            handler = new Handler(thread.getLooper());
+
+            int pid = android.os.Process.myPid();
+            long tid = Thread.currentThread().getId();
+            WatchdogLogger.log(this, "[WATCHDOG] 🚀 Starting service (PID=" + pid + ", ThreadID=" + tid + ")");
+
+            startForeground(1, buildNotification());
+            handler.postDelayed(watchdogLoop, 1000);
+            WatchdogLogger.log(this, "[WATCHDOG] 🧠 Loop scheduled and running");
+            CrashLogger.flush(this);
             started = true;
         }
         return START_STICKY;
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    private boolean isWatuAlive() {
-        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningAppProcessInfo proc : am.getRunningAppProcesses()) {
-            if (proc.processName.equals(TARGET_PKG)) return true;
-        }
-        return false;
-    }
-
-    private void killWatu() {
-        try {
-            ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            am.killBackgroundProcesses(TARGET_PKG);
-            Runtime.getRuntime().exec("am force-stop " + TARGET_PKG);
-            CrashLogger.log(getApplicationContext(), "WatchdogService", "🛑 Watu force-stopped successfully");
-        } catch (Exception e) {
-            CrashLogger.log(getApplicationContext(), "WatchdogService", "❌ Failed to force-stop Watu: " + e.getMessage());
-            Log.w("WatchdogService", "killWatu() error", e);
-        }
-    }
-
-    private void checkTopApp() {
-        try {
-            ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            if (am != null) {
-                for (ActivityManager.AppTask task : am.getAppTasks()) {
-                    if (task.getTaskInfo() != null && task.getTaskInfo().topActivity != null) {
-                        String top = task.getTaskInfo().topActivity.getPackageName();
-                        if (TARGET_PKG.equals(top)) {
-                            CrashLogger.log(getApplicationContext(), "WatchdogService", "👁️ Watu is top activity — re-suppressing");
-                            OverlayBlocker.show(getApplicationContext());
-                            killWatu();
-                        } else {
-                            CrashLogger.log(getApplicationContext(), "WatchdogService", "📱 Foreground app is: " + top);
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Log.e("WatchdogService", "checkTopApp() failed", e);
-        }
     }
 
     private Notification buildNotification() {
@@ -158,5 +110,18 @@ public class WatchdogForegroundService extends Service {
                 .setPriority(NotificationCompat.PRIORITY_MIN)
                 .setOngoing(true)
                 .build();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (handler != null) handler.removeCallbacks(watchdogLoop);
+        super.onDestroy();
+        WatchdogLogger.log(this, "[WATCHDOG] 🧯 Foreground watchdog stopped");
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }

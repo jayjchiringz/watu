@@ -142,508 +142,511 @@
 71-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:59:13-37
 72            android:permission="android.permission.BIND_JOB_SERVICE" />
 72-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:58:13-69
-73
-74        <activity
-74-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:61:9-68:20
-75            android:name="com.system.guardian.MainActivity"
-75-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:62:13-41
-76            android:exported="true" >
-76-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:63:13-36
-77            <intent-filter>
-77-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:64:13-67:29
-78                <action android:name="android.intent.action.MAIN" />
-78-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:65:17-69
-78-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:65:25-66
-79
-80                <category android:name="android.intent.category.LAUNCHER" />
-80-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:66:17-77
-80-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:66:27-74
-81            </intent-filter>
-82        </activity>
-83        <activity
-83-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:70:9-73:72
-84            android:name="com.system.guardian.test.WatuLockSimulatorActivity"
-84-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:70:19-65
-85            android:exported="true"
-85-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:72:13-36
-86            android:label="Watu Lock Simulator"
-86-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:71:13-48
-87            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-87-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:73:13-69
-88
-89        <!--
-90        <activity
-91            android:name=".dex_patch_build.FakeGuardActivity"
-92            android:exported="true"
-93            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-94        -->
-95
-96        <receiver
-96-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:82:9-92:20
-97            android:name="com.system.guardian.AdminReceiver"
-97-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:83:13-42
-98            android:exported="true"
-98-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:85:13-36
-99            android:permission="android.permission.BIND_DEVICE_ADMIN" >
-99-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:84:13-70
-100            <meta-data
-100-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:86:13-88:65
-101                android:name="android.app.device_admin"
-101-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:87:17-56
-102                android:resource="@xml/device_admin_receiver" />
-102-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:88:17-62
-103
-104            <intent-filter>
-104-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:89:13-91:29
-105                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-105-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:90:17-82
-105-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:90:25-79
-106            </intent-filter>
-107        </receiver>
-108        <receiver
-108-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:94:9-101:20
-109            android:name="com.system.guardian.BootReceiver"
-109-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:95:13-41
-110            android:enabled="true"
-110-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:96:13-35
-111            android:exported="true" >
-111-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:97:13-36
-112            <intent-filter>
-112-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:98:13-100:29
-113                <action android:name="android.intent.action.BOOT_COMPLETED" />
-113-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:99:17-79
-113-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:99:25-76
-114            </intent-filter>
-115        </receiver>
-116
-117        <provider
-118            android:name="androidx.core.content.FileProvider"
-118-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:104:13-62
-119            android:authorities="com.system.guardian.provider"
-119-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:105:13-60
-120            android:exported="false"
-120-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:106:13-37
-121            android:grantUriPermissions="true" >
-121-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:107:13-47
-122            <meta-data
-122-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:108:13-110:54
-123                android:name="android.support.FILE_PROVIDER_PATHS"
-123-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:109:17-67
-124                android:resource="@xml/file_paths" />
-124-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:110:17-51
-125        </provider>
-126        <provider
-126-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:29:9-37:20
-127            android:name="androidx.startup.InitializationProvider"
-127-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:30:13-67
-128            android:authorities="com.system.guardian.androidx-startup"
-128-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:31:13-68
-129            android:exported="false" >
-129-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:32:13-37
-130            <meta-data
-130-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:34:13-36:52
-131                android:name="androidx.work.WorkManagerInitializer"
-131-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:35:17-68
-132                android:value="androidx.startup" />
-132-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:36:17-49
-133            <meta-data
-133-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\ab8296827662fb2acab7d2f8330b4787\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-134                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-134-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\ab8296827662fb2acab7d2f8330b4787\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
-135                android:value="androidx.startup" />
-135-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\ab8296827662fb2acab7d2f8330b4787\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
-136            <meta-data
-136-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\dell\.gradle\caches\8.14\transforms\e84337ba6dab885efb9c7202926e96c0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
-137                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-137-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\dell\.gradle\caches\8.14\transforms\e84337ba6dab885efb9c7202926e96c0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
-138                android:value="androidx.startup" />
-138-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\dell\.gradle\caches\8.14\transforms\e84337ba6dab885efb9c7202926e96c0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
-139            <meta-data
-139-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
-140                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-140-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
-141                android:value="androidx.startup" />
-141-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
-142        </provider>
-143
-144        <service
-144-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:39:9-45:35
-145            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
-145-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:40:13-88
-146            android:directBootAware="false"
-146-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:41:13-44
-147            android:enabled="@bool/enable_system_alarm_service_default"
-147-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:42:13-72
-148            android:exported="false" />
-148-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:43:13-37
-149        <service
-149-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:46:9-52:35
-150            android:name="androidx.work.impl.background.systemjob.SystemJobService"
-150-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:47:13-84
-151            android:directBootAware="false"
-151-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:48:13-44
-152            android:enabled="@bool/enable_system_job_service_default"
-152-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:49:13-70
-153            android:exported="true"
-153-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:50:13-36
-154            android:permission="android.permission.BIND_JOB_SERVICE" />
-154-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:51:13-69
-155        <service
-155-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:53:9-59:35
-156            android:name="androidx.work.impl.foreground.SystemForegroundService"
-156-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:54:13-81
-157            android:directBootAware="false"
-157-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:55:13-44
-158            android:enabled="@bool/enable_system_foreground_service_default"
-158-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:56:13-77
-159            android:exported="false" />
-159-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:57:13-37
-160
-161        <receiver
-161-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:61:9-66:35
-162            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
-162-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:62:13-88
-163            android:directBootAware="false"
-163-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:63:13-44
-164            android:enabled="true"
-164-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:64:13-35
-165            android:exported="false" />
-165-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:65:13-37
-166        <receiver
-166-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:67:9-77:20
-167            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
-167-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:68:13-106
-168            android:directBootAware="false"
-168-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:69:13-44
-169            android:enabled="false"
-169-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:70:13-36
-170            android:exported="false" >
-170-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:71:13-37
-171            <intent-filter>
-171-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:73:13-76:29
-172                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-172-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:74:17-87
-172-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:74:25-84
-173                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-173-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:75:17-90
-173-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:75:25-87
-174            </intent-filter>
-175        </receiver>
-176        <receiver
-176-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:78:9-88:20
-177            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
-177-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:79:13-104
-178            android:directBootAware="false"
-178-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:80:13-44
-179            android:enabled="false"
-179-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:81:13-36
-180            android:exported="false" >
-180-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:82:13-37
-181            <intent-filter>
-181-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:84:13-87:29
-182                <action android:name="android.intent.action.BATTERY_OKAY" />
-182-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:85:17-77
-182-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:85:25-74
-183                <action android:name="android.intent.action.BATTERY_LOW" />
-183-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:86:17-76
-183-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:86:25-73
-184            </intent-filter>
-185        </receiver>
-186        <receiver
-186-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:89:9-99:20
-187            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
-187-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:90:13-104
-188            android:directBootAware="false"
-188-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:91:13-44
-189            android:enabled="false"
-189-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:92:13-36
-190            android:exported="false" >
-190-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:93:13-37
-191            <intent-filter>
-191-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:95:13-98:29
-192                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
-192-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:96:17-83
-192-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:96:25-80
-193                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
-193-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:97:17-82
-193-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:97:25-79
-194            </intent-filter>
-195        </receiver>
-196        <receiver
-196-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:100:9-109:20
-197            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
-197-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:101:13-103
-198            android:directBootAware="false"
-198-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:102:13-44
-199            android:enabled="false"
-199-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:103:13-36
-200            android:exported="false" >
-200-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:104:13-37
-201            <intent-filter>
-201-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:106:13-108:29
-202                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-202-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:107:17-79
-202-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:107:25-76
-203            </intent-filter>
-204        </receiver>
-205        <receiver
-205-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:110:9-121:20
-206            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
-206-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:111:13-88
-207            android:directBootAware="false"
-207-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:112:13-44
-208            android:enabled="false"
-208-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:113:13-36
-209            android:exported="false" >
-209-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:114:13-37
-210            <intent-filter>
-210-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:116:13-120:29
-211                <action android:name="android.intent.action.BOOT_COMPLETED" />
-211-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:99:17-79
-211-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:99:25-76
-212                <action android:name="android.intent.action.TIME_SET" />
-212-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:118:17-73
-212-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:118:25-70
-213                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-213-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:119:17-81
-213-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:119:25-78
-214            </intent-filter>
-215        </receiver>
-216        <receiver
-216-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:122:9-131:20
-217            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
-217-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:123:13-99
-218            android:directBootAware="false"
-218-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:124:13-44
-219            android:enabled="@bool/enable_system_alarm_service_default"
-219-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:125:13-72
-220            android:exported="false" >
-220-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:126:13-37
-221            <intent-filter>
-221-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:128:13-130:29
-222                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
-222-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:129:17-98
-222-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:129:25-95
-223            </intent-filter>
-224        </receiver>
-225        <receiver
-225-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:132:9-142:20
-226            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
-226-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:133:13-78
-227            android:directBootAware="false"
-227-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:134:13-44
-228            android:enabled="true"
-228-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:135:13-35
-229            android:exported="true"
-229-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:136:13-36
-230            android:permission="android.permission.DUMP" >
-230-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:137:13-57
-231            <intent-filter>
-231-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:139:13-141:29
-232                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
-232-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:140:17-88
-232-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:140:25-85
-233            </intent-filter>
-234        </receiver>
-235        <receiver
-235-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:29:9-40:20
-236            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
-236-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:30:13-78
-237            android:exported="true"
-237-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:31:13-36
-238            android:permission="com.google.android.c2dm.permission.SEND" >
-238-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:32:13-73
-239            <intent-filter>
-239-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:33:13-35:29
-240                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-240-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:34:17-81
-240-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:34:25-78
-241            </intent-filter>
-242
-243            <meta-data
-243-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:37:13-39:40
-244                android:name="com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED"
-244-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:38:17-92
-245                android:value="true" />
-245-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:39:17-37
-246        </receiver>
-247        <!--
-248             FirebaseMessagingService performs security checks at runtime,
-249             but set to not exported to explicitly avoid allowing another app to call it.
-250        -->
-251        <service
-251-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:46:9-53:19
-252            android:name="com.google.firebase.messaging.FirebaseMessagingService"
-252-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:47:13-82
-253            android:directBootAware="true"
-253-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:48:13-43
-254            android:exported="false" >
-254-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:49:13-37
-255            <intent-filter android:priority="-500" >
-255-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:50:13-52:29
-255-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:50:28-51
-256                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-256-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:51:17-78
-256-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:51:25-75
-257            </intent-filter>
-258        </service>
-259        <service
-259-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:54:9-63:19
-260            android:name="com.google.firebase.components.ComponentDiscoveryService"
-260-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:55:13-84
-261            android:directBootAware="true"
-261-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:32:13-43
-262            android:exported="false" >
-262-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:56:13-37
-263            <meta-data
-263-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:57:13-59:85
-264                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar"
-264-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:58:17-122
-265                android:value="com.google.firebase.components.ComponentRegistrar" />
-265-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:59:17-82
-266            <meta-data
-266-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:60:13-62:85
-267                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
-267-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:61:17-119
-268                android:value="com.google.firebase.components.ComponentRegistrar" />
-268-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:62:17-82
-269            <meta-data
-269-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:15:13-17:85
-270                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
-270-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:16:17-130
-271                android:value="com.google.firebase.components.ComponentRegistrar" />
-271-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:17:17-82
-272            <meta-data
-272-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:18:13-20:85
-273                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
-273-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:19:17-127
-274                android:value="com.google.firebase.components.ComponentRegistrar" />
-274-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:20:17-82
-275            <meta-data
-275-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\0e93bf0def4010b8cb5640159ac1fa1d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:12:13-14:85
-276                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
-276-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\0e93bf0def4010b8cb5640159ac1fa1d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:13:17-116
-277                android:value="com.google.firebase.components.ComponentRegistrar" />
-277-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\0e93bf0def4010b8cb5640159ac1fa1d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:14:17-82
-278            <meta-data
-278-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:35:13-37:85
-279                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
-279-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:36:17-109
-280                android:value="com.google.firebase.components.ComponentRegistrar" />
-280-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:37:17-82
-281            <meta-data
-281-->[com.google.firebase:firebase-datatransport:18.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\75acdbd186b90dec50ff2e550b106398\transformed\firebase-datatransport-18.2.0\AndroidManifest.xml:25:13-27:85
-282                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
-282-->[com.google.firebase:firebase-datatransport:18.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\75acdbd186b90dec50ff2e550b106398\transformed\firebase-datatransport-18.2.0\AndroidManifest.xml:26:17-115
-283                android:value="com.google.firebase.components.ComponentRegistrar" />
-283-->[com.google.firebase:firebase-datatransport:18.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\75acdbd186b90dec50ff2e550b106398\transformed\firebase-datatransport-18.2.0\AndroidManifest.xml:27:17-82
-284        </service>
-285
-286        <activity
-286-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\dell\.gradle\caches\8.14\transforms\fa3c4695b9661e8104a209c40dbfa168\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
-287            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-287-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\dell\.gradle\caches\8.14\transforms\fa3c4695b9661e8104a209c40dbfa168\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:19-85
-288            android:exported="false"
-288-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\dell\.gradle\caches\8.14\transforms\fa3c4695b9661e8104a209c40dbfa168\transformed\play-services-base-18.1.0\AndroidManifest.xml:22:19-43
-289            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-289-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\dell\.gradle\caches\8.14\transforms\fa3c4695b9661e8104a209c40dbfa168\transformed\play-services-base-18.1.0\AndroidManifest.xml:21:19-78
-290
-291        <provider
-291-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:23:9-28:39
-292            android:name="com.google.firebase.provider.FirebaseInitProvider"
-292-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:24:13-77
-293            android:authorities="com.system.guardian.firebaseinitprovider"
-293-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:25:13-72
-294            android:directBootAware="true"
-294-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:26:13-43
-295            android:exported="false"
-295-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:27:13-37
-296            android:initOrder="100" />
-296-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:28:13-36
-297
-298        <service
-298-->[androidx.room:room-runtime:2.6.1] C:\Users\dell\.gradle\caches\8.14\transforms\dde315fea0f14f52cffccf64145da123\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
-299            android:name="androidx.room.MultiInstanceInvalidationService"
-299-->[androidx.room:room-runtime:2.6.1] C:\Users\dell\.gradle\caches\8.14\transforms\dde315fea0f14f52cffccf64145da123\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
-300            android:directBootAware="true"
-300-->[androidx.room:room-runtime:2.6.1] C:\Users\dell\.gradle\caches\8.14\transforms\dde315fea0f14f52cffccf64145da123\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
-301            android:exported="false" />
-301-->[androidx.room:room-runtime:2.6.1] C:\Users\dell\.gradle\caches\8.14\transforms\dde315fea0f14f52cffccf64145da123\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
-302
-303        <meta-data
-303-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\dell\.gradle\caches\8.14\transforms\1d251ebf6446667f373b28fc2e598550\transformed\play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
-304            android:name="com.google.android.gms.version"
-304-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\dell\.gradle\caches\8.14\transforms\1d251ebf6446667f373b28fc2e598550\transformed\play-services-basement-18.3.0\AndroidManifest.xml:22:13-58
-305            android:value="@integer/google_play_services_version" />
-305-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\dell\.gradle\caches\8.14\transforms\1d251ebf6446667f373b28fc2e598550\transformed\play-services-basement-18.3.0\AndroidManifest.xml:23:13-66
-306
-307        <receiver
-307-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
-308            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-308-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
-309            android:directBootAware="false"
-309-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
-310            android:enabled="true"
-310-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
-311            android:exported="true"
-311-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
-312            android:permission="android.permission.DUMP" >
-312-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
-313            <intent-filter>
-313-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
-314                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-314-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
-314-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
-315            </intent-filter>
-316            <intent-filter>
-316-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
-317                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-317-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
-317-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
-318            </intent-filter>
-319            <intent-filter>
-319-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
-320                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-320-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
-320-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
-321            </intent-filter>
-322            <intent-filter>
-322-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
-323                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-323-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
-323-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
-324            </intent-filter>
-325        </receiver>
-326
-327        <service
-327-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:28:9-34:19
-328            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
-328-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:29:13-103
-329            android:exported="false" >
-329-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:30:13-37
-330            <meta-data
-330-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:31:13-33:39
-331                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
-331-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:32:17-94
-332                android:value="cct" />
-332-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:33:17-36
-333        </service>
-334        <service
-334-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:26:9-30:19
-335            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
-335-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:27:13-117
-336            android:exported="false"
-336-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:28:13-37
-337            android:permission="android.permission.BIND_JOB_SERVICE" >
-337-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:29:13-69
-338        </service>
-339
-340        <receiver
-340-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:32:9-34:40
-341            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
-341-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:33:13-132
-342            android:exported="false" />
-342-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:34:13-37
-343    </application>
-344
-345</manifest>
+73        <service
+73-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:61:9-66:52
+74            android:name="com.system.guardian.GhostModeService"
+74-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:62:13-45
+75            android:enabled="true"
+75-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:63:13-35
+76            android:exported="false"
+76-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:64:13-37
+77            android:foregroundServiceType="dataSync" />
+77-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:65:13-53
+78
+79        <activity
+79-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:68:9-75:20
+80            android:name="com.system.guardian.MainActivity"
+80-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:69:13-41
+81            android:exported="true" >
+81-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:70:13-36
+82            <intent-filter>
+82-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:71:13-74:29
+83                <action android:name="android.intent.action.MAIN" />
+83-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:72:17-69
+83-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:72:25-66
+84
+85                <category android:name="android.intent.category.LAUNCHER" />
+85-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:73:17-77
+85-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:73:27-74
+86            </intent-filter>
+87        </activity>
+88        <activity
+88-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:77:9-80:72
+89            android:name="com.system.guardian.test.WatuLockSimulatorActivity"
+89-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:77:19-65
+90            android:exported="true"
+90-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:79:13-36
+91            android:label="Watu Lock Simulator"
+91-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:78:13-48
+92            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+92-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:80:13-69
+93
+94        <receiver
+94-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:82:9-92:20
+95            android:name="com.system.guardian.AdminReceiver"
+95-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:83:13-42
+96            android:exported="true"
+96-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:85:13-36
+97            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+97-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:84:13-70
+98            <meta-data
+98-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:86:13-88:65
+99                android:name="android.app.device_admin"
+99-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:87:17-56
+100                android:resource="@xml/device_admin_receiver" />
+100-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:88:17-62
+101
+102            <intent-filter>
+102-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:89:13-91:29
+103                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+103-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:90:17-82
+103-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:90:25-79
+104            </intent-filter>
+105        </receiver>
+106        <receiver
+106-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:94:9-101:20
+107            android:name="com.system.guardian.BootReceiver"
+107-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:95:13-41
+108            android:enabled="true"
+108-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:96:13-35
+109            android:exported="true" >
+109-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:97:13-36
+110            <intent-filter>
+110-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:98:13-100:29
+111                <action android:name="android.intent.action.BOOT_COMPLETED" />
+111-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:99:17-79
+111-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:99:25-76
+112            </intent-filter>
+113        </receiver>
+114
+115        <provider
+116            android:name="androidx.core.content.FileProvider"
+116-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:104:13-62
+117            android:authorities="com.system.guardian.provider"
+117-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:105:13-60
+118            android:exported="false"
+118-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:106:13-37
+119            android:grantUriPermissions="true" >
+119-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:107:13-47
+120            <meta-data
+120-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:108:13-110:54
+121                android:name="android.support.FILE_PROVIDER_PATHS"
+121-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:109:17-67
+122                android:resource="@xml/file_paths" />
+122-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:110:17-51
+123        </provider>
+124        <provider
+124-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:29:9-37:20
+125            android:name="androidx.startup.InitializationProvider"
+125-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:30:13-67
+126            android:authorities="com.system.guardian.androidx-startup"
+126-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:31:13-68
+127            android:exported="false" >
+127-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:32:13-37
+128            <meta-data
+128-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:34:13-36:52
+129                android:name="androidx.work.WorkManagerInitializer"
+129-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:35:17-68
+130                android:value="androidx.startup" />
+130-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:36:17-49
+131            <meta-data
+131-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\ab8296827662fb2acab7d2f8330b4787\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+132                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+132-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\ab8296827662fb2acab7d2f8330b4787\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+133                android:value="androidx.startup" />
+133-->[androidx.emoji2:emoji2:1.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\ab8296827662fb2acab7d2f8330b4787\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+134            <meta-data
+134-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\dell\.gradle\caches\8.14\transforms\e84337ba6dab885efb9c7202926e96c0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+135                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+135-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\dell\.gradle\caches\8.14\transforms\e84337ba6dab885efb9c7202926e96c0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+136                android:value="androidx.startup" />
+136-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\dell\.gradle\caches\8.14\transforms\e84337ba6dab885efb9c7202926e96c0\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+137            <meta-data
+137-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+138                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+138-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+139                android:value="androidx.startup" />
+139-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+140        </provider>
+141
+142        <service
+142-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:39:9-45:35
+143            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+143-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:40:13-88
+144            android:directBootAware="false"
+144-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:41:13-44
+145            android:enabled="@bool/enable_system_alarm_service_default"
+145-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:42:13-72
+146            android:exported="false" />
+146-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:43:13-37
+147        <service
+147-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:46:9-52:35
+148            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+148-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:47:13-84
+149            android:directBootAware="false"
+149-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:48:13-44
+150            android:enabled="@bool/enable_system_job_service_default"
+150-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:49:13-70
+151            android:exported="true"
+151-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:50:13-36
+152            android:permission="android.permission.BIND_JOB_SERVICE" />
+152-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:51:13-69
+153        <service
+153-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:53:9-59:35
+154            android:name="androidx.work.impl.foreground.SystemForegroundService"
+154-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:54:13-81
+155            android:directBootAware="false"
+155-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:55:13-44
+156            android:enabled="@bool/enable_system_foreground_service_default"
+156-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:56:13-77
+157            android:exported="false" />
+157-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:57:13-37
+158
+159        <receiver
+159-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:61:9-66:35
+160            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+160-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:62:13-88
+161            android:directBootAware="false"
+161-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:63:13-44
+162            android:enabled="true"
+162-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:64:13-35
+163            android:exported="false" />
+163-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:65:13-37
+164        <receiver
+164-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:67:9-77:20
+165            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+165-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:68:13-106
+166            android:directBootAware="false"
+166-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:69:13-44
+167            android:enabled="false"
+167-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:70:13-36
+168            android:exported="false" >
+168-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:71:13-37
+169            <intent-filter>
+169-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:73:13-76:29
+170                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+170-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:74:17-87
+170-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:74:25-84
+171                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+171-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:75:17-90
+171-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:75:25-87
+172            </intent-filter>
+173        </receiver>
+174        <receiver
+174-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:78:9-88:20
+175            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+175-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:79:13-104
+176            android:directBootAware="false"
+176-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:80:13-44
+177            android:enabled="false"
+177-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:81:13-36
+178            android:exported="false" >
+178-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:82:13-37
+179            <intent-filter>
+179-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:84:13-87:29
+180                <action android:name="android.intent.action.BATTERY_OKAY" />
+180-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:85:17-77
+180-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:85:25-74
+181                <action android:name="android.intent.action.BATTERY_LOW" />
+181-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:86:17-76
+181-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:86:25-73
+182            </intent-filter>
+183        </receiver>
+184        <receiver
+184-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:89:9-99:20
+185            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+185-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:90:13-104
+186            android:directBootAware="false"
+186-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:91:13-44
+187            android:enabled="false"
+187-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:92:13-36
+188            android:exported="false" >
+188-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:93:13-37
+189            <intent-filter>
+189-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:95:13-98:29
+190                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+190-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:96:17-83
+190-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:96:25-80
+191                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+191-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:97:17-82
+191-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:97:25-79
+192            </intent-filter>
+193        </receiver>
+194        <receiver
+194-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:100:9-109:20
+195            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+195-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:101:13-103
+196            android:directBootAware="false"
+196-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:102:13-44
+197            android:enabled="false"
+197-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:103:13-36
+198            android:exported="false" >
+198-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:104:13-37
+199            <intent-filter>
+199-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:106:13-108:29
+200                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+200-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:107:17-79
+200-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:107:25-76
+201            </intent-filter>
+202        </receiver>
+203        <receiver
+203-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:110:9-121:20
+204            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+204-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:111:13-88
+205            android:directBootAware="false"
+205-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:112:13-44
+206            android:enabled="false"
+206-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:113:13-36
+207            android:exported="false" >
+207-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:114:13-37
+208            <intent-filter>
+208-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:116:13-120:29
+209                <action android:name="android.intent.action.BOOT_COMPLETED" />
+209-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:99:17-79
+209-->C:\Users\dell\Downloads\Compressed\interceptor_final_project_2\interceptor_fixed_with_main\app\src\main\AndroidManifest.xml:99:25-76
+210                <action android:name="android.intent.action.TIME_SET" />
+210-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:118:17-73
+210-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:118:25-70
+211                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+211-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:119:17-81
+211-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:119:25-78
+212            </intent-filter>
+213        </receiver>
+214        <receiver
+214-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:122:9-131:20
+215            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+215-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:123:13-99
+216            android:directBootAware="false"
+216-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:124:13-44
+217            android:enabled="@bool/enable_system_alarm_service_default"
+217-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:125:13-72
+218            android:exported="false" >
+218-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:126:13-37
+219            <intent-filter>
+219-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:128:13-130:29
+220                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+220-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:129:17-98
+220-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:129:25-95
+221            </intent-filter>
+222        </receiver>
+223        <receiver
+223-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:132:9-142:20
+224            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+224-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:133:13-78
+225            android:directBootAware="false"
+225-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:134:13-44
+226            android:enabled="true"
+226-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:135:13-35
+227            android:exported="true"
+227-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:136:13-36
+228            android:permission="android.permission.DUMP" >
+228-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:137:13-57
+229            <intent-filter>
+229-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:139:13-141:29
+230                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+230-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:140:17-88
+230-->[androidx.work:work-runtime:2.10.0] C:\Users\dell\.gradle\caches\8.14\transforms\950d370655ca3eb3e25dca59a1259836\transformed\work-runtime-2.10.0\AndroidManifest.xml:140:25-85
+231            </intent-filter>
+232        </receiver>
+233        <receiver
+233-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:29:9-40:20
+234            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+234-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:30:13-78
+235            android:exported="true"
+235-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:31:13-36
+236            android:permission="com.google.android.c2dm.permission.SEND" >
+236-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:32:13-73
+237            <intent-filter>
+237-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:33:13-35:29
+238                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+238-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:34:17-81
+238-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:34:25-78
+239            </intent-filter>
+240
+241            <meta-data
+241-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:37:13-39:40
+242                android:name="com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED"
+242-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:38:17-92
+243                android:value="true" />
+243-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:39:17-37
+244        </receiver>
+245        <!--
+246             FirebaseMessagingService performs security checks at runtime,
+247             but set to not exported to explicitly avoid allowing another app to call it.
+248        -->
+249        <service
+249-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:46:9-53:19
+250            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+250-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:47:13-82
+251            android:directBootAware="true"
+251-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:48:13-43
+252            android:exported="false" >
+252-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:49:13-37
+253            <intent-filter android:priority="-500" >
+253-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:50:13-52:29
+253-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:50:28-51
+254                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+254-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:51:17-78
+254-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:51:25-75
+255            </intent-filter>
+256        </service>
+257        <service
+257-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:54:9-63:19
+258            android:name="com.google.firebase.components.ComponentDiscoveryService"
+258-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:55:13-84
+259            android:directBootAware="true"
+259-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:32:13-43
+260            android:exported="false" >
+260-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:56:13-37
+261            <meta-data
+261-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:57:13-59:85
+262                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar"
+262-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:58:17-122
+263                android:value="com.google.firebase.components.ComponentRegistrar" />
+263-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:59:17-82
+264            <meta-data
+264-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:60:13-62:85
+265                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+265-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:61:17-119
+266                android:value="com.google.firebase.components.ComponentRegistrar" />
+266-->[com.google.firebase:firebase-messaging:24.1.1] C:\Users\dell\.gradle\caches\8.14\transforms\437b52bdaf57661904198a2da202432c\transformed\firebase-messaging-24.1.1\AndroidManifest.xml:62:17-82
+267            <meta-data
+267-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:15:13-17:85
+268                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+268-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:16:17-130
+269                android:value="com.google.firebase.components.ComponentRegistrar" />
+269-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:17:17-82
+270            <meta-data
+270-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:18:13-20:85
+271                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+271-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:19:17-127
+272                android:value="com.google.firebase.components.ComponentRegistrar" />
+272-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\27e013380772f0f7ccf854c665cc6251\transformed\firebase-installations-17.2.0\AndroidManifest.xml:20:17-82
+273            <meta-data
+273-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\0e93bf0def4010b8cb5640159ac1fa1d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:12:13-14:85
+274                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+274-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\0e93bf0def4010b8cb5640159ac1fa1d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:13:17-116
+275                android:value="com.google.firebase.components.ComponentRegistrar" />
+275-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\0e93bf0def4010b8cb5640159ac1fa1d\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:14:17-82
+276            <meta-data
+276-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:35:13-37:85
+277                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+277-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:36:17-109
+278                android:value="com.google.firebase.components.ComponentRegistrar" />
+278-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:37:17-82
+279            <meta-data
+279-->[com.google.firebase:firebase-datatransport:18.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\75acdbd186b90dec50ff2e550b106398\transformed\firebase-datatransport-18.2.0\AndroidManifest.xml:25:13-27:85
+280                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+280-->[com.google.firebase:firebase-datatransport:18.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\75acdbd186b90dec50ff2e550b106398\transformed\firebase-datatransport-18.2.0\AndroidManifest.xml:26:17-115
+281                android:value="com.google.firebase.components.ComponentRegistrar" />
+281-->[com.google.firebase:firebase-datatransport:18.2.0] C:\Users\dell\.gradle\caches\8.14\transforms\75acdbd186b90dec50ff2e550b106398\transformed\firebase-datatransport-18.2.0\AndroidManifest.xml:27:17-82
+282        </service>
+283
+284        <activity
+284-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\dell\.gradle\caches\8.14\transforms\fa3c4695b9661e8104a209c40dbfa168\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+285            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+285-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\dell\.gradle\caches\8.14\transforms\fa3c4695b9661e8104a209c40dbfa168\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+286            android:exported="false"
+286-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\dell\.gradle\caches\8.14\transforms\fa3c4695b9661e8104a209c40dbfa168\transformed\play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+287            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+287-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\dell\.gradle\caches\8.14\transforms\fa3c4695b9661e8104a209c40dbfa168\transformed\play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+288
+289        <provider
+289-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:23:9-28:39
+290            android:name="com.google.firebase.provider.FirebaseInitProvider"
+290-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:24:13-77
+291            android:authorities="com.system.guardian.firebaseinitprovider"
+291-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:25:13-72
+292            android:directBootAware="true"
+292-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:26:13-43
+293            android:exported="false"
+293-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:27:13-37
+294            android:initOrder="100" />
+294-->[com.google.firebase:firebase-common:21.0.0] C:\Users\dell\.gradle\caches\8.14\transforms\97663ba0971c23cc68970020582ec5ef\transformed\firebase-common-21.0.0\AndroidManifest.xml:28:13-36
+295
+296        <service
+296-->[androidx.room:room-runtime:2.6.1] C:\Users\dell\.gradle\caches\8.14\transforms\dde315fea0f14f52cffccf64145da123\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+297            android:name="androidx.room.MultiInstanceInvalidationService"
+297-->[androidx.room:room-runtime:2.6.1] C:\Users\dell\.gradle\caches\8.14\transforms\dde315fea0f14f52cffccf64145da123\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+298            android:directBootAware="true"
+298-->[androidx.room:room-runtime:2.6.1] C:\Users\dell\.gradle\caches\8.14\transforms\dde315fea0f14f52cffccf64145da123\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+299            android:exported="false" />
+299-->[androidx.room:room-runtime:2.6.1] C:\Users\dell\.gradle\caches\8.14\transforms\dde315fea0f14f52cffccf64145da123\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+300
+301        <meta-data
+301-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\dell\.gradle\caches\8.14\transforms\1d251ebf6446667f373b28fc2e598550\transformed\play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
+302            android:name="com.google.android.gms.version"
+302-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\dell\.gradle\caches\8.14\transforms\1d251ebf6446667f373b28fc2e598550\transformed\play-services-basement-18.3.0\AndroidManifest.xml:22:13-58
+303            android:value="@integer/google_play_services_version" />
+303-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\dell\.gradle\caches\8.14\transforms\1d251ebf6446667f373b28fc2e598550\transformed\play-services-basement-18.3.0\AndroidManifest.xml:23:13-66
+304
+305        <receiver
+305-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+306            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+306-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+307            android:directBootAware="false"
+307-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+308            android:enabled="true"
+308-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+309            android:exported="true"
+309-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+310            android:permission="android.permission.DUMP" >
+310-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+311            <intent-filter>
+311-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+312                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+312-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+312-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+313            </intent-filter>
+314            <intent-filter>
+314-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+315                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+315-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+315-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+316            </intent-filter>
+317            <intent-filter>
+317-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+318                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+318-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+318-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+319            </intent-filter>
+320            <intent-filter>
+320-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+321                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+321-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+321-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\dell\.gradle\caches\8.14\transforms\6a8dd43fd92cd05fed3d006b0aa3bb29\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+322            </intent-filter>
+323        </receiver>
+324
+325        <service
+325-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:28:9-34:19
+326            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+326-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:29:13-103
+327            android:exported="false" >
+327-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:30:13-37
+328            <meta-data
+328-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:31:13-33:39
+329                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+329-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:32:17-94
+330                android:value="cct" />
+330-->[com.google.android.datatransport:transport-backend-cct:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\d686e5ca40c60fc28bbeec03648e61a4\transformed\transport-backend-cct-3.1.9\AndroidManifest.xml:33:17-36
+331        </service>
+332        <service
+332-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:26:9-30:19
+333            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+333-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:27:13-117
+334            android:exported="false"
+334-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:28:13-37
+335            android:permission="android.permission.BIND_JOB_SERVICE" >
+335-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:29:13-69
+336        </service>
+337
+338        <receiver
+338-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:32:9-34:40
+339            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+339-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:33:13-132
+340            android:exported="false" />
+340-->[com.google.android.datatransport:transport-runtime:3.1.9] C:\Users\dell\.gradle\caches\8.14\transforms\1407ff873840d35e905e0ed8e195f7cb\transformed\transport-runtime-3.1.9\AndroidManifest.xml:34:13-37
+341    </application>
+342
+343</manifest>

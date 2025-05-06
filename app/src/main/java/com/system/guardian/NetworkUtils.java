@@ -2,6 +2,9 @@ package com.system.guardian;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -65,7 +68,7 @@ public class NetworkUtils {
                         errorText.append(line);
                     }
                     errorReader.close();
-                    Log.e(TAG, "❌ Server Error: " + errorText.toString());
+                    Log.e(TAG, "❌ Server Error: " + errorText);
                 }
                 return null;
             }
@@ -155,5 +158,19 @@ public class NetworkUtils {
                 throw new IOException("Unexpected code " + response);
             }
         }
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null) return false;
+
+        Network network = cm.getActiveNetwork();
+        if (network == null) return false;
+
+        NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+        return capabilities != null &&
+                (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
     }
 }

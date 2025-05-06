@@ -33,6 +33,11 @@ public class OverlayBlocker {
 
     @SuppressLint("ObsoleteSdkInt")
     public static void show(Context context) {
+        show(context, false);
+    }
+
+    @SuppressLint("ObsoleteSdkInt")
+    public static void show(Context context, boolean wakeAndUnlock) {
         if (isShowing || overlayView != null) {
             CrashLogger.log(context, "OverlayBlocker", "⚠️ Overlay already shown, skipping.");
             return;
@@ -48,35 +53,44 @@ public class OverlayBlocker {
             try {
                 WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
                 overlayView = new FrameLayout(context);
-                overlayView.setBackgroundColor(0x00000000); // Transparent block
+                overlayView.setBackgroundColor(0x00000000); // Fully transparent
 
                 int overlayType = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                         ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
                         : WindowManager.LayoutParams.TYPE_PHONE;
 
+                int flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
+                        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+
+                if (wakeAndUnlock) {
+                    flags |= WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+                }
+
                 WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.MATCH_PARENT,
                         WindowManager.LayoutParams.MATCH_PARENT,
                         overlayType,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
-                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
-                                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
-                                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
-                                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED,
+                        flags,
                         PixelFormat.TRANSLUCENT
                 );
 
                 params.gravity = Gravity.TOP | Gravity.START;
                 wm.addView(overlayView, params);
                 isShowing = true;
-                CrashLogger.log(context, "OverlayBlocker", "🛡️ Shield overlay deployed");
+
+                CrashLogger.log(context, "OverlayBlocker", wakeAndUnlock
+                        ? "🔓 Wake+Unlock overlay deployed"
+                        : "🛡️ Standard shield overlay deployed");
 
             } catch (Exception e) {
                 CrashLogger.log(context, "OverlayBlocker", "❌ Overlay add failed: " + e.getMessage());
                 isShowing = false;
             }
         });
-
     }
 
     public static void hide(Context context) {
