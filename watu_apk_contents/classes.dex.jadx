@@ -1,0 +1,114 @@
+{
+  "projectVersion": 1,
+  "files": [
+    "classes.dex"
+  ],
+  "treeExpansions": [
+    [
+      "Source code",
+      "classes.dex"
+    ],
+    [
+      "com",
+      "Source code",
+      "classes.dex"
+    ]
+  ],
+  "codeData": {
+    "comments": [],
+    "renames": []
+  },
+  "openTabs": [
+    {
+      "type": "class",
+      "tabPath": "androidx.multidex.MultiDexApplication",
+      "subPath": "java",
+      "caret": 492,
+      "view": {
+        "x": 0,
+        "y": 0
+      },
+      "active": false,
+      "pinned": false,
+      "bookmarked": false,
+      "hidden": false
+    },
+    {
+      "type": "class",
+      "tabPath": "com.watuke.app.adapters.LoansListAdapter",
+      "subPath": "java",
+      "caret": 68708,
+      "view": {
+        "x": 0,
+        "y": 20637
+      },
+      "active": false,
+      "pinned": false,
+      "bookmarked": false,
+      "hidden": false
+    },
+    {
+      "type": "class",
+      "tabPath": "com.watuke.app.m",
+      "subPath": "java",
+      "caret": 509,
+      "view": {
+        "x": 0,
+        "y": 0
+      },
+      "active": false,
+      "pinned": false,
+      "bookmarked": false,
+      "hidden": false
+    },
+    {
+      "type": "class",
+      "tabPath": "com.watuke.app.MySMSBroadcastReceiver",
+      "subPath": "java",
+      "caret": 434,
+      "view": {
+        "x": 0,
+        "y": 0
+      },
+      "active": false,
+      "pinned": false,
+      "bookmarked": false,
+      "hidden": false
+    },
+    {
+      "type": "class",
+      "tabPath": "com.google.firebase.messaging.g",
+      "subPath": "java",
+      "caret": 3848,
+      "view": {
+        "x": 0,
+        "y": 877
+      },
+      "active": true,
+      "pinned": false,
+      "bookmarked": false,
+      "hidden": false
+    },
+    {
+      "type": "class",
+      "tabPath": "com.watuke.app.adapters.LoansIndicatorListAdapter",
+      "subPath": "java",
+      "caret": 2003,
+      "view": {
+        "x": 0,
+        "y": 930
+      },
+      "active": false,
+      "pinned": false,
+      "bookmarked": false,
+      "hidden": false
+    }
+  ],
+  "cacheDir": "C:\\Users\\dell\\AppData\\Local\\skylot\\jadx\\cache\\projects\\classes-96455fb2a0761bb2e5303a1049f0ec8a",
+  "enableLiveReload": false,
+  "searchHistory": [
+    "guard",
+    "Unlock"
+  ],
+  "pluginOptions": {}
+}
