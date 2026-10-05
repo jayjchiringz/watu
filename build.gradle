@@ -15,13 +15,4 @@ allprojects {
         google()
         mavenCentral()
     }
-
-    configurations.configureEach {
-        resolutionStrategy.eachDependency { details ->
-            if (details.requested.group == 'org.jetbrains.kotlin') {
-                details.useVersion '1.8.22'
-                details.because 'Force consistent Kotlin version to avoid duplicate class errors'
-            }
-        }
-    }
 }
