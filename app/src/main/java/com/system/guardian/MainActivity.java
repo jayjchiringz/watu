@@ -163,11 +163,14 @@ public class MainActivity extends Activity {
         new Thread(() -> {
             try {
                 File file = new File(getFilesDir(), "crashlog.txt");
+                if (!file.exists()) {
+                    runOnUiThread(() -> logTextView.setText("No logs yet — interact with the app to generate some."));
+                    return;
+                }
                 if (file.length() > LOG_SIZE_LIMIT) {
                     runOnUiThread(() -> logTextView.setText("Log too large to load."));
                     return;
                 }
-
                 BufferedReader reader = new BufferedReader(new InputStreamReader(openFileInput("crashlog.txt")));
                 LinkedList<String> lines = new LinkedList<>();
                 String line;
