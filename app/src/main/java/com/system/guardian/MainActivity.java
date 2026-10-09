@@ -194,15 +194,16 @@ public class MainActivity extends Activity {
 
     private void isWatuRunning() {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        if (am != null) {
-            List<ActivityManager.RunningAppProcessInfo> processes = am.getRunningAppProcesses();
-            for (ActivityManager.RunningAppProcessInfo process : processes) {
-                if (process.processName.equals("com.watuke.app")) {
-                    CrashLogger.log(this, "MainActivity", "⚠️ Watu is currently RUNNING");
-                    return;
-                }
+        if (am == null) return;
+        boolean anyAlive = false;
+        for (ActivityManager.RunningAppProcessInfo process : am.getRunningAppProcesses()) {
+            if (GuardianConfig.isTarget(this, process.processName)) {
+                CrashLogger.log(this, "MainActivity", "⚠️ Target running: " + process.processName);
+                anyAlive = true;
             }
         }
-        CrashLogger.log(this, "MainActivity", "✅ Watu not running");
+        if (!anyAlive) {
+            CrashLogger.log(this, "MainActivity", "✅ No target apps running");
+        }
     }
 }

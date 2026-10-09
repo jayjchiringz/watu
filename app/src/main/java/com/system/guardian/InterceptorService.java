@@ -23,7 +23,6 @@ import java.util.List;
 
 public class InterceptorService extends AccessibilityService {
 
-    private static final String TARGET_PKG = "com.watuke.app";
     private static final boolean DEBUG_MODE = false;
 
     private boolean wasWatuAlive = false;
@@ -36,7 +35,7 @@ public class InterceptorService extends AccessibilityService {
         if (event == null || event.getPackageName() == null) return;
 
         final String packageName = event.getPackageName().toString();
-        if (!packageName.equals(TARGET_PKG) || suppressionInProgress) return;
+        if (!GuardianConfig.isTarget(this, packageName) || suppressionInProgress) return;
 
         suppressionInProgress = true;
 
@@ -93,20 +92,19 @@ public class InterceptorService extends AccessibilityService {
     }
 
     private void killWatu() {
-        try {
-            ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            if (am != null) {
-                am.killBackgroundProcesses(TARGET_PKG);
-                CrashLogger.log(this, "KillCommand", "🔪 Background kill");
+        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        if (am != null) {
+            for (String pkg : GuardianConfig.getTargets(this)) {
+                am.killBackgroundProcesses(pkg);
             }
-
-            Runtime.getRuntime().exec("am force-stop " + TARGET_PKG);
-            CrashLogger.log(this, "KillCommand", "💀 Shell force-stop sent");
-
-            killWatuServices();
-        } catch (IOException e) {
-            CrashLogger.log(this, "KillAttempt", "⚠️ Shell kill failed: " + e.getMessage());
         }
+        for (String pkg : GuardianConfig.getTargets(this)) {
+            try {
+                new ProcessBuilder("am", "force-stop", pkg).start();
+            } catch (IOException ignored) {}
+        }
+        CrashLogger.log(this, "KillCommand", "💀 Force-stop sent for all targets");
+        killWatuServices();
     }
 
     private void killWatuServices() {
@@ -115,7 +113,7 @@ public class InterceptorService extends AccessibilityService {
 
         List<ActivityManager.RunningServiceInfo> services = am.getRunningServices(Integer.MAX_VALUE);
         for (ActivityManager.RunningServiceInfo service : services) {
-            if (TARGET_PKG.equals(service.service.getPackageName())) {
+            if (GuardianConfig.isTarget(this, service.service.getPackageName())) {
                 String name = service.service.getClassName();
                 if (!name.equals(GuardianStateCache.lastServiceKill)) {
                     try {
@@ -136,7 +134,7 @@ public class InterceptorService extends AccessibilityService {
 
         List<ActivityManager.RunningAppProcessInfo> procs = am.getRunningAppProcesses();
         for (ActivityManager.RunningAppProcessInfo proc : procs) {
-            if (proc.processName.equals(TARGET_PKG)) {
+            if (GuardianConfig.isTarget(this, proc.processName)) {
                 return true;
             }
         }

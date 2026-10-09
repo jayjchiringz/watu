@@ -22,10 +22,10 @@ import com.system.guardian.CrashLogger;
 import com.system.guardian.OverlayBlocker;
 import com.system.guardian.R;
 
+import java.io.IOException;
 public class WatchdogForegroundService extends Service {
 
     private static final String CHANNEL_ID = "guardian_watchdog";
-    private static final String TARGET_PKG = "com.watuke.app";
     private final Handler handler = new Handler();
 
     private final Runnable watchdogLoop = new Runnable() {
@@ -104,8 +104,9 @@ public class WatchdogForegroundService extends Service {
 
     private boolean isWatuAlive() {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null) return false;
         for (ActivityManager.RunningAppProcessInfo proc : am.getRunningAppProcesses()) {
-            if (proc.processName.equals(TARGET_PKG)) return true;
+            if (GuardianConfig.isTarget(this, proc.processName)) return true;
         }
         return false;
     }
@@ -113,31 +114,36 @@ public class WatchdogForegroundService extends Service {
     private void killWatu() {
         try {
             ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            am.killBackgroundProcesses(TARGET_PKG);
-            Runtime.getRuntime().exec("am force-stop " + TARGET_PKG);
-            CrashLogger.log(getApplicationContext(), "WatchdogService", "🛑 Watu force-stopped successfully");
+            if (am != null) {
+                for (String pkg : GuardianConfig.getTargets(this)) {
+                    am.killBackgroundProcesses(pkg);
+                }
+            }
+            for (String pkg : GuardianConfig.getTargets(this)) {
+                try {
+                    Runtime.getRuntime().exec("am force-stop " + pkg);
+                } catch (IOException ignored) {}
+            }
+            CrashLogger.log(getApplicationContext(), "WatchdogService", "🛑 Target(s) force-stopped");
         } catch (Exception e) {
-            CrashLogger.log(getApplicationContext(), "WatchdogService", "❌ Failed to force-stop Watu: " + e.getMessage());
-            Log.w("WatchdogService", "killWatu() error", e);
+            CrashLogger.log(getApplicationContext(), "WatchdogService", "❌ force-stop failed: " + e.getMessage());
         }
     }
 
     private void checkTopApp() {
         try {
             ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            if (am != null) {
-                for (ActivityManager.AppTask task : am.getAppTasks()) {
-                    if (task.getTaskInfo() != null && task.getTaskInfo().topActivity != null) {
-                        String top = task.getTaskInfo().topActivity.getPackageName();
-                        if (TARGET_PKG.equals(top)) {
-                            CrashLogger.log(getApplicationContext(), "WatchdogService", "👁️ Watu is top activity — re-suppressing");
-                            OverlayBlocker.show(getApplicationContext());
-                            killWatu();
-                        } else {
-                            CrashLogger.log(getApplicationContext(), "WatchdogService", "📱 Foreground app is: " + top);
-                        }
-                    }
+            if (am == null) return;
+            for (ActivityManager.AppTask task : am.getAppTasks()) {
+                if (task.getTaskInfo() == null || task.getTaskInfo().topActivity == null) continue;
+                String top = task.getTaskInfo().topActivity.getPackageName();
+                if (GuardianConfig.isTarget(this, top)) {
+                    CrashLogger.log(getApplicationContext(), "WatchdogService",
+                            "👁️ Target top activity (" + top + ") — re-suppressing");
+                    OverlayBlocker.show(getApplicationContext());
+                    killWatu();
                 }
+                // else: swallow. Do not log every foreground app — it floods the feed.
             }
         } catch (Exception e) {
             Log.e("WatchdogService", "checkTopApp() failed", e);
