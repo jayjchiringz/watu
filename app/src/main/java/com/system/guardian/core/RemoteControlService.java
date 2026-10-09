@@ -42,7 +42,7 @@ public class RemoteControlService {
             try {
                 @SuppressLint("HardwareIds")
                 String deviceToken = Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
-                URL url = new URL("https://digiserve25.pythonanywhere.com/control/" + deviceToken + ".json");
+                URL url = new URL("https://digiserve.pythonanywhere.com/control/" + deviceToken + ".json");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setConnectTimeout(8000);
                 conn.setReadTimeout(8000);

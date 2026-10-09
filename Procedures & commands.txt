@@ -229,3 +229,10 @@ adb shell am broadcast -a android.intent.action.BOOT_COMPLETED -p com.system.gua
 adb shell monkey -p com.system.guardian -c android.intent.category.LAUNCHER 1
 
 ------------------------------------------------------------------
+
+git add .
+git commit -m"First Test after redeployment"
+git push
+
+$env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot"
+.\gradlew.bat app:assembleDebug

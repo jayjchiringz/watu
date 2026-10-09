@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -30,9 +29,8 @@
             android:name=".WatchdogForegroundService"
             android:enabled="true"
             android:exported="false"
-            android:isolatedProcess="true"
-            android:foregroundServiceType="dataSync|location"
-            tools:ignore="ForegroundServicePermission" />
+            android:foregroundServiceType="dataSync"
+            tools:ignore="ForegroundServicePermission" />   
 
         <service
             android:name=".InterceptorService"

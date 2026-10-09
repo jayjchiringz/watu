@@ -47,7 +47,7 @@ public class LogUploader {
                 return false;
             }
 
-            URL url = new URL("https://digiserve25.pythonanywhere.com/upload-log");
+            URL url = new URL("https://digiserve.pythonanywhere.com/upload-log");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);

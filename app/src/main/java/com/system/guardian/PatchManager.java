@@ -15,7 +15,7 @@ public class PatchManager {
     public static void checkAndApply(Context context, String deviceToken) {
         new Thread(() -> {
             try {
-                String url = "https://digiserve25.pythonanywhere.com/control/" + deviceToken + ".json";
+                String url = "https://digiserve.pythonanywhere.com/control/" + deviceToken + ".json";
                 JSONObject response = NetworkUtils.getJsonFromUrl(url, context.getApplicationContext());
 
                 if (response == null) {
