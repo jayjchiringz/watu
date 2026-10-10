@@ -9,44 +9,44 @@
 9        android:targetSdkVersion="34" />
 10
 11    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-11-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:5:5-75
-11-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:5:22-72
+11-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:5:5-75
+11-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:5:22-72
 12    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-12-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:6:5-77
-12-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:6:22-75
+12-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:6:5-77
+12-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:6:22-75
 13    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-13-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:7:5-84
-13-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:7:22-81
+13-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:7:5-84
+13-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:7:22-81
 14    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
-14-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:8:5-9:53
-14-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:8:22-74
+14-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:8:5-9:53
+14-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:8:22-74
 15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-15-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:10:5-76
-15-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:10:22-74
+15-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:10:5-76
+15-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:10:22-74
 16    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-16-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:11:5-87
-16-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:11:22-84
+16-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:11:5-87
+16-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:11:22-84
 17    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-17-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:12:5-81
-17-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:12:22-78
+17-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:12:5-81
+17-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:12:22-78
 18    <uses-permission android:name="android.permission.INTERNET" />
-18-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:13:5-66
-18-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:13:22-64
+18-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:13:5-66
+18-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:13:22-64
 19    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-19-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:14:5-82
-19-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:14:22-80
+19-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:14:5-82
+19-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:14:22-80
 20    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-20-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:15:5-76
-20-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:15:22-73
+20-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:15:5-76
+20-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:15:22-73
 21    <uses-permission
-21-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:16:5-17:38
+21-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:16:5-17:38
 22        android:name="android.permission.READ_EXTERNAL_STORAGE"
-22-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:16:22-77
+22-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:16:22-77
 23        android:maxSdkVersion="32" />
-23-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:17:9-35
+23-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:17:9-35
 24    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
-24-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:18:5-19:47
-24-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:18:22-75
+24-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:18:5-19:47
+24-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:18:22-75
 25    <uses-permission android:name="android.permission.WAKE_LOCK" />
 25-->[androidx.work:work-runtime:2.10.0] C:\Users\Keziah\.gradle\caches\8.11.1\transforms\e99398f36ae1439cd55693f6e16d9e58\transformed\work-runtime-2.10.0\AndroidManifest.xml:23:5-68
 25-->[androidx.work:work-runtime:2.10.0] C:\Users\Keziah\.gradle\caches\8.11.1\transforms\e99398f36ae1439cd55693f6e16d9e58\transformed\work-runtime-2.10.0\AndroidManifest.xml:23:22-65
@@ -72,145 +72,145 @@
 34-->[androidx.core:core:1.16.0] C:\Users\Keziah\.gradle\caches\8.11.1\transforms\a7e0dded4c9463643d9974da0e6b06ac\transformed\core-1.16.0\AndroidManifest.xml:26:22-94
 35
 36    <application
-36-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:21:5-98:19
+36-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:21:5-98:19
 37        android:allowBackup="true"
-37-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:22:9-35
+37-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:22:9-35
 38        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 38-->[androidx.core:core:1.16.0] C:\Users\Keziah\.gradle\caches\8.11.1\transforms\a7e0dded4c9463643d9974da0e6b06ac\transformed\core-1.16.0\AndroidManifest.xml:28:18-86
 39        android:debuggable="true"
 40        android:extractNativeLibs="false"
 41        android:icon="@mipmap/ic_launcher"
-41-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:23:9-43
+41-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:23:9-43
 42        android:label="System Guardian"
-42-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:24:9-40
+42-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:24:9-40
 43        android:supportsRtl="true"
-43-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:25:9-35
+43-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:25:9-35
 44        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
-44-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:26:9-67
+44-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:26:9-67
 45        <service
-45-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:28:9-33:58
+45-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:28:9-33:58
 46            android:name="com.system.guardian.WatchdogForegroundService"
-46-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:29:13-54
+46-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:29:13-54
 47            android:enabled="true"
-47-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:30:13-35
+47-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:30:13-35
 48            android:exported="false"
-48-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:31:13-37
+48-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:31:13-37
 49            android:foregroundServiceType="dataSync" />
-49-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:32:13-53
+49-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:32:13-53
 50        <service
-50-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:35:9-47:19
+50-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:35:9-47:19
 51            android:name="com.system.guardian.InterceptorService"
-51-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:36:13-47
+51-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:36:13-47
 52            android:enabled="true"
-52-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:38:13-35
+52-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:38:13-35
 53            android:exported="true"
-53-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:39:13-36
+53-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:39:13-36
 54            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
-54-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:37:13-79
+54-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:37:13-79
 55            <intent-filter>
-55-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:40:13-42:29
+55-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:40:13-42:29
 56                <action android:name="android.accessibilityservice.AccessibilityService" />
-56-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:41:17-92
-56-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:41:25-89
+56-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:41:17-92
+56-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:41:25-89
 57            </intent-filter>
 58
 59            <meta-data
-59-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:44:13-46:72
+59-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:44:13-46:72
 60                android:name="android.accessibilityService"
-60-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:45:17-60
+60-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:45:17-60
 61                android:resource="@xml/accessibility_service_config" />
-61-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:46:17-69
+61-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:46:17-69
 62        </service>
 63        <service
-63-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:49:9-52:40
+63-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:49:9-52:40
 64            android:name="com.system.guardian.ControlPollerService"
-64-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:50:13-49
+64-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:50:13-49
 65            android:exported="false"
-65-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:52:13-37
+65-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:52:13-37
 66            android:permission="android.permission.BIND_JOB_SERVICE" />
-66-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:51:13-69
+66-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:51:13-69
 67
 68        <activity
-68-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:54:9-61:20
+68-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:54:9-61:20
 69            android:name="com.system.guardian.MainActivity"
-69-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:55:13-41
+69-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:55:13-41
 70            android:exported="true" >
-70-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:56:13-36
+70-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:56:13-36
 71            <intent-filter>
-71-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:57:13-60:29
+71-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:57:13-60:29
 72                <action android:name="android.intent.action.MAIN" />
-72-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:58:17-69
-72-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:58:25-66
+72-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:58:17-69
+72-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:58:25-66
 73
 74                <category android:name="android.intent.category.LAUNCHER" />
-74-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:59:17-77
-74-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:59:27-74
+74-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:59:17-77
+74-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:59:27-74
 75            </intent-filter>
 76        </activity>
 77        <activity
-77-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:63:9-66:72
+77-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:63:9-66:72
 78            android:name="com.system.guardian.test.WatuLockSimulatorActivity"
-78-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:63:19-65
+78-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:63:19-65
 79            android:exported="true"
-79-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:65:13-36
+79-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:65:13-36
 80            android:label="Watu Lock Simulator"
-80-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:64:13-48
+80-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:64:13-48
 81            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-81-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:66:13-69
+81-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:66:13-69
 82
 83        <receiver
-83-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:68:9-78:20
+83-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:68:9-78:20
 84            android:name="com.system.guardian.AdminReceiver"
-84-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:69:13-42
+84-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:69:13-42
 85            android:exported="true"
-85-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:71:13-36
+85-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:71:13-36
 86            android:permission="android.permission.BIND_DEVICE_ADMIN" >
-86-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:70:13-70
+86-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:70:13-70
 87            <meta-data
-87-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:72:13-74:65
+87-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:72:13-74:65
 88                android:name="android.app.device_admin"
-88-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:73:17-56
+88-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:73:17-56
 89                android:resource="@xml/device_admin_receiver" />
-89-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:74:17-62
+89-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:74:17-62
 90
 91            <intent-filter>
-91-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:75:13-77:29
+91-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:75:13-77:29
 92                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-92-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:76:17-82
-92-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:76:25-79
+92-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:76:17-82
+92-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:76:25-79
 93            </intent-filter>
 94        </receiver>
 95        <receiver
-95-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:80:9-87:20
+95-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:80:9-87:20
 96            android:name="com.system.guardian.BootReceiver"
-96-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:81:13-41
+96-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:81:13-41
 97            android:enabled="true"
-97-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:82:13-35
+97-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:82:13-35
 98            android:exported="true" >
-98-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:83:13-36
+98-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:83:13-36
 99            <intent-filter>
-99-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:84:13-86:29
+99-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:84:13-86:29
 100                <action android:name="android.intent.action.BOOT_COMPLETED" />
-100-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:85:17-79
-100-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:85:25-76
+100-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:85:17-79
+100-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:85:25-76
 101            </intent-filter>
 102        </receiver>
 103
 104        <provider
 105            android:name="androidx.core.content.FileProvider"
-105-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:90:13-62
+105-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:90:13-62
 106            android:authorities="com.system.guardian.provider"
-106-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:91:13-60
+106-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:91:13-60
 107            android:exported="false"
-107-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:92:13-37
+107-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:92:13-37
 108            android:grantUriPermissions="true" >
-108-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:93:13-47
+108-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:93:13-47
 109            <meta-data
-109-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:94:13-96:54
+109-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:94:13-96:54
 110                android:name="android.support.FILE_PROVIDER_PATHS"
-110-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:95:17-67
+110-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:95:17-67
 111                android:resource="@xml/file_paths" />
-111-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:96:17-51
+111-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:96:17-51
 112        </provider>
 113        <provider
 113-->[androidx.work:work-runtime:2.10.0] C:\Users\Keziah\.gradle\caches\8.11.1\transforms\e99398f36ae1439cd55693f6e16d9e58\transformed\work-runtime-2.10.0\AndroidManifest.xml:29:9-37:20
@@ -379,8 +379,8 @@
 197            <intent-filter>
 197-->[androidx.work:work-runtime:2.10.0] C:\Users\Keziah\.gradle\caches\8.11.1\transforms\e99398f36ae1439cd55693f6e16d9e58\transformed\work-runtime-2.10.0\AndroidManifest.xml:116:13-120:29
 198                <action android:name="android.intent.action.BOOT_COMPLETED" />
-198-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:85:17-79
-198-->C:\Users\Keziah\OneDrive\Projects\digiServe_SystemGuardian\watu\watu\app\src\main\AndroidManifest.xml:85:25-76
+198-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:85:17-79
+198-->C:\Users\Keziah\projoz\watu\app\src\main\AndroidManifest.xml:85:25-76
 199                <action android:name="android.intent.action.TIME_SET" />
 199-->[androidx.work:work-runtime:2.10.0] C:\Users\Keziah\.gradle\caches\8.11.1\transforms\e99398f36ae1439cd55693f6e16d9e58\transformed\work-runtime-2.10.0\AndroidManifest.xml:118:17-73
 199-->[androidx.work:work-runtime:2.10.0] C:\Users\Keziah\.gradle\caches\8.11.1\transforms\e99398f36ae1439cd55693f6e16d9e58\transformed\work-runtime-2.10.0\AndroidManifest.xml:118:25-70

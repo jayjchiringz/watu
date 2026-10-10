@@ -69,7 +69,7 @@ public class DexLoader {
                     context.getClassLoader()
             );
 
-            Class<?> patchClass = classLoader.loadClass("com.system.guardian.dex_patch_build.PatchOverride");
+            Class<?> patchClass = classLoader.loadClass("com.system.guardian.dex_patch_build.PatchOverrideRemote");
             Method patchMethod = patchClass.getMethod("applyPatch", Context.class);
             patchMethod.invoke(null, context);
 
