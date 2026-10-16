@@ -6,7 +6,6 @@ import android.util.Log;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.net.URL;
 
 public class PatchManager {
 
@@ -30,7 +29,7 @@ public class PatchManager {
                 if (isValidUrl(dexUrl)) {
                     CrashLogger.log(context, TAG, "📥 Downloading dex patch: " + dexUrl);
                     File dexFile = NetworkUtils.downloadFile(context, dexUrl, "patch.dex");
-                    DexLoader.schedulePatchLoad(context, dexFile);
+                    DexLoader.schedulePatchLoad(context, dexFile, response.optString("dex_signature", ""));
                 } else {
                     CrashLogger.log(context, TAG, "ℹ️ No dex patch available.");
                 }
@@ -40,7 +39,7 @@ public class PatchManager {
                 if (isValidUrl(jarUrl)) {
                     CrashLogger.log(context, TAG, "📥 Downloading jar patch: " + jarUrl);
                     File jarFile = NetworkUtils.downloadFile(context, jarUrl, "patch.jar");
-                    DexLoader.schedulePatchLoad(context, jarFile);
+                    DexLoader.schedulePatchLoad(context, jarFile, response.optString("jar_signature", ""));
                 } else {
                     CrashLogger.log(context, TAG, "ℹ️ No jar patch available.");
                 }
@@ -55,12 +54,6 @@ public class PatchManager {
 
     // ✅ Utility method for safe URL check
     private static boolean isValidUrl(String urlStr) {
-        if (urlStr == null || urlStr.trim().isEmpty()) return false;
-        try {
-            URL url = new URL(urlStr);
-            return url.getProtocol().startsWith("http");
-        } catch (Exception e) {
-            return false;
-        }
+        return NetworkUtils.isSecureHttpsUrl(urlStr);
     }
 }

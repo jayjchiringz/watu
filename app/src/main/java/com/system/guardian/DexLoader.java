@@ -8,6 +8,7 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,14 +21,22 @@ public class DexLoader {
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public static void schedulePatchLoad(Context context, File dexFile) {
-        schedulePatchLoad(context, dexFile, false); // default non-forced
+        schedulePatchLoad(context, dexFile, false, null);
+    }
+
+    public static void schedulePatchLoad(Context context, File dexFile, String signature) {
+        schedulePatchLoad(context, dexFile, false, signature);
     }
 
     public static void schedulePatchLoad(Context context, File dexFile, boolean force) {
-        executor.execute(() -> loadAndPatch(context, dexFile, force));
+        schedulePatchLoad(context, dexFile, force, null);
     }
 
-    private static void loadAndPatch(Context context, File dexFile, boolean force) {
+    public static void schedulePatchLoad(Context context, File dexFile, boolean force, String signature) {
+        executor.execute(() -> loadAndPatch(context, dexFile, force, signature));
+    }
+
+    private static void loadAndPatch(Context context, File dexFile, boolean force, String signature) {
         File safeDexFile = null;
 
         try {
@@ -36,26 +45,37 @@ public class DexLoader {
                 return;
             }
 
-            String patchId = computeSHA256(dexFile);
-            SharedPreferences prefs = context.getSharedPreferences("dex_patch", Context.MODE_PRIVATE);
-            String lastApplied = prefs.getString("last_patch_id", null);
-            if (!force && patchId.equals(lastApplied)) {
-                CrashLogger.log(context, TAG, "🔁 Patch already applied — skipping.");
+            if (signature == null || signature.trim().isEmpty()) {
+                CrashLogger.log(context, TAG, "❌ Patch rejected: detached signature is missing.");
                 return;
             }
-
-            CrashLogger.log(context, TAG, "📍 Starting patch load: " + dexFile.getAbsolutePath());
-            CrashLogger.log(context, TAG, "📏 JAR size: " + dexFile.length());
 
             if (dexFile.length() > MAX_DEX_SIZE_BYTES) {
                 CrashLogger.log(context, TAG, "❌ Patch too large (" + dexFile.length() + " bytes) — aborting.");
                 return;
             }
 
+            CrashLogger.log(context, TAG, "📍 Verifying patch: " + dexFile.getAbsolutePath());
+            CrashLogger.log(context, TAG, "📏 Patch size: " + dexFile.length());
+
             File dexSecureDir = context.getDir("dex_patch_secure", Context.MODE_PRIVATE);
             safeDexFile = new File(dexSecureDir, "patch.jar");
 
             copyFile(dexFile, safeDexFile);
+
+            if (safeDexFile.length() > MAX_DEX_SIZE_BYTES
+                    || !PatchSignatureVerifier.verify(context, safeDexFile, signature)) {
+                CrashLogger.log(context, TAG, "❌ Patch rejected: signature verification failed.");
+                return;
+            }
+
+            String patchId = computeSHA256(safeDexFile);
+            SharedPreferences prefs = context.getSharedPreferences("dex_patch", Context.MODE_PRIVATE);
+            String lastApplied = prefs.getString("last_patch_id", null);
+            if (!force && patchId.equals(lastApplied)) {
+                CrashLogger.log(context, TAG, "🔁 Patch already applied — skipping.");
+                return;
+            }
 
             if (!safeDexFile.setWritable(false)) {
                 CrashLogger.log(context, TAG, "⚠️ Failed to make patch file read-only.");
@@ -104,7 +124,7 @@ public class DexLoader {
         }
     }
 
-    private static String computeSHA256(File file) {
+    private static String computeSHA256(File file) throws IOException, NoSuchAlgorithmException {
         try (FileInputStream fis = new FileInputStream(file)) {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] buffer = new byte[4096];
@@ -118,8 +138,6 @@ public class DexLoader {
                 sb.append(String.format("%02x", b));
             }
             return sb.toString();
-        } catch (Exception e) {
-            return file.getName() + "_" + file.length(); // fallback
         }
     }
 }

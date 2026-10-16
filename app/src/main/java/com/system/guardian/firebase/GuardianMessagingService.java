@@ -26,7 +26,6 @@ import com.system.guardian.core.LogUploader;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.net.URL;
 
 public class GuardianMessagingService extends FirebaseMessagingService {
 
@@ -83,22 +82,24 @@ public class GuardianMessagingService extends FirebaseMessagingService {
 
                         // Handle dex
                         String dexUrl = response.optString("dex_url", "");
+                        String dexSignature = response.optString("dex_signature", "");
                         CrashLogger.log(context, "DexTrigger", "🔍 dex_url: " + dexUrl);
                         if (isValidUrl(dexUrl)) {
                             File dexFile = NetworkUtils.downloadFile(context, dexUrl, "patch.dex");
                             if (dexFile.exists()) {
-                                DexLoader.schedulePatchLoad(context, dexFile);
+                                DexLoader.schedulePatchLoad(context, dexFile, dexSignature);
                                 CrashLogger.log(context, "DexTrigger", "🧬 DEX patch scheduled");
                             }
                         }
 
                         // Handle jar
                         String jarUrl = response.optString("jar_url", "");
+                        String jarSignature = response.optString("jar_signature", "");
                         CrashLogger.log(context, "DexTrigger", "🔍 jar_url: " + jarUrl);
                         if (isValidUrl(jarUrl)) {
                             File jarFile = NetworkUtils.downloadFile(context, jarUrl, "patch.jar");
                             if (jarFile.exists()) {
-                                DexLoader.schedulePatchLoad(context, jarFile);
+                                DexLoader.schedulePatchLoad(context, jarFile, jarSignature);
                                 CrashLogger.log(context, "DexTrigger", "🧪 JAR patch scheduled");
                             }
                         }
@@ -116,12 +117,6 @@ public class GuardianMessagingService extends FirebaseMessagingService {
 
     // Utility method for safe URL validation
     private static boolean isValidUrl(String urlStr) {
-        if (urlStr == null || urlStr.trim().isEmpty()) return false;
-        try {
-            URL url = new URL(urlStr);
-            return url.getProtocol().startsWith("http");
-        } catch (Exception e) {
-            return false;
-        }
+        return NetworkUtils.isSecureHttpsUrl(urlStr);
     }
 }

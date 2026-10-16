@@ -1,9 +1,18 @@
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'
 
+def guardianPatchPublicKey = project.findProperty('guardianPatchPublicKey')?.toString()?.replaceAll('\\s', '') ?: ''
+if (guardianPatchPublicKey && !guardianPatchPublicKey.matches('[A-Za-z0-9+/=]+')) {
+    throw new GradleException('guardianPatchPublicKey must be a Base64-encoded DER RSA public key')
+}
+
 android {
     namespace 'com.system.guardian'
     compileSdkVersion 35
+
+    buildFeatures {
+        buildConfig true
+    }
 
     defaultConfig {
         applicationId "com.system.guardian"
@@ -13,6 +22,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "GUARDIAN_PATCH_PUBLIC_KEY", "\"${guardianPatchPublicKey}\""
     }
 
     buildTypes {

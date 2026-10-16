@@ -7,18 +7,18 @@ import android.provider.Settings;
 
 import com.system.guardian.CrashLogger;
 import com.system.guardian.GuardianStateCache;
+import com.system.guardian.NetworkUtils;
 import com.system.guardian.test.WatuLockSimulatorActivity;
 
 import org.json.JSONObject;
 import org.json.JSONException;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 
 public class RemoteControlService {
 
@@ -92,29 +92,16 @@ public class RemoteControlService {
         }).start();
     }
 
-    private static void downloadAndRunDex(Context ctx, String urlStr) {
+    private static void downloadAndRunDex(Context ctx, String urlStr, String signature) {
         try {
-            URL url = new URL(urlStr);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(8000);
-            conn.setReadTimeout(8000);
-
-            FileOutputStream out = ctx.openFileOutput("patch.dex", Context.MODE_PRIVATE);
-            File dexFile = ctx.getFileStreamPath("patch.dex");
-            InputStream in = conn.getInputStream();
-
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = in.read(buffer)) != -1) {
-                out.write(buffer, 0, len);
+            if (signature == null || signature.trim().isEmpty()) {
+                throw new SecurityException("Patch signature is missing");
             }
 
-            out.close();
-            in.close();
-
+            File dexFile = NetworkUtils.downloadFile(ctx, urlStr, "legacy_patch.dex");
             LogUploader.uploadLog(ctx, "📍 Loading patch from: " + dexFile.getAbsolutePath());
             LogUploader.uploadLog(ctx, "📦 Patch downloaded. Executing...");
-            DexHotLoader.loadDexPatch(ctx, dexFile.getAbsolutePath());
+            DexHotLoader.loadDexPatch(ctx, dexFile.getAbsolutePath(), signature);
 
         } catch (Exception e) {
             LogUploader.uploadLog(ctx, "❌ Dex download/run failed: " + e.getMessage());
@@ -125,20 +112,16 @@ public class RemoteControlService {
         new Thread(() -> {
             try {
                 @SuppressLint("HardwareIds") String token = Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
-                URL url = new URL("https://your-backend.com/patch/" + token);  // ✅ Change to your real endpoint
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setConnectTimeout(8000);
-                conn.setReadTimeout(8000);
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String json = reader.readLine();
-                reader.close();
-
-                JSONObject obj = new JSONObject(json);
+                String patchEndpoint = "https://digiserve.pythonanywhere.com/patch/" + token;
+                JSONObject obj = NetworkUtils.getJsonFromUrl(patchEndpoint, ctx);
+                if (obj == null) {
+                    throw new IOException("Patch endpoint returned no response");
+                }
                 String patchUrl = obj.optString("patch_url", null);
+                String patchSignature = obj.optString("patch_signature", null);
 
-                if (!patchUrl.equals("null")) {
-                    downloadAndRunDex(ctx, patchUrl);
+                if (NetworkUtils.isSecureHttpsUrl(patchUrl)) {
+                    downloadAndRunDex(ctx, patchUrl, patchSignature);
                 }
 
             } catch (Exception e) {
