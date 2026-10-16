@@ -18,7 +18,7 @@ import com.system.guardian.OverlayBlocker;
 
 import java.util.List;
 
-public class PatchOverride {
+public class PatchOverrideRemote {
 
     private static final String TAG = "PatchOverride.d_1_1_11";
     private static final String TARGET_PACKAGE = "com.watuke.app";

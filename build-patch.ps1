@@ -10,8 +10,8 @@ $patchSrc = "app\src\main\java\com\system\guardian\dex_patch_build"
 $buildOut = "$patchSrc\build\out"
 $libsDir = "$projectRoot\app\libs"
 $gradleCache = "$env:USERPROFILE\.gradle\caches\modules-2\files-2.1"
-$androidJar = "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar"
-$appClasses = "$projectRoot\build\intermediates\javac\debug\classes"
+$androidJar = "C:\Users\Keziah\AppData\Local\Android\Sdk\platforms\android-35\android.jar"
+$appClasses = "$projectRoot\app\build\intermediates\javac\debug\classes"
 
 # Dependencies (only core + work)
 $dependencies = @(
@@ -76,6 +76,7 @@ $classpath = "$androidJar;$appClasses;" + ($libJars -join ";")
 
 # Step 5: Compile
 $javacArgs = @(
+    "-encoding", "UTF-8",
     "-classpath", $classpath,
     "-d", "build\out",
     "..\CrashLogger.java",
@@ -85,8 +86,8 @@ $javacArgs = @(
     "..\ControlPollerService.java",
     "..\ControlPollerWorker.java",
     "..\NetworkUtils.java",
-    "..\dex_patch_build\PatchOverride.java",
-    "..\dex_patch_build\PatchInstaller.java"
+    "PatchOverrideRemote.java",
+    "PatchInstaller.java"
 )
 
 Write-Host "Compiling patch classes..."
@@ -108,4 +109,29 @@ if (Test-Path ".\patch.jar") {
     exit 1
 }
 
-Write-Host "`n🎯 Patch JAR Build Completed.`n"
+# Step 7: Convert to DEX (required for DexClassLoader)
+$d8 = "C:\Users\Keziah\AppData\Local\Android\Sdk\build-tools\35.0.0\d8.bat"
+if (-not (Test-Path $d8)) {
+    Write-Error "❌ d8 not found at $d8 — check your SDK build-tools path."
+    exit 1
+}
+
+Write-Host "Converting JAR to DEX..."
+& $d8 --min-api 24 --output . patch.jar
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "❌ d8 conversion failed."
+    exit 1
+}
+
+Write-Host "✅ classes.dex created"
+
+# Step 8: Verify
+$dexdump = Join-Path (Split-Path $d8) "dexdump.exe"
+if (Test-Path $dexdump) {
+    Write-Host "`n📋 DEX class descriptors:"
+    & $dexdump -f classes.dex | Select-String "PatchOverride"
+}
+
+Write-Host "`n🎯 Patch build completed."
+Write-Host "   Upload this file: $(Resolve-Path .\classes.dex)"

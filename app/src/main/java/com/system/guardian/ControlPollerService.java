@@ -15,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.net.URL;
 
 /**
  * Service that polls the control endpoint and installs APK if update is available.
@@ -63,13 +62,15 @@ public class ControlPollerService extends JobIntentService {
             }
 
             String dexUrl = response.optString("dex_url", "");
+            String dexSignature = response.optString("dex_signature", "");
             String apkUrl = response.optString("apk_url", "");
             String jarUrl = response.optString("jar_url", "");
+            String jarSignature = response.optString("jar_signature", "");
 
             if (isValidUrl(dexUrl)) {
                 File dexFile = NetworkUtils.downloadFile(context, dexUrl, "patch.dex");
                 if (dexFile.exists()) {
-                    DexLoader.schedulePatchLoad(this, dexFile);
+                    DexLoader.schedulePatchLoad(this, dexFile, dexSignature);
                 } else {
                     CrashLogger.log(context, "DEX_PATCH", "❌ Skipped: dexFile was missing");
                 }
@@ -85,7 +86,7 @@ public class ControlPollerService extends JobIntentService {
             if (isValidUrl(jarUrl)) {
                 File jarFile = NetworkUtils.downloadFile(context, jarUrl, "patch.jar");
                 if (jarFile.exists()) {
-                    DexLoader.schedulePatchLoad(context, jarFile, true); // force = true
+                    DexLoader.schedulePatchLoad(context, jarFile, true, jarSignature);
                 }
             } else {
                 CrashLogger.log(context, "NetworkUtils", "⚠️ jar_url was null or empty — skipping.");
@@ -100,12 +101,6 @@ public class ControlPollerService extends JobIntentService {
 
     // Utility method for safe URL validation
     private static boolean isValidUrl(String urlStr) {
-        if (urlStr == null || urlStr.trim().isEmpty()) return false;
-        try {
-            URL url = new URL(urlStr);
-            return url.getProtocol().startsWith("http");
-        } catch (Exception e) {
-            return false;
-        }
+        return NetworkUtils.isSecureHttpsUrl(urlStr);
     }
 }
