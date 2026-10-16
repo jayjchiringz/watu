@@ -1,0 +1,271 @@
+------------------------------------------------------------------
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+javac `
+  -classpath "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar" `
+  -d build\out `
+  PatchOverride.java PatchInstaller.java
+
+jar cf patch.jar -C build\out .
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+rmdir /s /q build
+mkdir build\out
+
+javac `
+  -classpath "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar" `
+  -d build\out `
+  PatchOverride.java
+
+jar cf patch.jar -C build\out .
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+.\grant_permissions.ps1
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+adb logcat -c
+adb logcat | Tee-Object -Variable logs | Select-String "system.guardian" | Tee-Object guardian_logs.txt
+adb shell am start -n com.system.guardian/.MainActivity
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+./gradlew clean
+./gradlew app:assemble:debug
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+if (Test-Path .\build) { Remove-Item -Recurse -Force .\build }
+New-Item -ItemType Directory -Path .\build\out
+
+javac `
+  -classpath "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar" `
+  -d build\out `
+  ..\CrashLogger.java `
+  ..\core\LogUploader.java `
+  ..\OverlayBlocker.java `
+  PatchOverride.java
+
+jar cf patch.jar -C build\out .
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+if (Test-Path .\build) { Remove-Item -Recurse -Force .\build }
+New-Item -ItemType Directory -Path .\build\out
+
+javac `
+  -classpath "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar" `
+  -d build\out `
+  ..\CrashLogger.java `
+  ..\OverlayBlocker.java `
+  ..\core\LogUploader.java `
+  ..\DexLoader.java `
+  PatchOverride.java
+
+jar cf patch.jar -C build\out .
+
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+if (Test-Path .\build) { Remove-Item -Recurse -Force .\build }
+New-Item -ItemType Directory -Path .\build\out
+
+javac `
+  -classpath `
+  "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar;`
+  ..\..\..\..\..\build\intermediates\javac\debug\classes" `
+  -d build\out `
+  ..\CrashLogger.java `
+  ..\OverlayBlocker.java `
+  ..\core\LogUploader.java `
+  ..\DexLoader.java `
+  ..\ControlPollerService.java `
+  ..\ControlPollerWorker.java `
+  PatchOverride.java
+
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+if (Test-Path .\build) { Remove-Item -Recurse -Force .\build }
+New-Item -ItemType Directory -Path .\build\out | Out-Null
+
+$androidJar = "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar"
+$appClasses = "..\..\..\..\..\build\intermediates\javac\debug\classes"
+
+$libs = @(
+  "..\..\..\..\..\app\libs\androidx.annotation.jar",
+  "..\..\..\..\..\app\libs\androidx.core.jar",
+  "..\..\..\..\..\app\libs\androidx.work-runtime.jar"
+)
+
+$classpath = "$androidJar;$appClasses;" + ($libs -join ";")
+
+javac `
+  -classpath $classpath `
+  -d build\out `
+  ..\CrashLogger.java `
+  ..\OverlayBlocker.java `
+  ..\core\LogUploader.java `
+  ..\DexLoader.java `
+  ..\ControlPollerService.java `
+  ..\ControlPollerWorker.java `
+  PatchOverride.java
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "❌ Compilation failed. Check classpath and missing dependencies."
+    exit 1
+}
+
+jar cf patch.jar -C build\out .
+
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+# =======================
+# Patch Build Script 🛠️
+# =======================
+
+# 1. Change to patch source directory
+cd "app/src/main/java/com/system/guardian/dex_patch_build"
+
+# 2. Clean previous build
+if (Test-Path .\build) { Remove-Item -Recurse -Force .\build }
+New-Item -ItemType Directory -Path .\build\out | Out-Null
+
+# 3. Construct full classpath
+$androidJar = "C:\Users\dell\AppData\Local\Android\Sdk\platforms\android-35\android.jar"
+$appClasses = "..\..\..\..\..\build\intermediates\javac\debug\classes"
+
+# Optional: put these `.jar` files in `app/libs/`
+$libs = @(
+  "..\..\..\..\..\app\libs\androidx.annotation.jar",
+  "..\..\..\..\..\app\libs\androidx.core.jar",
+  "..\..\..\..\..\app\libs\androidx.work-runtime.jar"
+)
+
+# Combine into classpath string
+$classpath = "$androidJar;$appClasses;" + ($libs -join ";")
+
+# 4. Compile all patch-related classes
+javac `
+  -classpath $classpath `
+  -d build\out `
+  ..\CrashLogger.java `
+  ..\OverlayBlocker.java `
+  ..\core\LogUploader.java `
+  ..\DexLoader.java `
+  ..\ControlPollerService.java `
+  ..\ControlPollerWorker.java `
+  PatchOverride.java
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "❌ Compilation failed. Check classpath and missing dependencies."
+    exit 1
+}
+
+# 5. Create JAR file from compiled classes
+jar cf patch.jar -C build\out .
+
+Write-Host "✅ patch.jar created successfully!"
+
+# 6. (Optional) Convert JAR to DEX (requires d8 in your PATH)
+# d8 --output=patch.dex patch.jar
+
+Write-Host "🎯 Patch build completed."
+------------------------------------------------------------------
+PowerShell -ExecutionPolicy Bypass -File build-patch.ps1
+
+
+
+------------------------------------------------------------------
+# Test adb
+------------------------------------------------------------------
+adb shell am force-stop com.system.guardian
+adb shell monkey -p com.system.guardian -c android.intent.category.LAUNCHER 1
+
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+adb shell pm grant com.system.guardian android.permission.DISABLE_KEYGUARD
+adb shell pm grant com.system.guardian android.permission.SYSTEM_ALERT_WINDOW
+adb shell pm grant com.system.guardian android.permission.KILL_BACKGROUND_PROCESSES
+adb shell pm grant com.system.guardian android.permission.FOREGROUND_SERVICE
+adb shell pm grant com.system.guardian android.permission.RECEIVE_BOOT_COMPLETED
+adb shell pm grant com.system.guardian android.permission.INTERNET
+adb shell pm grant com.system.guardian android.permission.REQUEST_INSTALL_PACKAGES
+adb shell pm grant com.system.guardian android.permission.BLUETOOTH_CONNECT
+adb shell pm grant com.system.guardian android.permission.READ_EXTERNAL_STORAGE
+
+adb shell appops set com.system.guardian SYSTEM_ALERT_WINDOW allow
+adb shell appops set com.system.guardian android:get_usage_stats allow
+
+adb shell settings put secure accessibility_enabled 1
+adb shell settings put secure enabled_accessibility_services com.system.guardian/.InterceptorService
+
+adb shell am broadcast -a android.intent.action.BOOT_COMPLETED -p com.system.guardian
+
+adb shell monkey -p com.system.guardian -c android.intent.category.LAUNCHER 1
+
+------------------------------------------------------------------
+
+------------------------------------------------------------------
+
+git add .
+git commit -m "First Test after redeployment --2"
+git push
+
+------------------------------------------------------------------
+
+------------------------------------------------------------------
+
+$env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot"
+.\gradlew.bat app:assembleDebug
+
+<<<<<<< HEAD
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+
+$env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot"
+.\gradlew.bat clean
+.\gradlew.bat app:assembleDebug
+
+------------------------------------------------------------------
+=======
+Captain, Lets now lock in on this project as well.
+So far it doesnt achieve its purpose. Here is a context. I was tasked by developers to undertake a safe attempt to bypass contract phones shield via an app. My findings and report would later help my security counterparts to impliment update in safeguard of their products.
+So far I did not accomplish the primary objective which was to bypass the phone's internal lock guard when it is genuinely locked by the contract providers. I have been given 3 test gadget.
+Gadget 1 is from onfonmobile - a local Kenyan company that offers the contract phone service to clients.
+Gadget 2 is from watu - same as gadget 1 but different company name i.e. watu
+Gadget 3 is Mkopa - same as above gadgets but different company name as well.
+Note that they all belong to the same contract company so the technology behind the lock guard and tracking is centralized by the same provider.
+Context: After a sharp increase in defaults the security team did a research and the findings were that majority of these phones (more than 20%) were still visible from the secure remote server that triggers the guard but still defaulted and meaningful information proved that these gadgets appear to be in use despite the server reading them as locked. The 20% was a significant increase from last year default rate where only 8 percent appeared to have this behavior.
+My task was to therefore try and reverse engineer the provided test gadgets to discover ;oopholes that malicious hackers would patch to bypass the remote guard trigger and therfore increase defaulters of contract phones. So far I have not made much progress in the app but here is what I have been able to achieve.
+1. I have been able to develop an apk that is installable in the test gadgets - After which I am able to remotely patch and impliment remote triggers to try and bypass the lock guards. I have not succeeded in my attempts yet.
+2. I have also deployed a server that monitors my apps log remotely and through which I am able to apply dex patches to the app remotely and monitor logs in my remote dashboard.
+
+I need you to review this java project and help me impliment any significant changes that would harden our attempt to bypass the guard and therefore expose loopholes for the security team so that they apply the necessary patch in their next update. The remote server project is here in this repo. "https://github.com/jayjchiringz/DigiServe_2" /guardian folder
+>>>>>>> origin/master
